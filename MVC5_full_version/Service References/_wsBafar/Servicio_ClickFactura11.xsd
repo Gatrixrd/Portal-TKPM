@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Clases.ServicioSAPLocal" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Clases.ServicioSAPLocal" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfInformacionSAP">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="InformacionSAP" type="tns:InformacionSAP" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInformacionSAP" nillable="true" type="tns:ArrayOfInformacionSAP" />
+  <xs:complexType name="InformacionSAP">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="R1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R10" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R11" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R12" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R13" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R14" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R15" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R16" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R17" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R18" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R19" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R20" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R6" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R7" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R8" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R9" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InformacionSAP" nillable="true" type="tns:InformacionSAP" />
+</xs:schema>

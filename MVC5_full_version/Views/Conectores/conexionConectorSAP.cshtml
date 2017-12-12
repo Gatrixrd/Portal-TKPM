@@ -1,0 +1,1102 @@
+﻿@using ClickFactura_Entidades;
+@model ClickFactura_Entidades.BD.Entidades.RespuestasGenericasModel
+@using Kendo.Mvc.UI
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.min.js"></script>
+    <link rel="stylesheet" href="~/Content/kendo/kendo.common.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.default.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.default.mobile.min.css" />
+<!--Mensajes -->
+    <script src="~/Scripts/plugins/messenger/js/messenger.min.js"></script>
+    <script src="~/Scripts/plugins/messenger/js/messenger-theme-future.js"></script>
+    <link href="/plugins/messengerCSS?v=Sgt2WUvReI5puuycIgfoPhpM2dlJfXyzmZnXtUdGt_w1" rel="stylesheet"/>         
+<!-- <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+ <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+ <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+ <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>-->
+   <link href='~/fonts/montserrat.css' rel='stylesheet' type='text/css'>
+  <link href='~/fonts/opensans.css' rel='stylesheet' type='text/css'>
+<!--Mensajes -->
+<!--ENCABEZADO-->
+<div class="pageheader">
+    <h1>Configuración SAP </h1>
+     <p id="tipoReporte" class="description"></p>
+    <div class="breadcrumb-wrapper hidden-xs">
+        <span class="label">Esta aqui:</span>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>Configuración SAP</li>
+            <li class="active">Parametros conexión</li>
+        </ol>
+    </div>
+</div>
+<br />
+
+<!--CUERPO-->
+<form role="form">
+ <!--FILTROS-->
+    <div id="Filtros">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Parametros de conexión a Host SAP</h3>
+                    <div class="actions pull-right">
+                        <i class="fa fa-expand"></i>
+                        <i class="fa fa-chevron-down"></i>
+                        <i class="fa fa-times"></i>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table style="width:100%;">
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <div id="idNombre">
+                                        <label for="nombre" class="col-sm-12 control-label">Nombre</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="col-sm-12 control-label" id="Nombre" name="Nombre" placeholder="Nombre de la instancia">
+                                            </div>
+                                    </div>
+                                </div>
+
+                             <div class="form-group">
+                                    <label for="IP" class="col-sm-12 control-label">Dirección Server (APPSERVERHOST)</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="col-sm-12 control-label" id="IP" name="IP" placeholder="Ip del Servidor">
+                                    </div>
+                                </div>
+
+                             <div class="form-group">
+                                    <label for="AppServerService" class="col-sm-12 control-label">App Server Service </label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="col-sm-12 control-label" id="AppServerService" name="AppServerService" placeholder="IP del Servidor">
+                                    </div>
+                                </div>
+
+
+
+                             <div class="form-group">
+                                    <label for="IPMSH" class="col-sm-12 control-label">Dirección Grupo de Servidores (MESSAGE SERVER HOST)</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="IPMSH" name="IPMSH" placeholder="Alias del Grupo de Servidores">
+                                    </div>
+                                </div>
+
+                             <div class="form-group">
+                                    <label for="MessageServerService" class="col-sm-12 control-label">Message Server Service </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="MessageServerService" name="MessageServerService" placeholder="Puerto de Servicio del Servidor de Mensajes">
+                                    </div>
+                                </div>
+
+
+                             <div class="form-group">
+                                    <label for="LogonGroup" class="col-sm-12 control-label">Dirección Grupo de Servidores (Logon Group)</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="LogonGroup" name="LogonGroup" placeholder="Logon del Grupo de Servidores">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div id="idUsuario">
+                                        <label for="usuario" class="col-sm-12 control-label">Usuario </label>
+                                       <div class="col-sm-10">
+                                           <input type="text" class="col-sm-12 control-label" id="Usuario" name="Usuario" placeholder="Usuario SAP">
+                                       </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Password" class="col-sm-12 control-label">Password </label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="col-sm-12 control-label" id="Password" name="Password" placeholder="Contraseña">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Cliente" class="col-sm-12 control-label">Cliente </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="Cliente" name="Cliente" placeholder="Instancia cliente">
+                                    </div>
+                                </div>
+                                
+                             <div class="form-group">
+                                    <label for="Idioma" class="col-sm-12 control-label">Idioma (Language) </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="Idioma" name="Idioma" placeholder="Idioma de la instancia">
+                                    </div>
+                                </div>
+
+                             <div class="form-group">
+                                    <label for="NumeroSistema" class="col-sm-12 control-label">No. sistema </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="NumeroSistema" name="NumeroSistema" placeholder="Version del Sistema">
+                                    </div>
+                                </div>
+
+                             <div class="form-group">
+                                    <label for="TamañoPool" class="col-sm-12 control-label">Tamaño max. del Pool </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="TamañoPool" name="TamañoPool" placeholder="Tamaño máximo del Pool de la aplicación">
+                                    </div>
+                                </div>
+
+                             <div class="form-group">
+                                    <label for="TiempoEspera" class="col-sm-12 control-label">Tiempo max. espera </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="TiempoEspera" name="TiemporEspera" placeholder="Tiempo máximo de espera">
+                                    </div>
+                                </div>
+
+                             <div class="form-group">
+                                    <label for="GateWayHost" class="col-sm-12 control-label">Puerta Host (GateWayHost) </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="GateWayHost" name="GateWayHost" placeholder="Puerta de Anfitrión">
+                                    </div>
+                                </div>
+
+                             <div class="form-group">
+                                    <label for="GatewayService" class="col-sm-12 control-label">Puerta de Servicio Host (GateWayService) </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="GatewayService" name="GatewayService" placeholder="Puerta de Servicio del Anfitrión">
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td>
+                                <div class="form-group" id="FInicial" >
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                          <p class="help-block">Funciones de prueba acerca de la conectividad</p>
+                                          <button type="button" class="btn btn-primary" id="btnBuscar" name="btnBuscar"  data-placement="bottom" title="Probar conectividad recuperando información del Servidor " data-toggle="modal" data-target="#basicModalProveedorPrincipal" ><i class="fa fa-gear"></i>Obtener Sociedad principal</button>
+                                          <button type="button" class="btn btn-primary" id="btnBuscarOC" name="btnBuscar"  data-placement="bottom" title="Probar conectividad recuperando información de una OC " data-toggle="modal" data-target="#basicModalOrdenCompra" ><i class="fa fa-gear"></i>Comprobar con 1 Orden Compra</button>
+                                         - <button type="button" id="btnGuardarConfiguracion" class="btn btn-default" >Guardar</button>
+                                          <button type="button" id="btnModalResultadosNegativos"  name="btnModalResultadosNegativos" class="btn btn-primary" data-toggle="modal" data-target="#basicModalResultadosNegativos" style="visibility:hidden">Resultados Negativos</button>
+                                          <button type="button" id="btnModalResultadosPositivos"  name="btnModalResultadosPositivos" class="btn btn-primary" data-toggle="modal" data-target="#basicModalResultadosPositivos" style="visibility:hidden">Resultados Positivos</button>
+                                          <button type="button" class="btn btn-primary" id="btnMuestraModalFechas" name="btnMuestraModalFechas" data-toggle="modal" data-target="#basicModalFechas" style="visibility:hidden"><i class="icon-shuffle" ></i>Periodo fechas</button>
+                                          <button id="showPopupNotification" class="k-button" style="height:0px; width:0px;visibility:hidden"></button>
+                                          <button id="showSuccessNotification" class="k-button" style="height:0px; width:0px;visibility:hidden"></button>
+                                    </div>
+                                    <br />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="panel panel-primary">
+                                                 @(Html.Kendo().Notification()
+                                                     .Name("popupNotification")
+                                                     .Events(e => e.Show("onShow"))
+                                                     )
+                                                  @(Html.Kendo().Notification()
+                                                      .Name("notification")
+                                                      .Position(p => p.Pinned(true).Top(30).Right(30))
+                                                      .Stacking(NotificationStackingSettings.Down)
+                                                      .AutoHideAfter(0)
+                                                      .Templates(t =>
+                                                      {
+                                                          t.Add().Type("upload-success").ClientTemplateID("successTemplate");
+                                                      })
+                                                  )
+ </div>
+
+   <div id="Complementos" style="visibility:hidden" >
+               <script id="successTemplate" type="text/x-kendo-template">        
+                <div class="upload-success">
+                    <img src="../Images/TKPM/Icons/correctCirculoBlanco.png" width="250" height="70"/>
+                </div>
+            </script>
+ </div>
+
+ </form>
+
+<!-- Ventana Proveedor Principal-->
+<div class="modal fade" id="basicModalProveedorPrincipal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Información del Proveedor-Sociedad principal del Portal</h4>
+            </div>
+            <div class="modal-body">
+
+                             <div class="form-group">
+                                    <label for="CompanyId" class="col-sm-12 control-label">No. de Proveedor </label>
+                                    <div class="col-sm-10">
+                                           <input type="text" class="col-sm-12 control-label" id="CompanyId" name="CompanyId" placeholder="Id de la empresa (6 caractéres)">
+                                    </div>
+                                </div>
+                             <div class="form-group">
+                                    <div class="col-sm-10">
+                                             <button type="button"  id="btnConecta" class="btn btn-info"><i class="icon-feed"></i> Cargar información básica</button>
+                                    </div>
+                                </div>
+
+                             <div class="form-group">
+                                    <label for="NombreEmpresa" class="col-sm-12 control-label">Razón Social </label>
+                                    <div class="col-sm-10">
+                                           <input type="text" class="col-sm-12 control-label" id="NombreEmpresa" name="NombreEmpresa" placeholder="Nombre o razón social">
+                                    </div>
+                                </div>
+
+                             <div class="form-group">
+                                    <label for="COUNTRY" class="col-sm-12 control-label">País </label>
+                                    <div class="col-sm-10">
+                                           <input type="text" class="col-sm-12 control-label" id="COUNTRY" name="COUNTRY" placeholder="País de implementación">
+                                    </div>
+                                </div>
+
+                             <div class="form-group">
+                                    <label for="LANGU" class="col-sm-12 control-label">Idioma </label>
+                                    <div class="col-sm-10">
+                                           <input type="text" class="col-sm-12 control-label" id="LANGU" name="LANGU" placeholder="Idioma de la implementación">
+                                    </div>
+                                </div>
+
+                             <div class="form-group">
+                                    <label for="STREET" class="col-sm-12 control-label">Domicilio fiscal</label>
+                                    <div class="col-sm-10">
+                                           <input type="text" class="col-sm-12 control-label" id="STREET" name="STREET" placeholder="Domicilio fiscal">
+                                    </div>
+                                </div>
+                             <div class="form-group">
+                                    <label for="CITY" class="col-sm-12 control-label">Ciudad </label>
+                                    <div class="col-sm-10">
+                                           <input type="text" class="col-sm-12 control-label" id="CITY" name="CITY" placeholder="Ciudad de implementación">
+                                    </div>
+                                </div>
+                             <div class="form-group">
+                                    <label for="CURRENCY" class="col-sm-12 control-label">Moneda implementada </label>
+                                    <div class="col-sm-10">
+                                           <input type="text" class="col-sm-12 control-label" id="CURRENCY" name="CURRENCY" placeholder="Moneda configurada">
+                                    </div>
+                                </div>
+                             <div class="form-group">
+                                    <label for="POSTL_COD1" class="col-sm-12 control-label">Código Postal </label>
+                                    <div class="col-sm-10">
+                                           <input type="text" class="col-sm-12 control-label" id="POSTL_COD1" name="POSTL_COD1" placeholder="Código postal de la implementación">
+                                    </div>
+                                </div>
+                             <div class="form-group">
+                                    <label for="PO_BOX" class="col-sm-12 control-label">Código Postal 2 </label>
+                                    <div class="col-sm-10">
+                                           <input type="text" class="col-sm-12 control-label" id="PO_BOX" name="PO_BOX" placeholder="Código postal de la implementación adicional">
+                                    </div>
+                                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnRegistroBasicoProveedor" class="btn btn-success">Complementar información</button>
+                <button type="button"  class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Ventana Proveedor Principal -->
+
+<!-- Ventana Orden Compra-->
+<div class="modal fade" id="basicModalOrdenCompra" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="height:900px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title" id="myModalLabel">Localizar una Orden de Compra</h3>
+
+
+            </div>
+            <div class="modal-body">
+
+                             <div class="form-group">
+                                    <label for="OrdenCompra" class="col-sm-10 control-label">Orden de Compra </label>
+                                    <div class="col-sm-10">
+                                           <input type="text" class="col-sm-8 control-label" id="OrdenCompra" name="OrdenCompra" placeholder="Orden de compra buscada...">
+                                    </div>
+                                </div>
+                             <div class="form-group">
+                                    <div class="col-sm-10">
+                                             <button type="button"  id="btnBAPI_PO_GETDETAIL" class="btn btn-info"><i class="icon-feed"></i>Obten Orden Compra</button>
+                                    </div>
+                                </div>
+
+                             <div class="form-group">
+                                    <label for="Descripción" class="col-sm-12 control-label">Descripción</label>
+                                    <div class="col-sm-10">
+                                           <input type="text" class="col-sm-12 control-label" id="Descripcion" name="Descripcion" placeholder="Descripcíon de la información encontrada">
+                                    </div>
+                                </div>
+
+                             <div class="form-group">
+                                    <!--<label for="Contenedores" class="col-sm-24 control-label">Tablas</label>-->
+                                    <div class="col-sm-12">
+                                           <div id="Contenedor_PO_ITEMS" class="col-sm-12">
+                                            @(Html.Kendo().Grid<ClickFactura_Entidades.BD.Entidades.RespuestasGenericasModel>()
+                                            .Name("PO_ITEMS")
+                                            .Columns(columns =>
+                                            {
+                                                columns.Bound(p => p.R1).Width(120);
+                                                columns.Bound(p => p.R2).Width(100);
+                                                columns.Bound(p => p.R3).Width(100);
+                                                columns.Bound(p => p.R4).Width(100);
+                                                columns.Bound(p => p.R5).Width(130);
+                                                columns.Bound(p => p.R6).Width(160);
+                                                columns.Bound(p => p.R7).Width(100);
+                                                columns.Bound(p => p.R8).Width(100);                                               
+                                            })
+                                            .HtmlAttributes(new { @style = "width:500px;height:245px;margin-botton:30px;" })
+                                            .Pageable()
+                                            .Sortable()
+                                            .Scrollable()
+                                            .Selectable(selectable => selectable
+                                            .Mode(GridSelectionMode.Multiple))
+                                             .Events(events => events.DataBound("onDataBound").DataBinding("onDataBinding"))
+                                            .DataSource(dataSource => dataSource
+                                                .Ajax()
+                                                .PageSize(20)
+                                                .Events(events => events.Error("error_handler"))
+                                                .Model(model => model.Id(p => p.R1))
+                                            )
+                                        )
+
+                                           </div>
+                                    </div>
+                                </div>
+                          <br />
+            </div>
+            <div class="modal-footer">
+             <br />
+<!--              <div class="col-sm-12">
+                                    <div class="alert alert-info alert-dismissable">
+                                                           <strong>Información</strong> Si la comunicación con SAP ya es posible se mostrará información actual de la orden de compra capturada.
+                                    </div>
+               </div>-->
+             <br/><br/>
+               <div class="col-sm-12">
+                                          <div class="alert alert-danger alert-dismissable">
+                                                  <span id="MensajesError" class="type-info"></span>
+                                          </div>
+               </div>
+              <div class="col-sm-12">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Ventana Orden Compra -->
+
+<!--#######################################################################     STYLE PDF          #########################################################-->
+
+<style>
+    /* Page Template para exportar PDF */
+    .page-template {
+        font-family: "DejaVu Sans", "Arial", sans-serif;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+    .page-template .header {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        right: 30px;
+        border-bottom: 1px solid #888;
+        color: #888;
+    }
+    .page-template .footer {
+        position: absolute;
+        bottom: 30px;
+        left: 30px;
+        right: 30px;
+        border-top: 1px solid #888;
+        text-align: center;
+        color: #888;
+    }
+    .page-template .watermark {
+        font-weight: bold;
+        font-size: 400%;
+        text-align: center;
+        margin-top: 30%;
+        color: #aaaaaa;
+        opacity: 0.1;
+        transform: rotate(-35deg) scale(1.7, 1.5);
+    }
+
+    /* Content styling */
+    .customer-photo {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-size: 32px 35px;
+        background-position: center center;
+        vertical-align: middle;
+        line-height: 32px;
+        box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);
+        margin-left: 5px;
+    }
+
+    .customer-name {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 32px;
+        padding-left: 3px;
+    }
+
+                     .demo-section p {
+                    margin: 3px 0 20px;
+                    line-height: 50px;
+                }
+                .demo-section .k-button {
+                    width: 250px;
+                }
+
+                .k-notification {
+                    border: 0;
+                }
+
+
+                /* Info template */
+                .k-notification-info.k-group {
+                    background: rgba(0%,0%,0%,.7);
+                    color: #fff;
+                }
+                .new-mail {
+                    width: 300px;
+                    height: 100px;
+                }
+                .new-mail h3 {
+                    font-size: 1em;
+                    padding: 32px 10px 5px;
+                }
+                .new-mail img {
+                    float: left;
+                    margin: 30px 15px 30px 30px;
+                }
+
+                /* Error template */
+                .k-notification-error.k-group {
+                    background: rgba(100%,0%,0%,.7);
+                    color: #ffffff;
+                }
+                .wrong-pass {
+                    width: 300px;
+                    height: 100px;
+                }
+                .wrong-pass h3 {
+                    font-size: 1em;
+                    padding: 32px 10px 5px;
+                }
+                .wrong-pass img {
+                    float: left;
+                    margin: 30px 15px 30px 30px;
+                }
+
+                /* Success template */
+                .k-notification-upload-success.k-group {
+                    background: rgba(0%,60%,0%,.7);
+                    color: #fff;
+                }
+                .upload-success {
+                    width: 240px;
+                    height: 100px;
+                    padding: 0 30px;
+                    line-height: 100px;
+                }
+                .upload-success h3 {
+                    font-size: 1.7em;
+                    font-weight: normal;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+                .upload-success img {
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-right: 10px;
+                }
+</style>
+
+    @*#########################################################################################################   S C R I P T S ##########################*@
+
+    @*#########################################################################################################   Globales *@
+   <script type="text/javascript">
+    var url_dir = '@System.Configuration.ConfigurationManager.AppSettings["dirImagenTMS"].ToString()';
+    $(document).ready(function ()
+    {
+     var url_dir = '@System.Configuration.ConfigurationManager.AppSettings["dirImagenTMS"].ToString()';
+     var url_wsCF = '@System.Configuration.ConfigurationManager.AppSettings["wsCF"].ToString()';
+
+               $("#sinDatosCV").hide();
+               $("#sinDatosEC").hide();
+
+               disparaCargarAlmacenado();
+
+               $("#btnConecta").click(function (e) {
+                disparaCargarProveedorPrincipal();
+               });
+
+               $("#btnGuardarConfiguracion").click(function (e) {
+                guardarConfiguracion();
+               });
+
+               $("#btnBAPI_PO_GETDETAIL").click(function (e) {
+                disparaCargarOrdenCompra();
+               });
+               
+               $("#btnRegistroBasicoProveedor").click(function (e) {
+                disparaRegistroBasicoProveedor();
+               });
+
+     //############################################# NOTIFICACIONES EN PANTALLA
+               var popupNotification = $("#popupNotification").data("kendoNotification");
+               $("#showPopupNotification").click(function () {
+                var d = new Date();
+                popupNotification.show('No se encontraron resultados a la consulta <br> &nbsp;&nbsp;&nbsp;&nbsp; a las  ' + kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+                return false;
+               });
+
+               var notification = $("#notification").data("kendoNotification");
+               $("#showSuccessNotification").click(function () {
+                notification.show({
+                 message: "Upload Successful"
+                }, "upload-success");
+                return false;
+               });
+     //############################################ NOTIFICACIONES EN PANTALLA
+    });
+
+
+    function disparaCargarAlmacenado() {
+     var url_wsCF = '@System.Configuration.ConfigurationManager.AppSettings["wsCF"].ToString()';
+
+     $(document).ajaxStart(
+                   $.blockUI({
+                    message: '<h1><img src="' + loading + '" /> Cargando información...</h1>',
+                    css: {
+                     border: 'none',
+                     padding: '15px',
+                     backgroundColor: '#000',
+                     '-webkit-border-radius': '10px',
+                     '-moz-border-radius': '10px',
+                     opacity: .5,
+                     color: '#fff'
+                    }
+                   }))
+                   .ajaxSend(
+                       $.blockUI({
+                        message: '<h1><img src="' + loading + '" /> Cargando información...</h1>',
+                        css: {
+                         border: 'none',
+                         padding: '15px',
+                         backgroundColor: '#000',
+                         '-webkit-border-radius': '10px',
+                         '-moz-border-radius': '10px',
+                         opacity: .5,
+                         color: '#fff'
+                        }
+                       }))
+                   .ajaxError($.unblockUI)
+                   .ajaxComplete($.unblockUI)
+                   .ajaxStop($.unblockUI);
+
+            $.ajax({
+                type: "post",
+                url: url_dir + '/Conectores/disparaCargarAlmacenado',
+                data: {  },
+                cache: false,
+                success: function (cargado)
+                {
+                    if(cargado.length>0)
+                    {
+                        for (var ii = 0; ii < cargado.length; ii++) {
+                            var elemento = cargado[ii];
+                            var llave = elemento.Key;
+                            var valor = elemento.Value;
+                            if(llave=='Name')
+                             document.getElementById('Nombre').value = valor;
+                            if (llave == 'User')
+                             document.getElementById('Usuario').value = valor;
+                            if (llave == 'Password')
+                             document.getElementById('Password').value = valor;
+                            if (llave == 'Client')
+                             document.getElementById('Cliente').value = valor;
+                            if (llave == 'Language')
+                             document.getElementById('Idioma').value = valor;
+                            if (llave == 'SystemNumber')
+                             document.getElementById('NumeroSistema').value = valor;
+                            if (llave == 'AppServerHost')
+                             document.getElementById('IP').value = valor;
+                            if (llave == 'MessageServerHost')
+                             document.getElementById('IPMSH').value = valor;
+                            if (llave == 'LogonGroup')
+                             document.getElementById('LogonGroup').value = valor;
+                            if (llave == 'MaxPoolSize')
+                             document.getElementById('TamañoPool').value = valor;
+                            if (llave == 'IdleTimeout')
+                             document.getElementById('TiempoEspera').value = valor;
+                            if (llave == 'GateWayHost')
+                             document.getElementById('GateWayHost').value = valor;
+                            if (llave == 'AppServerService')
+                             document.getElementById('AppServerService').value = valor;
+                            if (llave == 'MessageServerService')
+                             document.getElementById('MessageServerService').value = valor;
+                            if (llave == 'GateWayService')
+                             document.getElementById('GatewayService').value = valor;
+                        }
+                        $("#showSuccessNotification").click();
+                    }
+                    else
+                    {
+                     $("#showPopupNotification").click();
+                    }
+                }
+            });
+     }
+
+     function guardarConfiguracion() {
+
+      var Name = document.getElementById('Nombre').value;
+      var User = document.getElementById('Usuario').value;
+      var Password=document.getElementById('Password').value ;
+      var Client=  document.getElementById('Cliente').value ;
+      var Language= document.getElementById('Idioma').value ;
+      var SystemNumber= document.getElementById('NumeroSistema').value ;
+      var AppServerHost = document.getElementById('IP').value;
+      var MessageServerHost = document.getElementById('IPMSH').value;
+      var MaxPoolSize= document.getElementById('TamañoPool').value ;
+      var IdleTimeout = document.getElementById('TiempoEspera').value;
+      var logonGroup = document.getElementById('LogonGroup').value;
+      var GateWayHost = document.getElementById('GateWayHost').value;
+      var AppServerService = document.getElementById('AppServerService').value;
+      var MessageServerService = document.getElementById('MessageServerService').value;
+      var GateWayService = document.getElementById('GatewayService').value;
+      
+
+      $(document).ajaxStart(
+                         $.blockUI({
+                          message: '<h1><img src="' + loading + '" /> Almacenando configuración...</h1>',
+                          css: {
+                           border: 'none',
+                           padding: '15px',
+                           backgroundColor: '#000',
+                           '-webkit-border-radius': '10px',
+                           '-moz-border-radius': '10px',
+                           opacity: .5,
+                           color: '#fff'
+                          }
+                         }))
+                         .ajaxSend(
+                             $.blockUI({
+                              message: '<h1><img src="' + loading + '" /> Almacenando configuración...</h1>',
+                              css: {
+                               border: 'none',
+                               padding: '15px',
+                               backgroundColor: '#000',
+                               '-webkit-border-radius': '10px',
+                               '-moz-border-radius': '10px',
+                               opacity: .5,
+                               color: '#fff'
+                              }
+                             }))
+                         .ajaxError($.unblockUI)
+                         .ajaxComplete($.unblockUI)
+                         .ajaxStop($.unblockUI);
+
+      $.ajax({
+       type: "post",
+       url: url_dir + '/Conectores/guardarConfiguracion',
+       data: { 'name': Name, 'user': User, 'password': Password, 'client': Client, 'language': Language, 'systemnumber': SystemNumber, 'appserverhost': AppServerHost, 'maxpoolsize': MaxPoolSize, 'idletimeout': IdleTimeout, '_iPMSH': MessageServerHost, 'logonGroup': logonGroup, 'GateWayHost': GateWayHost, 'AppServerService': AppServerService, 'MessageServerService': MessageServerService, 'GateWayService': GateWayService },
+       cache: false,
+       success: function (cargado) {
+        if (cargado.length > 0) {
+         for (var ii = 0; ii < cargado.length; ii++) {
+          var elemento = cargado[ii];
+          var llave = elemento.Key;
+          var valor = elemento.Value;
+          if (llave == 'Name')
+           document.getElementById('Nombre').value = valor;
+          if (llave == 'User')
+           document.getElementById('Usuario').value = valor;
+          if (llave == 'Password')
+           document.getElementById('Password').value = valor;
+          if (llave == 'Client')
+           document.getElementById('Cliente').value = valor;
+          if (llave == 'Language')
+           document.getElementById('Idioma').value = valor;
+          if (llave == 'SystemNumber')
+           document.getElementById('NumeroSistema').value = valor;
+          if (llave == 'AppServerHost')
+           document.getElementById('IP').value = valor;
+          if (llave == 'MessageServerHost')
+           document.getElementById('IPMSH').value = valor;
+          if (llave == 'MaxPoolSize')
+           document.getElementById('TamañoPool').value = valor;
+          if (llave == 'IdleTimeout')
+           document.getElementById('TiempoEspera').value = valor;
+          if (llave == 'LogonGroup')
+           document.getElementById('LogonGroup').value = valor;
+          if (llave == 'GatewayHost')
+           document.getElementById('GatewayHost').value = valor;
+          if (llave == 'AppServerService')
+           document.getElementById('AppServerService').value = valor;
+          if (llave == 'MessageServerService')
+           document.getElementById('MessageServerService').value = valor;
+          if (llave == 'GatewayService')
+           document.getElementById('GatewayService').value = valor;
+         }
+         $("#MensajesError").html('');
+         $("#showSuccessNotification").click();
+        }
+        else {
+         $("#showPopupNotification").click();
+        }
+       }
+      });
+     }
+
+     function disparaCargarProveedorPrincipal() {
+      var companyid = document.getElementById('CompanyId').value;
+      $.ajax({
+       type: "post",
+       url: url_dir + '/Conectores/disparaCargarProveedorPrincipal',
+       data: {'companyid': companyid},
+       cache: false,
+       success: function (cargadoPP) {
+        if (cargadoPP.length > 0) {
+         for (var ii = 0; ii < cargadoPP.length; ii++) {
+          var elemento = cargadoPP[ii];
+          var llave = elemento.Key;
+          var valor = elemento.Value;
+          if (llave == 'NAME1')
+           document.getElementById('NombreEmpresa').value = valor;
+          if (llave == 'COUNTRY')
+           document.getElementById('COUNTRY').value = valor;
+          if (llave == 'LANGU')
+           document.getElementById('LANGU').value = valor;
+          if (llave == 'STREET')
+           document.getElementById('STREET').value = valor;
+          if (llave == 'CITY')
+           document.getElementById('CITY').value = valor;
+          if (llave == 'CURRENCY')
+           document.getElementById('CURRENCY').value = valor;
+          if (llave == 'PO_BOX')
+           document.getElementById('PO_BOX').value = valor;
+          if (llave == 'POSTL_COD1')
+           document.getElementById('POSTL_COD1').value = valor;
+         }
+          $("#showSuccessNotification").click();
+        }
+        else
+        {
+               $("#showPopupNotification").click();
+        }
+       }
+      });
+     }
+
+     function disparaCargarOrdenCompra() {
+      var ordencompra = document.getElementById('OrdenCompra').value;
+      $("#MensajesError").html('');
+      $(document).ajaxStart(
+                         $.blockUI({
+                          message: '<h1><img src="' + loading + '" /> Buscando OC...</h1>',
+                          css: {
+                           border: 'none',
+                           padding: '15px',
+                           backgroundColor: '#000',
+                           '-webkit-border-radius': '10px',
+                           '-moz-border-radius': '10px',
+                           opacity: .5,
+                           color: '#fff'
+                          }
+                         }))
+                         .ajaxSend(
+                             $.blockUI({
+                              message: '<h1><img src="' + loading + '" /> Buscando OC...</h1>',
+                              css: {
+                               border: 'none',
+                               padding: '15px',
+                               backgroundColor: '#000',
+                               '-webkit-border-radius': '10px',
+                               '-moz-border-radius': '10px',
+                               opacity: .5,
+                               color: '#fff'
+                              }
+                             }))
+                         .ajaxError($.unblockUI)
+                         .ajaxComplete($.unblockUI)
+                         .ajaxStop($.unblockUI);
+
+
+      $.ajax({
+       type: "post",
+       url: url_dir + '/Conectores/_disparaCargarOrdenCompra',
+       data: { 'OrdenCompra': ordencompra },
+       cache: false,
+       success: function (salida) {
+        if (salida != null) {
+         for (var ii = 0; ii < salida.length; ii++) {
+          var elemento = salida[ii];
+          var llave = elemento.Key;
+          var valor = elemento.Value;
+          if (llave == 'PO_ITEMS') {
+           if (valor.length > 0)
+           {
+              $("#Descripcion").val(valor[0].R3);
+             disparaCargarGridEspecifico(valor, llave);
+             $("#showSuccessNotification").click();
+           }
+           else
+           {
+               $("#Descripcion").val('No se encontro alguna orden de compra en SAP con ese ID,verifíque por favor!');
+           }
+          }
+          else
+          {
+           var elementoE;
+           var llaveE;
+           var valorE;
+           var mensajesError = '';
+           //$("#showPopupNotification").click();
+           for (var iii = 0; iii < salida.length; iii++) {
+               elementoE = salida[iii];
+               llaveE = elementoE.Key;
+               valorE = elementoE.Value;
+               mensajesError = mensajesError + '  ' + valorE;                                                                                                                                                                                                                                                                                                         
+               //showErrorMessage('Error: ' + valorE);
+           }
+           $("#MensajesError").html('Ocurrío: ' + mensajesError);
+           break;
+          }
+         }
+        }
+        else {
+         $("#showPopupNotification").click();
+        }
+       }
+      });
+     }
+
+     function disparaCargarGridEspecifico(lista,llave)
+     {
+           CargarGrid(lista,llave);
+     }
+
+     function cargaDocumentos() {
+            $.ajax({
+                type: "post",
+                url: url_dir + '/Monitoreo/GetDocumentos',
+                data: {  },
+                cache: false,
+                success: function (listad)
+                {
+                    var combod = $("#Documentos");
+                    for (var ii = 0; ii < combod.length; ii++)
+                    {
+                        var eled = combod[ii];
+                        var totald = eled.length;
+                        if (totald > 0)
+                        {
+                            for (var jj = totald - 1; jj >= 0; jj--)
+                            {
+                                eled.remove(jj);
+                            }
+                        }
+                    }
+                    combod.append("<option value='0'>Seleccione</option>");
+                    for (var ii = 0; ii < listad.length; ii++)
+                    {
+                        combod.append("<option value='" + listad[ii].IdTipoDoc + "'>" + listad[ii].TipoDoc + "</option>");
+                    }
+                }
+            });
+     }
+
+     function obtenEsAdminisytrador()
+     {
+      $.ajax({
+       type: "post",
+       url: url_dir + "/Monitoreo/GetSession",
+       data: "{}",
+       contentType: "application/json; charset=utf-8",
+       dataType: "json",
+       success: function (result)
+       {
+               if(result!='0')
+               {
+                  $("#txtNum_Proveedor").val() =result;
+               }
+       }
+      });
+     }
+
+     function disparaRegistroBasicoProveedor() {
+         var numproveedor = document.getElementById('CompanyId').value;
+                 $.ajax({
+                  type: "post",
+                  url: url_dir + "/Conectores/registroBasicoProveedor",
+                  data: { 'numproveedor': numproveedor },
+                  cache: false,
+                  success: function (resultado) {
+                   if (resultado != null) {
+                    //Resultado del registro básico ---------------------------------------------------
+                    $("#showSuccessNotification").click();
+                    //--------------------------------------------------------------------------------------------
+                   }
+                  }
+                 });
+     //----------------------------------------------------------------------------------------------
+     }
+
+   </script>
+
+    @*#########################################################################################################   Para la Cartera Vencida *@
+
+    <script type="text/javascript">
+     var tipoAlerta;
+
+
+     function CargaResultados(sociedad,tipodoc,_finicial,ffinal,numproveedor)
+     {
+         $.ajax
+          (
+              {
+              type: "post",
+              url: url_dir + '/Monitoreo/CargaResultadosCargaCarteraVencida',
+              data: { 'numProveedor': numproveedor, 'finicial': _finicial,'ffinal':ffinal,'tipodoc':tipodoc, 'sociedad':sociedad},
+              cache: false,
+              success: function (lista)
+              {
+                           if (lista.length == 0)
+                          {
+                            noSeEncontroFO = true;
+                            $("#conDatosCV").hide();
+                            $("#sinDatosCV").show();
+                            $("#showPopupNotification").click();
+                          }
+                          else
+                          {
+                            CargarGrid(lista);
+                            $("#sinDatosCV").hide();
+                            $("#conDatosCV").show();
+                            $("#showSuccessNotification").click();
+                          }
+                    }
+              }
+           );
+     }
+
+     function CargarGrid(lista,namegrid)
+     {
+      if(namegrid=='PO_ITEMS')
+           var grid = $("#PO_ITEMS").data("kendoGrid");
+           var dataSource = new kendo.data.DataSource(
+                {
+                data: lista,
+                pageSize: 20
+            })
+         ;
+            grid.setDataSource(dataSource);
+            grid.refresh();
+     }
+
+    </script>
+
+
+    @*#########################################################################################################   Para el Estado de Cuenta *@
+
+    <script type="text/javascript">
+
+
+     function chageIcon(domImg, srcImage) {
+      var img = new Image();
+      img.onload = function () {
+         domImg.src = this.src;
+      };
+      img.src = srcImage;
+     }
+
+     function onShow(e) {
+      if (!$("." + e.sender._guid)[1]) {
+       var element = e.element.parent(),
+         eWidth = element.width(),
+         eHeight = element.height(),
+         wWidth = $(window).width(),
+         wHeight = $(window).height(),
+         newTop, newLeft;
+
+       newLeft = Math.floor(wWidth / 2 - eWidth / 2);
+       newTop = Math.floor(wHeight / 2 - eHeight / 2);
+
+       e.element.parent().css({ top: newTop, left: newLeft });
+      }
+     }
+
+     function esAdministrador() {
+      $.ajax
+     (
+         {
+          type: "post",
+          url: url_dir + '/Monitoreo/esAdmon',
+          data: {},
+          cache: false,
+          success: function (num_proveedor) {
+           if (num_proveedor != 'error') {
+            $('#txtNum_Proveedor').attr('value', num_proveedor);
+            $("#txtNum_Proveedor").prop('disabled', true);
+           }
+          }
+         }
+      );
+     }
+
+    </script>
+
+<script type="text/javascript">
+
+ function onChange(arg) {
+  var selected = $.map(this.select(), function (item) {
+   return $(item).text();
+  });
+  var s = selected;
+  //guardaItem(s);
+  //DisparaCargarDatos();
+  //alert("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
+ }
+
+ function onDataBound(arg) {
+  //alert("Grid data bound");
+ }
+
+ function onDataBinding(arg) {
+  //alert("Grid data binding");
+ }
+
+ function error_handler(e) {
+  if (e.errors) {
+   var message = "Errors:\n";
+   $.each(e.errors, function (key, value) {
+    if ('errors' in value) {
+     $.each(value.errors, function () {
+      message += this + "\n";
+     });
+    }
+   });
+   alert(message);
+  }
+ }
+</script>
+
+

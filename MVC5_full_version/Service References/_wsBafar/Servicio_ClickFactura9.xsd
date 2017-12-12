@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Datos" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Datos" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="T_BitacoraOperaciones">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Archivo_Complementaria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Archivo_Factura" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Archivo_NotaCredito" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Error" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FacturaComplementaria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FacturaValida" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaFactura" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Flujo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FolioFactura" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FreightOrder" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdOperaciones" type="xs:long" />
+      <xs:element minOccurs="0" name="IdProveedor" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="IdUsuario" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ImporteFactura" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImportePasivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImporteRecepcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Moneda" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NotaCredito" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumRecepcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Num_Proveedor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrdenCompra" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PasivoGenerado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Posicion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RFCEmisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sociedad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UUID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="horaOperacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="operacionExitosa" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="serie" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="T_BitacoraOperaciones" nillable="true" type="tns:T_BitacoraOperaciones" />
+</xs:schema>

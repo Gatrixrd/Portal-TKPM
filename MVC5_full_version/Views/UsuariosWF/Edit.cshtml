@@ -1,0 +1,212 @@
+﻿@model ClickFactura_Entidades.BD.Entidades.Cat_UsuariosWF
+
+@{
+    ViewBag.Title = "Editar Usuario workflow";
+}
+
+<script type="text/javascript">
+        @{ ClickFactura_Entidades.BD.Entidades.Desarrollo_CF _db = new ClickFactura_Entidades.BD.Entidades.Desarrollo_CF();}
+        @{int idUsuarioWF = 0;}
+        @{int idTipoUsuarioWF = 0;}
+       @{int idUsuarioPortal = 0;}
+       @{  IEnumerable<SelectListItem> CategorySelectListP=null ; }
+       @{  IEnumerable<SelectListItem> CategorySelectListPortal=null ; }
+        var procesoSeleccionado = '';
+    $(document).ready(function () {
+                    //#############################################
+        //$("#btnSeleccionaWorkFlow").click();
+        idUsuarioWF= JSON.parse('@Html.Raw(Json.Encode(Model.idUsuarioWF.ToString().Trim()))');
+        TipoUsuarioWF = JSON.parse('@Html.Raw(Json.Encode(Model.idTipoUsuarioWF))');
+        idUsuarioPortal = JSON.parse('@Html.Raw(Json.Encode(Model.idUsuarioPortal))');
+        obtenTipoUsuario();
+        obtenUsuarioPortal();
+    });
+
+</script>
+
+<h2>Editar Usuarios</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Edición del tipo de usuario,correo y usuario interno relacionado</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.idUsuarioWF)
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.idTipoUsuarioWF, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                @{
+                    List<KeyValuePair<string, string>> respuestaAux = new List<KeyValuePair<string, string>>();
+                    List<ClickFactura_Entidades.BD.Entidades.Cat_TipoUsuarioWF> _TipoUsuarioWF = _db.Cat_TipoUsuarioWF.ToList();
+                    foreach (ClickFactura_Entidades.BD.Entidades.Cat_TipoUsuarioWF wf in _TipoUsuarioWF)
+                    {
+                        string key = wf.idWF.ToString();
+                        string value = wf.nombreRol.ToString();
+                        respuestaAux.Add(new KeyValuePair<string, string>(key, value));
+                    }
+                    IEnumerable<SelectListItem> CategorySelectListAux = respuestaAux.Select(x => new SelectListItem() { Text = x.Value.Trim(), Value = x.Key.Trim() });
+                }
+
+                @*@Html.EditorFor(model => model.idTipoUsuarioWF, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.idTipoUsuarioWF, "", new { @class = "text-danger" })*@
+
+                @Html.Label("   Tipo de Usuario     ", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.DropDownListFor(model => model.idTipoUsuarioWF, CategorySelectListAux, "Seleccione un proceso", htmlAttributes: new { @ID = "tipoWF", @onchange = "CallChangefunc(this.value)" })
+                <script>
+
+                    function obtenTipoUsuario() {
+                        var options = $("#tipoWF");
+                        var original = JSON.parse('@Html.Raw(Json.Encode(Model.idTipoUsuarioWF))');
+                        options.empty();
+                        $.ajax
+                                    (
+                                             {
+                                                 type: "post",
+                                                 url: url_dir + '/UsuariosWF/actualizaTiposUsuarios',
+                                                 data: { 'idTipo': original },
+                                                 cache: false,
+                                                 success: function (data) {
+                                                     var optionString = '';
+                                                     if (data.length > 0) {
+                                                         for (var i = 0; i < data.length; i++) {
+                                                             var optionString = '<option value="' + data[i].Value + '">' + data[i].Text + ' </option>';
+                                                             options.append($(optionString));
+                                                             if (data[i].Value == original) {
+                                                                 $('#tipoWF option:eq(' + i + ') ').prop('selected', true);
+                                                             }
+                                                         }
+
+                                                     }
+                                                 }
+                                             }
+                                    );
+                    }
+
+                                function CallChangefunc(val)
+                                {
+                                    idTipoUsuarioWF = val;
+                                    pasaTipos(val);
+                                }
+                                function pasaTipos(val) {
+                                    var _id = idUsuarioWF;
+                                    $.ajax
+                                            (
+                                             {
+                                                 type: "post",
+                                                 url: url_dir + '/UsuariosWF/actualizaTipo',
+                                                 data: { 'id': _id, 'nuevo': val },
+                                                 cache: false,
+                                                 success: function (data) {
+                                                 }
+                                             }
+                                            );
+                                }
+                </script>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.correo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.correo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.centroCostos, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.centroCostos, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.centroCostos, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.idUsuarioPortal, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.idUsuarioPortal, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.idUsuarioPortal, "", new { @class = "text-danger" })*@
+                @Html.Label("  Usuario dentro el Portal     ", htmlAttributes: new { @class = "control-label col-md-2" })
+                @*@Html.DropDownListFor(model => model.idUsuarioPortal, CategorySelectListPortal, "Seleccione un usuario", htmlAttributes: new { @ID = "tipoPortal", @onchange = "CallChangefuncP(this.value)" })*@
+                       <script>
+                                            function CallChangefuncP(val)
+                                            {
+                                                idUsuarioPortal = val;
+                                                obtenUsuarioPortal();
+                                            }
+
+                                            function obtenUsuarioPortal() {
+                                                var options = $("#UsuarioPortal");
+                                                var original = JSON.parse('@Html.Raw(Json.Encode(Model.idUsuarioPortal))');
+                                                options.empty();
+                                                $.ajax
+                                                            (
+                                                                     {
+                                                                         type: "post",
+                                                                         url: url_dir + '/UsuariosWF/actualizaUsuariosPortal',
+                                                                         data: { 'idTipo': original},
+                                                                         cache: false,
+                                                                         success: function (data) {
+                                                                             var optionString = '';
+                                                                             if (data.length > 0) {
+                                                                                 for (var i = 0; i < data.length; i++) {
+                                                                                     var optionString = '<option value="' + data[i].Value + '">' + data[i].Text + ' </option>';
+                                                                                     options.append($(optionString));
+                                                                                     if(data[i].Value==original)
+                                                                                     {
+                                                                                         $('#UsuarioPortal option:eq(' + i + ') ').prop('selected', true);
+                                                                                     }
+                                                                                 }
+
+                                                                             }
+                                                                         }
+                                                                     }
+                                                            );
+                                            }
+
+
+
+
+                                            function pasaUsuario(val) {
+                                                var _id = idUsuarioWF;
+                                                $.ajax
+                                                        (
+                                                         {
+                                                             type: "post",
+                                                             url: url_dir + '/UsuariosWF/actualizaUsuario',
+                                                             data: { 'id': _id, 'nuevo': val },
+                                                             cache: false,
+                                                             success: function (data) {
+                                                             }
+                                                         }
+                                                        );
+                                            }
+                       </script>
+                 <select id="UsuarioPortal" onchange="pasaUsuario(this.value)"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver al usuario", "Index")
+</div>

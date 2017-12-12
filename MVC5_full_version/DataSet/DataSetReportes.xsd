@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSetReportes" targetNamespace="http://tempuri.org/DataSetReportes.xsd" xmlns:mstns="http://tempuri.org/DataSetReportes.xsd" xmlns="http://tempuri.org/DataSetReportes.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="desa_TKPMConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="desa_TKPMConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.desa_TKPMConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="view_todoWorkflowTableAdapter" GeneratorDataComponentClassName="view_todoWorkflowTableAdapter" Name="view_todoWorkflow" UserDataComponentName="view_todoWorkflowTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="desa_TKPMConnectionString (Web.config)" DbObjectName="desa_TKPM.dbo.view_todoWorkflow" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        nombre, idUsuarioWF, TipoUsuario, relevanciaJerarquica, idWF, Proceso, idUnidadMedida, UnidadMedida, idBitacora, EstadoWorkflow, OrdenCompra, Recepcion, 
+                         fechaEvento, Aprobado, Fecha, Observaciones, Mensaje, idFacturasServicios, IdUsuario, IdProveedor, IdPerfil, Usuario, Status, numProveedor, nombreArchivo, 
+                         fechaCarga, folioFactura, moneda, UUID, idTipoUsuarioWF
+FROM            view_todoWorkflow</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="nombre" DataSetColumn="nombre" />
+              <Mapping SourceColumn="idUsuarioWF" DataSetColumn="idUsuarioWF" />
+              <Mapping SourceColumn="TipoUsuario" DataSetColumn="TipoUsuario" />
+              <Mapping SourceColumn="idWF" DataSetColumn="idWF" />
+              <Mapping SourceColumn="Proceso" DataSetColumn="Proceso" />
+              <Mapping SourceColumn="idUnidadMedida" DataSetColumn="idUnidadMedida" />
+              <Mapping SourceColumn="UnidadMedida" DataSetColumn="UnidadMedida" />
+              <Mapping SourceColumn="idBitacora" DataSetColumn="idBitacora" />
+              <Mapping SourceColumn="EstadoWorkflow" DataSetColumn="EstadoWorkflow" />
+              <Mapping SourceColumn="OrdenCompra" DataSetColumn="OrdenCompra" />
+              <Mapping SourceColumn="Recepcion" DataSetColumn="Recepcion" />
+              <Mapping SourceColumn="fechaEvento" DataSetColumn="fechaEvento" />
+              <Mapping SourceColumn="Aprobado" DataSetColumn="Aprobado" />
+              <Mapping SourceColumn="Fecha" DataSetColumn="Fecha" />
+              <Mapping SourceColumn="Observaciones" DataSetColumn="Observaciones" />
+              <Mapping SourceColumn="Mensaje" DataSetColumn="Mensaje" />
+              <Mapping SourceColumn="idFacturasServicios" DataSetColumn="idFacturasServicios" />
+              <Mapping SourceColumn="IdUsuario" DataSetColumn="IdUsuario" />
+              <Mapping SourceColumn="IdProveedor" DataSetColumn="IdProveedor" />
+              <Mapping SourceColumn="IdPerfil" DataSetColumn="IdPerfil" />
+              <Mapping SourceColumn="Usuario" DataSetColumn="Usuario" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+              <Mapping SourceColumn="relevanciaJerarquica" DataSetColumn="relevanciaJerarquica" />
+              <Mapping SourceColumn="numProveedor" DataSetColumn="numProveedor" />
+              <Mapping SourceColumn="nombreArchivo" DataSetColumn="nombreArchivo" />
+              <Mapping SourceColumn="fechaCarga" DataSetColumn="fechaCarga" />
+              <Mapping SourceColumn="folioFactura" DataSetColumn="folioFactura" />
+              <Mapping SourceColumn="moneda" DataSetColumn="moneda" />
+              <Mapping SourceColumn="UUID" DataSetColumn="UUID" />
+              <Mapping SourceColumn="idTipoUsuarioWF" DataSetColumn="idTipoUsuarioWF" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSetReportes" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSetReportes" msprop:Generator_UserDSName="DataSetReportes">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="view_todoWorkflow" msprop:Generator_TableClassName="view_todoWorkflowDataTable" msprop:Generator_TableVarName="tableview_todoWorkflow" msprop:Generator_RowChangedName="view_todoWorkflowRowChanged" msprop:Generator_TablePropName="view_todoWorkflow" msprop:Generator_RowDeletingName="view_todoWorkflowRowDeleting" msprop:Generator_RowChangingName="view_todoWorkflowRowChanging" msprop:Generator_RowEvHandlerName="view_todoWorkflowRowChangeEventHandler" msprop:Generator_RowDeletedName="view_todoWorkflowRowDeleted" msprop:Generator_RowClassName="view_todoWorkflowRow" msprop:Generator_UserTableName="view_todoWorkflow" msprop:Generator_RowEvArgName="view_todoWorkflowRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nombre" msprop:Generator_ColumnVarNameInTable="columnnombre" msprop:Generator_ColumnPropNameInRow="nombre" msprop:Generator_ColumnPropNameInTable="nombreColumn" msprop:Generator_UserColumnName="nombre" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="70" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="idUsuarioWF" msprop:Generator_ColumnVarNameInTable="columnidUsuarioWF" msprop:Generator_ColumnPropNameInRow="idUsuarioWF" msprop:Generator_ColumnPropNameInTable="idUsuarioWFColumn" msprop:Generator_UserColumnName="idUsuarioWF" type="xs:short" minOccurs="0" />
+              <xs:element name="TipoUsuario" msprop:Generator_ColumnVarNameInTable="columnTipoUsuario" msprop:Generator_ColumnPropNameInRow="TipoUsuario" msprop:Generator_ColumnPropNameInTable="TipoUsuarioColumn" msprop:Generator_UserColumnName="TipoUsuario" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="idWF" msprop:Generator_ColumnVarNameInTable="columnidWF" msprop:Generator_ColumnPropNameInRow="idWF" msprop:Generator_ColumnPropNameInTable="idWFColumn" msprop:Generator_UserColumnName="idWF" type="xs:short" minOccurs="0" />
+              <xs:element name="Proceso" msprop:Generator_ColumnVarNameInTable="columnProceso" msprop:Generator_ColumnPropNameInRow="Proceso" msprop:Generator_ColumnPropNameInTable="ProcesoColumn" msprop:Generator_UserColumnName="Proceso" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="idUnidadMedida" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnidUnidadMedida" msprop:Generator_ColumnPropNameInRow="idUnidadMedida" msprop:Generator_ColumnPropNameInTable="idUnidadMedidaColumn" msprop:Generator_UserColumnName="idUnidadMedida" type="xs:short" minOccurs="0" />
+              <xs:element name="UnidadMedida" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnUnidadMedida" msprop:Generator_ColumnPropNameInRow="UnidadMedida" msprop:Generator_ColumnPropNameInTable="UnidadMedidaColumn" msprop:Generator_UserColumnName="UnidadMedida" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="idBitacora" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnidBitacora" msprop:Generator_ColumnPropNameInRow="idBitacora" msprop:Generator_ColumnPropNameInTable="idBitacoraColumn" msprop:Generator_UserColumnName="idBitacora" type="xs:long" minOccurs="0" />
+              <xs:element name="EstadoWorkflow" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnEstadoWorkflow" msprop:Generator_ColumnPropNameInRow="EstadoWorkflow" msprop:Generator_ColumnPropNameInTable="EstadoWorkflowColumn" msprop:Generator_UserColumnName="EstadoWorkflow" type="xs:short" minOccurs="0" />
+              <xs:element name="OrdenCompra" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnOrdenCompra" msprop:Generator_ColumnPropNameInRow="OrdenCompra" msprop:Generator_ColumnPropNameInTable="OrdenCompraColumn" msprop:Generator_UserColumnName="OrdenCompra" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Recepcion" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnRecepcion" msprop:Generator_ColumnPropNameInRow="Recepcion" msprop:Generator_ColumnPropNameInTable="RecepcionColumn" msprop:Generator_UserColumnName="Recepcion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="fechaEvento" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnfechaEvento" msprop:Generator_ColumnPropNameInRow="fechaEvento" msprop:Generator_ColumnPropNameInTable="fechaEventoColumn" msprop:Generator_UserColumnName="fechaEvento" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Aprobado" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnAprobado" msprop:Generator_ColumnPropNameInRow="Aprobado" msprop:Generator_ColumnPropNameInTable="AprobadoColumn" msprop:Generator_UserColumnName="Aprobado" type="xs:boolean" minOccurs="0" />
+              <xs:element name="Fecha" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFecha" msprop:Generator_ColumnPropNameInRow="Fecha" msprop:Generator_ColumnPropNameInTable="FechaColumn" msprop:Generator_UserColumnName="Fecha" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Observaciones" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnObservaciones" msprop:Generator_ColumnPropNameInRow="Observaciones" msprop:Generator_ColumnPropNameInTable="ObservacionesColumn" msprop:Generator_UserColumnName="Observaciones" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="700" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Mensaje" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMensaje" msprop:Generator_ColumnPropNameInRow="Mensaje" msprop:Generator_ColumnPropNameInTable="MensajeColumn" msprop:Generator_UserColumnName="Mensaje" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="idFacturasServicios" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnidFacturasServicios" msprop:Generator_ColumnPropNameInRow="idFacturasServicios" msprop:Generator_ColumnPropNameInTable="idFacturasServiciosColumn" msprop:Generator_UserColumnName="idFacturasServicios" type="xs:long" minOccurs="0" />
+              <xs:element name="IdUsuario" msprop:Generator_ColumnVarNameInTable="columnIdUsuario" msprop:Generator_ColumnPropNameInRow="IdUsuario" msprop:Generator_ColumnPropNameInTable="IdUsuarioColumn" msprop:Generator_UserColumnName="IdUsuario" type="xs:int" minOccurs="0" />
+              <xs:element name="IdProveedor" msprop:Generator_ColumnVarNameInTable="columnIdProveedor" msprop:Generator_ColumnPropNameInRow="IdProveedor" msprop:Generator_ColumnPropNameInTable="IdProveedorColumn" msprop:Generator_UserColumnName="IdProveedor" type="xs:int" minOccurs="0" />
+              <xs:element name="IdPerfil" msprop:Generator_ColumnVarNameInTable="columnIdPerfil" msprop:Generator_ColumnPropNameInRow="IdPerfil" msprop:Generator_ColumnPropNameInTable="IdPerfilColumn" msprop:Generator_UserColumnName="IdPerfil" type="xs:int" minOccurs="0" />
+              <xs:element name="Usuario" msprop:Generator_ColumnVarNameInTable="columnUsuario" msprop:Generator_ColumnPropNameInRow="Usuario" msprop:Generator_ColumnPropNameInTable="UsuarioColumn" msprop:Generator_UserColumnName="Usuario" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:string" minOccurs="0" />
+              <xs:element name="relevanciaJerarquica" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnrelevanciaJerarquica" msprop:Generator_ColumnPropNameInRow="relevanciaJerarquica" msprop:Generator_ColumnPropNameInTable="relevanciaJerarquicaColumn" msprop:Generator_UserColumnName="relevanciaJerarquica" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="numProveedor" msprop:Generator_ColumnVarNameInTable="columnnumProveedor" msprop:Generator_ColumnPropNameInRow="numProveedor" msprop:Generator_ColumnPropNameInTable="numProveedorColumn" msprop:Generator_UserColumnName="numProveedor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="nombreArchivo" msprop:Generator_ColumnVarNameInTable="columnnombreArchivo" msprop:Generator_ColumnPropNameInRow="nombreArchivo" msprop:Generator_ColumnPropNameInTable="nombreArchivoColumn" msprop:Generator_UserColumnName="nombreArchivo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="90" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="fechaCarga" msprop:Generator_ColumnVarNameInTable="columnfechaCarga" msprop:Generator_ColumnPropNameInRow="fechaCarga" msprop:Generator_ColumnPropNameInTable="fechaCargaColumn" msprop:Generator_UserColumnName="fechaCarga" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="folioFactura" msprop:Generator_ColumnVarNameInTable="columnfolioFactura" msprop:Generator_ColumnPropNameInRow="folioFactura" msprop:Generator_ColumnPropNameInTable="folioFacturaColumn" msprop:Generator_UserColumnName="folioFactura" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="moneda" msprop:Generator_ColumnVarNameInTable="columnmoneda" msprop:Generator_ColumnPropNameInRow="moneda" msprop:Generator_ColumnPropNameInTable="monedaColumn" msprop:Generator_UserColumnName="moneda" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UUID" msprop:Generator_ColumnVarNameInTable="columnUUID" msprop:Generator_ColumnPropNameInRow="UUID" msprop:Generator_ColumnPropNameInTable="UUIDColumn" msprop:Generator_UserColumnName="UUID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="idTipoUsuarioWF" msprop:Generator_ColumnVarNameInTable="columnidTipoUsuarioWF" msprop:Generator_ColumnPropNameInRow="idTipoUsuarioWF" msprop:Generator_ColumnPropNameInTable="idTipoUsuarioWFColumn" msprop:Generator_UserColumnName="idTipoUsuarioWF" type="xs:short" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1">
+      <xs:selector xpath=".//mstns:view_todoWorkflow" />
+      <xs:field xpath="mstns:idTipoUsuarioWF" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Clases.Facturacion" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Clases.Facturacion" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/" />
+  <xs:complexType name="ArrayOfobjLeidoFactura">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="objLeidoFactura" nillable="true" type="tns:objLeidoFactura" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfobjLeidoFactura" nillable="true" type="tns:ArrayOfobjLeidoFactura" />
+  <xs:complexType name="objLeidoFactura">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AplicaraProrrateo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Archivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Concepto" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="Conceptos" nillable="true" type="q1:ArrayOfComprobanteConcepto" />
+      <xs:element minOccurs="0" name="Descuento" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DiferenciaImportes" type="xs:double" />
+      <xs:element minOccurs="0" name="Documento_Referencia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Error" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsdocumentoReferencia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstructuraValida" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Folio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImporteArticulosconIVA" type="xs:double" />
+      <xs:element minOccurs="0" name="ImporteRecepcionOrigen" type="xs:double" />
+      <xs:element minOccurs="0" name="ImporteRetencionFlete" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImporteRetenido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImporteTrasladado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImporteUnitario" type="xs:double" />
+      <xs:element minOccurs="0" name="ImportesFueron" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="Impuestos" nillable="true" type="q2:ComprobanteImpuestos" />
+      <xs:element minOccurs="0" name="Moneda" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreArchivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NotasCredito" type="xs:double" />
+      <xs:element minOccurs="0" name="Num_Proveedor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Path" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Posicion_Documento_Material" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RFC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RFC_Receptor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RecepcionValia" type="xs:double" />
+      <xs:element minOccurs="0" name="ReglasAplicadas" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Serie" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubTotal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Timporte" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoFactura" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tpiezas" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UUID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ValidoSAT" type="xs:boolean" />
+      <xs:element minOccurs="0" name="XmlaTexto" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="objLeidoFactura" nillable="true" type="tns:objLeidoFactura" />
+</xs:schema>

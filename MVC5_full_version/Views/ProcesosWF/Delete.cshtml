@@ -1,0 +1,64 @@
+﻿@model ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF
+
+@{
+    ViewBag.Title = "Eliminar registro";
+}
+
+<div class="pageheader">
+    <h2>Eliminar</h2>
+    <h3>Esta seguro de eliminar este proceso?</h3>
+    <h4>Pueden existir tareas y usuarios ligados a este proceso, por favor pida asistencia a soporte del Portal.</h4>
+</div>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayName("Nombre Proceso")
+            @Html.DisplayNameFor(model => model.nombreWF)*@
+            @Html.Label("Nombre  Proceso", htmlAttributes: new { @class = "control-label col-md-4" })
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreWF)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayName("No. de aprobaciones requeridas")
+            @Html.DisplayNameFor(model => model.noAprobacionesRequeridas)*@
+            @Html.Label("Niveles", htmlAttributes: new { @class = "control-label col-md-4" })
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.noAprobacionesRequeridas)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.controlador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.controlador)
+        </dd>*@
+
+        <dt>
+            @*@Html.DisplayName("Porcentaje mínimo requerido para liberar flujo")
+            @Html.DisplayNameFor(model => model.minimoRelevanciaJerarquica)*@
+            @Html.Label("Minimo aprobación", htmlAttributes: new { @class = "control-label col-md-4" })
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.minimoRelevanciaJerarquica)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver a listar todo", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,1895 @@
+﻿@{
+    ViewBag.Title = "Recepción de Factura por Servicios";
+}
+@using Kendo.Mvc.UI
+@using Kendo.Mvc
+    <script src="~/Scripts/jszip.min.js"></script>
+    <link rel="stylesheet" href="~/Content/kendo/kendo.common.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.default.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.default.mobile.min.css" />
+     <link rel="stylesheet" href="~/Content/assets/css/animate.css">
+    <script src="~/Scripts/kendo/jquery.min.js"></script>
+    <script src="~/Scripts/kendo/kendo.all.min.js"></script>
+    <!-- Carousel -->
+
+<!--Mensajes -->
+   <script src="~/Scripts/plugins/messenger/js/messenger.min.js"></script>
+   <script src="~/Scripts/plugins/messenger/js/messenger-theme-future.js"></script>
+   <link href='../Content/assets/css/Montserrat.css' rel='stylesheet' type='text/css'>
+  <link href='../Content/assets/css/OpenSans.css' rel='stylesheet' type='text/css'>
+<!--Mensajes-->
+    <!-- CSS Animate -->
+    <link rel="stylesheet" href="../Content/assets/css/animate.css">
+<!--Radio Buttons-->
+
+<!--Radio Buttons-->
+
+    <!-- Grafica  -->
+
+    <!-- Grafica  -->
+
+   <!--Global JS-->
+    <script src="~/Content/assets/js/vendor/jquery-1.11.1.min.js"></script>
+    <script src="~/Content/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/assets/plugins/navgoco/jquery.navgoco.min.js"></script>
+    <script src="~/Content/assets/plugins/pace/pace.min.js"></script>
+    <script src="~/Content/assets/plugins/fullscreen/jquery.fullscreen-min.js"></script>
+    <script src="~/Content/assets/js/src/app.js"></script>
+    <!--Page Level JS-->
+    <script src="~/Content/assets/plugins/countTo/jquery.countTo.js"></script>
+    <script src="~/Content/assets/plugins/weather/js/skycons.js"></script>
+    <script src="~/Content/assets/plugins/daterangepicker/moment.min.js"></script>
+    <script src="~/Content/assets/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Content/assets/plugins/gauge/gauge.min.js"></script>
+    <script src="~/Content/assets/plugins/gauge/gauge-demo.js"></script>
+    <!-- Vector Map  -->
+    <script src="~/Content/assets/plugins/jvectormap/js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="~/Content/assets/plugins/jvectormap/js/jquery-jvectormap-world-mill-en.js"></script>
+   <!-- Custom styles for this theme -->
+    @*<link rel="stylesheet" href="~/Content/assets/css/main.css">*@
+    <!-- Feature detection -->
+    <script src="~/Content/assets/js/vendor/modernizr-2.6.2.min.js"></script>
+    <!-- Gauge  -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    @*[if lt IE 9]>
+    <script src="~/Content/assets/js/vendor/html5shiv.js"></script>
+    <script src="~/Content/assets/js/vendor/respond.min.js"></script>
+    <![endif]*@
+
+<style>
+ .demo-section p {
+  margin: 3px 0 20px;
+  line-height: 50px;
+ }
+
+ .demo-section .k-button {
+  width: 250px;
+ }
+
+ .k-notification {
+  border: 0;
+ }
+
+
+ /* Info template */
+ .k-notification-info.k-group {
+  background: rgba(0%,0%,0%,.7);
+  color: #fff;
+ }
+
+ .new-mail {
+  width: 300px;
+  height: 100px;
+ }
+
+  .new-mail h3 {
+   font-size: 1em;
+   padding: 32px 10px 5px;
+  }
+
+  .new-mail img {
+   float: left;
+   margin: 30px 15px 30px 30px;
+  }
+
+ /* Error template */
+ .k-notification-error.k-group {
+  background: rgba(100%,0%,0%,.7);
+  color: #ffffff;
+ }
+
+ .wrong-pass {
+  width: 300px;
+  height: 100px;
+ }
+
+  .wrong-pass h3 {
+   font-size: 1em;
+   padding: 32px 10px 5px;
+  }
+
+  .wrong-pass img {
+   float: left;
+   margin: 30px 15px 30px 30px;
+  }
+
+ /* Success template */
+ .k-notification-upload-success.k-group {
+  background: rgba(0%,60%,0%,.7);
+  color: #fff;
+ }
+
+ .upload-success {
+  width: 240px;
+  height: 100px;
+  padding: 0 30px;
+  line-height: 100px;
+ }
+
+  .upload-success h3 {
+   font-size: 1.7em;
+   font-weight: normal;
+   display: inline-block;
+   vertical-align: middle;
+  }
+
+  .upload-success img {
+   display: inline-block;
+   vertical-align: middle;
+   margin-right: 10px;
+  }
+
+  .center {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    opacity: 0.6;
+    top: calc(50% - 50px / 2); /* height divided by 2*/
+    left: calc(50% - 50px / 2); /* width divided by 2*/
+   }
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.portrait {
+    height: 80%;
+    width: 80%;
+}
+
+.landscape {
+    height: 30px;
+    width: 80px;
+}
+
+.square {
+    height: 75px;
+    width: 75px;
+}
+
+
+</style>
+
+<div class="pageheader">
+    <h1>Recepción de Servicios PO</h1>
+    <div class="breadcrumb-wrapper hidden-xs">
+        <span class="label">Usted esta aquí:</span>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Ordenes de Compra</a>
+            </li>
+            <li>MIGO y MIRO</li>
+            <li class="active">Recepción de facturas por Servicios</li>
+        </ol>
+    </div>
+</div>
+
+<!--<section id="main-content" class="animated fadeInUp">-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Recepción de Servicios</h3>
+                    <div class="actions pull-right">
+                        <i class="fa fa-expand"></i>
+                        <i class="fa fa-chevron-down"></i>
+                        <i class="fa fa-times"></i>
+                    </div>
+                </div>
+
+               <div class="panel-body">
+                        <script type="text/javascript"   src="~/Scripts/jquery-1.10.2.js"></script>
+                       <div class="col-md-12">
+                           <section class="fuelux">
+                               <div id="MyWizard" class="wizard" data-initialize="wizard">
+                                   <div class="steps-container">
+                                       <ul class="steps">
+                                           <li data-step="1" class="active">
+                                               <span class="badge badge-info">1</span>Buscar orden<span class="chevron"></span>
+                                           </li>
+                                           <li data-step="2">
+                                               <span class="badge">2</span>Recibir su factura XML<span class="chevron"></span>
+                                           </li>
+                                           <li data-step="3">
+                                               <span class="badge">3</span>Comparar importes<span class="chevron"></span>
+                                           </li>
+                                           <li data-step="4">
+                                               <span class="badge">4</span>Autorización<span class="chevron"></span>
+                                           </li>
+                                           <li data-step="5">
+                                               <span class="badge">5</span>Recepcionar y verificar<span class="chevron"></span>
+                                           </li>
+                                       </ul>
+                                   </div>
+                                   <div class="actions">
+                                       <button type="button" class="btn btn-default btn-mini btn-prev" id="btnAnterior"> <i class="fa fa-chevron-left"></i> Anterior</button>
+                                       <button type="button" class="btn btn-primary btn-mini btn-next" data-last="Finalizar" id="btnSiguiente">Siguiente <i class="fa fa-chevron-right"></i></button>
+                                   </div>
+                                   <div class="step-content">
+                                       <div class="step-pane active" data-step="1">
+                                           <form class="form-horizontal">
+                                                <div class="form-group">
+                                                        <h3>  IIndicaciones</h3>
+                                                        <p class="form-control">
+                                                         Como primer paso capture y búsque la orden de compra a la cual adjuntará el archivo XML, si la información es correcta continúe el proceso por favor.
+                                                        </p>
+                                                </div>
+                                                <div class="form-group">
+                                                         <label class="col-sm-3 control-label">Orden de Compra</label>
+                                                         <div class="col-sm-3">
+                                                                  <input class="form-control" id="OrdenCompra" name="OrdenCompra" placeholder="Capture aquí" type="text" runat="server">
+                                                         </div>
+                                                          <div class="col-sm-3">
+                                                                  <button type="button" id="btnCargarOC" name="btnCargarOC" class="btn btn-info"><i class="fa fa-search"></i>Buscar</button>
+                                                          </div>
+                                               </div>
+
+                                               @*<div class="panel-body">
+                                                   <div class="form-group">
+                                                       <div class="col-xs-6">
+                                                           <table>
+                                                               <td style="width:220px">
+                                                                   Indique el tipo de Recepción:
+                                                               </td>
+                                                               <td><strong>Parcial</strong></td>
+                                                               <td style="width:10px"></td>
+                                                               <td>
+                                                                   <input class="js-switch" checked="" id="checkTipo" style="display: none;" data-switchery="true" type="checkbox">
+                                                               </td>
+                                                               <td style="width:10px"></td>
+                                                               <td><strong>Completa</strong></td>
+                                                               </tr>
+                                                           </table>
+                                                       </div>
+                                                   </div>
+                                                   <div class="form-group">
+                                                       <div class="panel panel-primary">
+                                                           @(Html.Kendo().Notification()
+                                                  .Name("popupNotification")
+                                                  .Events(e => e.Show("onShow"))
+                                                           )
+                                                           @(Html.Kendo().Notification()
+                                                   .Name("notification")
+                                                   .Position(p => p.Pinned(true).Top(30).Right(30))
+                                                   .Stacking(NotificationStackingSettings.Down)
+                                                   .AutoHideAfter(0)
+                                                   .Templates(t =>
+                                                   {
+                                                       t.Add().Type("upload-success").ClientTemplateID("successTemplate");
+                                                   })
+                                                           )
+                                                           <div id="Complementos" style="visibility:hidden">
+                                                               <script id="successTemplate" type="text/x-kendo-template">
+                                                                   <div class="upload-success">
+                                                                       <img src="../Images/bafar/cambioRealizado.png" width="250" height="70" />
+                                                                   </div>
+                                                               </script>
+                                                           </div>
+                                                       </div>
+                                                   </div>
+
+                                               </div>*@
+
+
+                                               <!--Grid que muestra los materiales de la Orden de Compra-->
+                                               <div class="panel-body">
+                                                        <div id="example">
+                                                                                                  <div class="panel-body" id="panelNoOrdenCompra" style="position:center">
+                                                                                                   <button type="button"  id="NoOrdenCompra" name="NoOrdenCompra" class="btn btn-info"><i class="fa fa-check"></i> 45000XXXXX</button>
+                                                                                                  </div>
+                                
+                                                                                                      <div id="grid"></div>
+                                                                                                                    @model IEnumerable<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra>
+
+                                                                                                                    @(Html.Kendo().Grid(Model)
+                                                                                                                        .Name("GridDetalle_OrdenCompra")
+                                                                                                                        .Columns(columns =>
+                                                                                                                        {
+                                                                                                                            columns.Bound(p => p.IDDetalleOrden).Title("Id").Width(70);
+                                                                                                                            columns.Bound(p => p.Descripcion).Title("Descripción").Width(230);
+                                                                                                                            columns.Bound(p => p.Posicion_OC).Title("Posición").Width(100);
+                                                                                                                            columns.Bound(p => p.Cantidad).Title("Cantidad").Width(130);
+                                                                                                                            columns.Bound(p => p.Importe).Title("Importe").Width(130);
+                                                                                                                            columns.Bound(p => p.Indicador_IVA).Title("Ind. IVA").Width(100);
+                                                                                                                            columns.Bound(p => p.Unidad_Medida).Title("U. medida").Width(130);
+                                                                                                                            columns.Bound(p => p.Numero_Compras).Title("No. compras").Width(160);
+                                                                                                                            columns.Bound(p => p.Numero_Material).Title("No. material").Width(160);
+                                                                                                                            columns.Bound(p => p.Almacen).Title("Almacén").Width(130);
+                                                                                                                        })
+                                                                                                                        .HtmlAttributes(new { style = "height: 450px;" })
+                                                                                                                        .Selectable(selectable => selectable
+                                                                                                                        .Mode(GridSelectionMode.Single))
+                                                                                                                        .Pageable( pageable => pageable
+                                                                                                                            .Input(true)
+                                                                                                                            .Numeric(false)
+                                                                                                                         )
+                                                                                                                        .Events(events => events.Change("dgChange"))
+                                                                                                                        .Sortable()
+                                                                                                                        .Scrollable(scr=>scr.Height(280)) 
+                                                                                                                        .Filterable()    
+                                                                                                                        .DataSource(dataSource => dataSource        
+                                                                                                                            .Ajax()
+                                                                                                                            .PageSize(20)
+                                                                                                                            .ServerOperation(false)      
+                                                                                                                            .Model(model =>
+                                                                                                                            {
+                                                                                                                                model.Id(p => p.Posicion_OC);
+                                                                                                                            })
+                                                                                                                         )
+                                                                                                                    )
+                                                                                                  </div>
+                                               </div>
+                                               <!--                        <div class="form-group">
+                                                   <label class="col-sm-3 control-label" id="lblOC">Orden de Compra</label>
+                                                   <div class="col-sm-6" id="controlUsuario"></div>
+                                               </div>
+                                               <div class="form-group">
+                                                   <div class="col-sm-4">
+                                                       <button type="button" class="btn btn-warning" id="btnAbrirModalBuscarOC"><i class="fa icon-question"></i>¡No encuentro mi OC!</button>
+                                                   </div>
+                                               </div>-->
+                                               <!--Ventana de Notificacion exitosa-->
+                                               <div  class="form-group" id="GridlineasOrdenCompra">
+                                                                                            <div class="panel panel-primary">
+                                                                                            @(Html.Kendo().Notification()
+                                                                                                .Name("popupNotification")
+                                                                                                .Events(e => e.Show("onShow"))
+                                                                                                )
+                                                                                             @(Html.Kendo().Notification()
+                                                                                                 .Name("notification")
+                                                                                                 .Position(p => p.Pinned(true).Top(30).Right(30))
+                                                                                                 .Stacking(NotificationStackingSettings.Down)
+                                                                                                 .AutoHideAfter(0)
+                                                                                                 .Templates(t =>
+                                                                                                 {
+                                                                                                     t.Add().Type("upload-success").ClientTemplateID("successTemplate");
+                                                                                                 })
+                                                                                             )
+                                                                                            <div id="Complementos" style="visibility:hidden" >
+                                                                                                        <script id="successTemplate" type="text/x-kendo-template">        
+                                                                                                         <div class="upload-success">
+                                                                                                             <img src="../Images/bafar/cambioRealizado.png" width="250" height="70"/>
+                                                                                                         </div>
+                                                                                                     </script>
+                                                                                  </div>
+                                                                                            </div>
+                                                                               </div>
+                                           </form>
+                                       </div>
+
+                                       <div class="step-pane" data-step="2">
+                                           <div class="row" style="">
+                                              <!-- <div class="panel-body">
+                                                            <div class="col-md-12">
+                                                                <div class="col-md-6"><button type="button" class="btn btn-info" id="btnAbrirCargaNotas" style="display:none;"><i class='fa fa-upload'></i>Notas de Crédito</button></div>
+                                                            </div>
+                                               </div>-->
+                                                 <!--Control para cargar la factura-->
+                                                     <div id="collapseOne" class="panel-collapse collapse">
+                                                              <div class="panel-body" id="div1">
+                                                             </div>
+                                                       </div>
+
+                                                     <div class="panel-body" id="ControlesCargaXML" name="ControlesCargaXML">
+<!--                                                           <div class="panel-group accordion" id="accordion">
+                                                               <div class="panel panel-default">
+                                                                   <div class="panel-heading">
+                                                                       <h4 class="panel-title">
+                                                                           <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed" id="InfoAcordion">
+                                                                               Carga de la Factura (XML) a resguardar por máximo 7 días.
+                                                                           </a>
+                                                                       </h4>
+                                                                   </div>
+                                                                   <div id="collapseOne" class="panel-collapse collapse">
+                                                                       <div class="panel-body" id="div1">
+                                                                       </div>
+                                                                   </div>
+                                                               </div>
+                                                               <div class="panel panel-default">
+                                                                   <div class="panel-heading">
+                                                                       <h4 class="panel-title">
+                                                                           <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" id="NotasAcordion">
+                                                                               Notas de Crédito
+                                                                           </a>
+                                                                       </h4>
+                                                                   </div>
+                                                                   <div id="collapseTwo" class="panel-collapse collapse">
+                                                                       <div class="panel-body">
+                                                                           <div class="col-md-12" id="tablaFacturas">No se han agregado Notas de Crédito</div>
+                                                                       </div>
+                                                                   </div>
+                                                               </div>
+                                                               <div class="panel panel-default">
+                                                                   <div class="panel-heading">
+                                                                       <h4 class="panel-title">
+                                                                           <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" id="RecepAcordion">
+                                                                               Recepciones a Facturar
+                                                                           </a>
+                                                                       </h4>
+                                                                   </div>
+                                                                   <div id="collapseThree" class="panel-collapse collapse">
+                                                                       <div class="panel-body">
+                                                                           <div class="col-md-12" id="tablaRecepciones"></div>
+                                                                       </div>
+                                                                   </div>
+                                                               </div>
+                                                           </div>-->
+                                                                   <div class="panel-heading">
+                                                                    </br>
+                                                                    <br />
+                                                                           <h2>Proporcione su factura XML</h2>
+                                                                            <label class="col-sm-12 control-label">La carga de esta factura en el Portal NO significa aún ningún compromiso de pago hacia usted por parte de TKPM hasta completarse el proceso de recepción de su factura.</label>
+                                                                             <label class="col-sm-12 control-label"> Usted recibirá un correo indicándole si su proceso de facturación fue completado exitósamente y si su factura ingreso al sistema,de no ser así se le compartirá que problema ocurrío.</label>
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                                 <div class="panel panel-default">
+                                                                                     <div class="panel-heading">
+                                                                                         <h3 class="panel-title">Factura XML</h3>
+                                                                                     </div>
+                                                                                     <div class="panel-body">
+                                                                                         <form action="@Url.Action("SubirFactura", "facturasXML")" class="dropzone" id="zonaCargaFactura" enctype="multipart/form-data">
+                                                                                             <div class="dz-message">
+                                                                                                 Arrastre o de click para seleccionar el archivo
+                                                                                             </div>
+                                                                                             <div class="fallback">
+                                                                                                 <input name="files" type="file" accept="text/xml" />
+                                                                                             </div>
+                                                                                         </form>
+                                                                                     </div>
+                                                                                 </div>
+                                                                   </div>
+                                                       </div>
+                                                       <div class="panel-body" id="XMLyaCargado" name="XMLyaCargado" >
+                                                                 <div class="alert alert-danger fade in">
+                                                                  <br />
+                                                                  <br />
+                                                                                                     <h2>Factura XML ya fue cargada previamente.</h2>
+                                                                                                     </br>
+                                                                                                     <p>Ya se ha proporcionado un archivo XML como factura para esta orden con anterioridad, este archivo actualmente se encuentra en espera ser revisado y si es el caso aprobado por personal de TKPM. Si usted es proveedor el momento y resultado del proceso será notificado por correo.</p>
+                                                                                                     <p>
+                                                                                                         <button type="button" class="btn btn-danger " id="btnYaXML" data-toggle="modal" data-target="#modalEliminarXML">Soy personal de TKPM</button>
+                                                                                                     </p>
+                                                                </div>
+                                                       </div>
+                                           </div>
+                                       </div>
+                                       <div class="step-pane" data-step="3">
+                                           <div class="row">
+                                               <div class="col-md-12">
+                                                   <div class="panel-body">
+
+                                                       <div class="panel panel-default" id="Importes">
+                                                                                   <div class="panel-heading">
+                                                                                       <h3 class="panel-title">Comparación de importes</h3>
+                                                                                   </div>
+
+                                                        <div class="row">
+                                                                                               <div class="col-md-4">
+                                                                                                   <div class="panel panel-solid-success widget-mini">
+                                                                                                       <div class="panel-body">
+                                                                                                           <i class="fa fa-edit"></i>
+                                                                                                           <span id="ImporteOrdenCompra" class="total text-center">$0</span>
+                                                                                                           <span class="title text-center">Orden de Compra</span>
+                                                                                                       </div>
+                                                                                                   </div>
+                                                                                               </div>
+                                                                                               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                                                                                                       <div class="panel-body widget-gauge">
+                                                                                                           <canvas width="160" height="100" id="gauge" class=""></canvas>
+                                                                                                           <div class="goal-wrapper">
+                                                                                                               <span class="gauge-value pull-left">$</span>
+                                                                                                               <span id="gauge-text" class="gauge-value pull-left">0.0</span>
+                                                                                                               <span id="goal-text" class="goal-value pull-right">$0.0</span>
+                                                                                                           </div>
+                                                                                                       </div>
+                                                                                                 </div>
+
+                                                                                             <div class="col-md-4">
+                                                                                                <div class="panel widget-mini">
+                                                                                                    <div class="panel-body">
+                                                                                                        <i class="fa  fa-money"></i>
+                                                                                                        <span id="ImporteFactura" class="total text-center">$0</span>
+                                                                                                        <span class="title text-center">Factura (XML)</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                                                             <div class="col-md-4">
+                                                                                                <div class="panel widget-mini">
+                                                                                                    <div class="panel-body">
+                                                                                                                    @*<span class="title text-center">Vista previa OC</span>*@
+                                                                                                                    <span id="undo" style="display:none" class="k-button hide-on-narrow" onclick="cargaGridVistaPrevia()">Vista previa OC.</span>
+                                                                                                                    <div class="responsive-message"></div>
+                                                                                                       <i class="fa  fa-search"></i>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-md-4">
+                                                                                               <div class="panel panel-solid-info widget-mini">
+                                                                                                   <div class="panel-body">
+                                                                                                       <span id="diferenciaOCFact" class="total text-center">-$0.0</span>
+                                                                                                       <span id="MensajeOrdenvsFactura"class="title text-center"></span>
+                                                                                                        <button id="IniciarVerificacion" type="button" onclick="procesoEntraVerifica()" class="btn btn-info btn-trans" style="visibility:hidden">Entrar al almacén y verificar</button>
+                                                                                                   </div>
+                                                                                               </div>
+                                                                                           </div>
+                                                                                             <div class="col-md-4">
+                                                                                                <div class="panel widget-mini">
+                                                                                                    <div class="panel-body">
+                                                                                                        <span class="title text-center">Vista previa Factura</span>
+                                                                                                       <i class="fa fa-search-plus"></i>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                        </div>
+                                                       </div>
+                                                   </div>
+                                               </div>                        
+                                               <div class="col-md-12" id="tabla"></div>
+                                           </div>
+                                       </div>
+                                        <div class="step-pane" data-step="4">
+                                         <br />
+                                         <br />
+                                             <div class="panel panel-default">
+                                                            <div class="panel-heading">
+                                                                <h3 class="panel-title">Autorización / rechazo </h3>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <div id="demo" class="collapse in">
+
+                                                                    <div class="panel panel-default">
+                                                                     <div class="row">
+                                                                          <div class="panel-body">
+                                                                              <p>Por favor indique si aprueba o rechaza la información previá y evaluar si es posible continuar.</p>
+                                                                             <table  class="col-md-12" >
+                                                                              <tr>
+                                                                                    <td>
+                                                                                             <span id="revisionOrdenCompra" class="panel-title"></span>
+                                                                                    </td>
+                                                                              </tr>
+                                                                              <tr>
+                                                                                    <td align="center">
+                                                                                          <button type="button" id="btnAprobarFlujo" name="btnAprobarFlujo" class="btn btn-success" data-toggle="modal" data-target="#formModalResultadoWorkFlow"><i class="fa fa-check"></i> Apruebo</button>
+                                                                                    </td>
+                                                                                   <td align="center">
+                                                                                          <button type="button" id="btnRechazarFlujo" name="btnRechazarFlujo" class="btn btn-danger"   data-toggle="modal" data-target="#formModalResultadoWorkFlow"><i class="fa fa-times-circle"></i> Rechazo</button>
+                                                                                   </td>
+                                                                              </tr>
+                                                                              <tr  class="col-md-12" style="align-content:center" >
+                                                                                    <td colspan="2" >
+                                                                                           <button type="button" class="btn btn-default" style="visibility:hidden">Cancelar</button>
+                                                                                    </td>
+                                                                              </tr>
+                                                                             </table>
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                              </div>
+
+                                        </div>
+                                        <div class="step-pane" data-step="5">
+                                            <div class="img">
+                                                <img src="~/Images/TKPM/Pantalla_MIGO_MIRO.png">
+                                            </div>
+                                        </div>
+                                   </div>
+                               </div>
+                           </section>
+                       </div>
+              </div>
+
+               <!-- Form Modal Ventana indicando Material a Recepcionar -->
+               <div class="modal fade" id="formModalFormularioCapturaLineaMercancia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                   <div class="modal-dialog">
+                       <div class="modal-content">
+                           <div class="modal-header">
+                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                               <h4 class="modal-title" id="myModalLabel"> 
+                                <div class="alert alert-info alert-dismissable">
+                                   <strong>Material</strong>
+                                   <br />
+                                   <hr>
+                                   <label ID="lblNombreMaterial" Text="Material" runat="server"></label>
+                               </div>
+                                        <label ID="lblPosicion" Text="Posicion" runat="server"></label> <br />
+                                        <label ID="lblCantidad" Text="Cantidad" runat="server"></label> <br />
+                                        <label ID="lblImporte" Text="Importe" runat="server"></label> <br />
+                                        <label ID="lblUnidadMedida" Text="UMedida" runat="server"></label> <br />
+                                        <label ID="lblNoCompras" Text="NoCompras" runat="server"></label> <br />
+                                        <label ID="lblNoMaterial" Text="NoMaterial" runat="server"></label>
+                               </h4>
+                           </div>
+                           <div  id="divCantidad" class="modal-body">
+                               <form class="form-horizontal" role="form">
+                                   <div class="form-group">
+                                       <label for="inputEmail3" class="col-sm-2 control-label">Cantidad</label>
+                                       <div class="col-sm-10">
+                                           <input type="text" class="numbersOnly" id="inputEmail3" placeholder="Cantidad a recepcionar">
+                                       </div>
+                                   </div>
+                               </form>
+                           </div>
+                         
+                           <div  id="divRecepcionCompleta" class="alert alert-danger alert-dismissable">
+                               <form class="form-horizontal" role="form">
+                                   <div class="form-group">
+                                    <strong>ATENCIÓN!</strong> Va a realizar la recepción <strong>completa</strong> de todos los materiales, bienes, servicios, etc. listados en esta Orden de Compra.
+                                   </div>
+                               </form>
+                           </div>
+
+                           <div class="modal-footer">
+                               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar recepción</button>
+                               <button type="button" class="btn btn-success" data-dismiss="modal" onclick="validaCantidadaRecibir()">Recibir</button>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <!-- End Form Modal -->
+
+                <div style="visibility:hidden">
+                           <button id="btnFormularioCapturaLineaMercancia" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#formModalFormularioCapturaLineaMercancia">
+                                Formulario de captura de mercancias linea por linea
+                            </button>     
+                                                                <!--Radio button que indica si es completa o parcial-->
+                           <div class="form-group">
+
+                                                                                    <div class="col-xs-6">
+                                                                                      <table>
+                                                                                       <tr>
+                                                                                        <td style="width:220px">
+                                                                                                        Indique el tipo de Recepción:
+                                                                                        </td>
+                                                                                         <td><strong>Parcial</strong></td>
+                                                                                        <td style="width:10px"></td>
+                                                                                        <td>
+                                                                                                             <input class="js-switch" checked="" id="checkTipo" style="display: none;" data-switchery="true" type="checkbox">
+                                                                                        </td>
+                                                                                        <td style="width:10px"></td>
+                                                                                        <td><strong>Completa</strong></td>
+                                                                                       </tr>
+                                                                                      </table>
+                                                                                     </div>
+                         </div>   
+                 </div>       
+
+               <!-- Basic Modal Solo si es usuario Interno cambiar XML almacenado-->
+               <div class="modal fade" id="modalEliminarXML" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                   <div class="modal-dialog">
+                       <div class="modal-content">
+                           <div class="modal-header">
+                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                               <h4 class="modal-title" id="myModalLabel">Eliminar el XML almacenado</h4>
+                           </div>
+                           <div class="modal-body">
+                               <p>¿Desea eliminar el archivo XML almacenado para sustituirle por otro?</p>
+                           </div>
+                           <div class="modal-footer">
+                               <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                               <button type="button" id="btnEliminarXML" name="btnEliminarXML" data-dismiss="modal" class="btn btn-primary">Eliminar XML</button>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <!-- End Basic Modal Solo si es usuario Interno cambiar XML almacenado-->
+
+               <!-- Form Modal Ventana indicando resultado del WorkFlow -->         
+              <div class="modal fade"  id="formModalResultadoWorkFlow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="height:450px">
+                       <div class="modal-dialog">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                              <h4 class="modal-title" id="myModalLabelWF">Workflow</h4>
+                          </div>
+                          <div class="modal-body" style="height:200px">
+                                    <div class="center">
+                                           <img id="Like" src="../Images/TKPM/Button_Like.png" alt="Flujo aprobado!" />
+                                           <img id="NoLike" src="../Images/TKPM/Button_Not_Like.png" alt="Fujo rechazado!" />
+                                    </div>
+                          </div>
+                          <div class="modal-footer">
+                               <span id="observacionesWF" class="panel-title">El flujo se esta evaluando...</span>
+                         </div>
+                         <div class="modal-footer">
+                              <button id="btnrechazaVerificacion" name="btnrechazaVerificacion" type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-circle"></i> Cerrar </button>
+                              <button id="btndisparaVerificacion" name="btndisparaVerificacion" type="button" class="btn btn-success" data-dismiss="modal" onclick="disparaVerificacion();"><i class="fa fa-check"></i> Continuar </button>
+                          </div>
+                      </div>
+                  </div>
+               </div>
+               <!-- End Form Modal -->    
+                
+                <!-- Ventana que despliega el contenido de la Orden en panatalla para Workflow-->                  
+                        @(Html.Kendo().Window()
+                            .Name("window")
+                            .Title("Vista previa orden de compra Servicios")
+                            .Content(@<text>
+                                <h4><span id="txtOrdenCompra" class="total text-center">?</span></h4>
+                                <div class="pageheader">
+                                    @*<img src="@Url.Content("~/content/web/window/armchair-402.png")"alt="Armchair 402" />*@
+                                    Estos son los detalles de la(s) posición(es) seleccionadas para facturar:
+                                </div>
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                Importe total calculado: <span id="txtITA_Seleccionado" class="total text-center">$0.00</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div id="gridVistaPrevia"></div>
+                                @(Html.Kendo().Grid(Model)
+                                                                                                                                        .Name("GridVistaPreviaOrdenCompra")
+                                                                                                                                        .Columns(columns =>
+                                                                                                                                        {
+                                                                                                                                            columns.Bound(p => p.IDDetalleOrden).Title("Id").Width(70);
+                                                                                                                                            columns.Bound(p => p.Descripcion).Title("Descripción").Width(230);
+                                                                                                                                            columns.Bound(p => p.Posicion_OC).Title("Posición").Width(100);
+                                                                                                                                            columns.Bound(p => p.Cantidad).Title("Cantidad").Width(130);
+                                                                                                                                            columns.Bound(p => p.Importe).Title("Importe").Width(130);
+                                                                                                                                            columns.Bound(p => p.Indicador_IVA).Title("Ind. IVA").Width(100);
+                                                                                                                                            columns.Bound(p => p.Unidad_Medida).Title("U. medida").Width(130);
+                                                                                                                                            columns.Bound(p => p.Numero_Compras).Title("No. compras").Width(160);
+                                                                                                                                            columns.Bound(p => p.Numero_Material).Title("No. material").Width(160);
+                                                                                                                                            columns.Bound(p => p.Almacen).Title("Almacén").Width(130);
+                                                                                                                                        })
+                                                                                                                                        .HtmlAttributes(new { style = "height: 100%; width:100%" })
+                                                                                                                                        .Selectable(selectable => selectable
+                                                                                                                                        .Mode(GridSelectionMode.Single))
+                                                                                                                                        .Pageable(pageable => pageable
+                                                                                                                                           .Input(true)
+                                                                                                                                           .Numeric(false)
+                                                                                                                                         )
+                                                                                                                                        .Sortable()
+                                                                                                                                        .Scrollable(scr => scr.Height(250))
+                                                                                                                                        .Filterable()
+                                                                                                                                        .DataSource(dataSource => dataSource
+                                                                                                                                            .Ajax()
+                                                                                                                                            .PageSize(20)
+                                                                                                                                            .ServerOperation(false)
+                                                                                                                                            .Model(model =>
+                                                                                                                                            {
+                                                                                                                                                model.Id(p => p.Posicion_OC);
+                                                                                                                                            })
+                                                                                                                                         )
+                                )
+                                @*
+                                <p>
+                                    Source:
+                                    <a href="http://www.aalto.com/about-alvar-aalto.html" title="About Alvar Aalto">www.aalto.com</a>
+                                </p>*@
+                            </text>)
+                            .Draggable()
+                            .Resizable()
+                            .Width(600)
+                            .Actions(actions => actions.Pin().Minimize().Maximize().Close())
+                            .Events(ev => ev.Close("onClose"))
+                        )
+
+                <!---->
+                                             
+             </div>  
+             <!--De todo el formulario-->   
+        </div>
+        </div>
+<!--</section>-->
+
+  @*<script type="text/javascript"   src="https://code.jquery.com/jquery-1.10.2.js"></script>*@
+  <script src="~/Scripts/jquery-1.10.2.js" type="text/javascript"></script> 
+  <script src="~/Scripts/kendo/jquery-1.9.1.js" type="text/javascript"></script>
+  <script src="~/Scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="~/Scripts/underscore-min.js" type="text/javascript"></script>
+<script src="~/Scripts/backbone-min.js" type="text/javascript"></script>
+@section Styles {
+    @Styles.Render("~/plugins/dataTablesCSS")
+    @Styles.Render("~/plugins/messengerCSS")
+
+    <style>
+        #pregunta, #btnGenerarPasivo {
+            display: none;
+        }        
+    </style>
+}
+
+@section Scripts {
+    @*@Scripts.Render("http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js")
+    @Scripts.Render("http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js")*@
+    @Scripts.Render("~/plugins/messenger")
+    @Scripts.Render("~/plugins/wizard")
+    @Scripts.Render("~/plugins/jvectormap")
+    @Scripts.Render("~/plugins/chartjs")
+    @Scripts.Render("~/plugins/morris")
+    @Scripts.Render("~/plugins/gauge")
+    @Scripts.Render("~/plugins/gauge-demo")
+    @Scripts.Render("~/plugins/countTo")
+    <script type="text/javascript">
+        var url_dir = '@System.Configuration.ConfigurationManager.AppSettings["dirImagenTMS"].ToString()';
+        var lsMensajes;
+        var zona1;
+        var zona2;
+        var tabs;
+        var finalizado = false;
+        var facturaCargada = false;
+        var todo = false;
+
+        $('#checkTipo')["0"].checked = true;
+        $("#panelNoOrdenCompra").hide();
+        $("#divRecepcionCompleta").hide();
+        $("#GridlineasOrdenCompra").hide();
+
+
+        $(document).ready(function ()
+        {
+            $("#undo").show();
+            $("#window").data("kendoWindow").close();
+            app.formWizard();
+            app.chartJs();
+            app.weather();
+            app.spinStart();
+            app.spinStop();
+            //##########################################################################################################################################################################################4500017331
+            //Administracion del TAB ###############################
+            $('#MyWizard').wizard()
+             .on('actionclicked.fu.wizard', function (e, data) {
+                 var OC;
+                 var opcion = data.step;
+                 var direccion = data.direction;
+                 if (direccion == "next") {
+                     switch (opcion) {
+                         case 1:
+                             $("#XMLyaCargado").hide();
+                             $(document).ajaxStart(
+                                   $.blockUI({
+                                       message: '<h1><img src="' + loading + '" /> Buscando XML...</h1>',
+                                       css: {
+                                           border: 'none',
+                                           padding: '15px',
+                                           backgroundColor: '#000',
+                                           '-webkit-border-radius': '10px',
+                                           '-moz-border-radius': '10px',
+                                           opacity: .5,
+                                           color: '#fff'
+                                       }
+                                   }))
+                                   .ajaxSend(
+                                       $.blockUI({
+                                           message: '<h1><img src="' + loading + '" /> Buscando XML...</h1>',
+                                           css: {
+                                               border: 'none',
+                                               padding: '15px',
+                                               backgroundColor: '#000',
+                                               '-webkit-border-radius': '10px',
+                                               '-moz-border-radius': '10px',
+                                               opacity: .5,
+                                               color: '#fff'
+                                           }
+                                       }))
+                                   .ajaxError($.unblockUI)
+                                   .ajaxComplete($.unblockUI)
+                                   .ajaxStop($.unblockUI);
+
+                             //Revisaremos si ya tiene un XML cargado previamente
+                             $("#ControlesCargaXML").hide();
+                             var oc=$("#NoOrdenCompra")[0].value;
+                             $.ajax({
+                                 type: "post",
+                                 data: { 'oc': oc },
+                                 url: url_dir + '/MigoMiro/ExisteXML',
+                                 cache: false,
+                                 success: function (existeXML) {
+                                     if(existeXML==true)
+                                     {
+                                         // Se ocultan controles de carga de XML
+                                         $("#XMLyaCargado").show();
+                                         $("#ControlesCargaXML").hide();
+                                     }
+                                     else
+                                     {
+                                         // Se muestran controles de carga de XML
+                                         $("#XMLyaCargado").hide();
+                                         $("#ControlesCargaXML").show();
+                                     }
+                                 }
+                             });
+                             break;
+                         case 2:
+
+                             //document.getElementById('gauge-text').textContent='0.0';
+                             //document.getElementById('goal-text').innerHTML='$0.0';
+                             //document.getElementById('ImporteOrdenCompra').innerHTML='Cargando..';
+                             //document.getElementById('ImporteFactura').innerHTML='Cargando...';
+                             //document.getElementById('diferenciaOCFact').innerHTML='';
+                             //document.getElementById('MensajeOrdenvsFactura').innerHTML='Calculando...';
+
+
+                             var oc = $("#NoOrdenCompra")[0].value;
+                             $(document).ajaxStart(
+                                                $.blockUI({
+                                                    message: '<h1><img src="' + loading + '" /> Importes analizados...</h1>',
+                                                    css: {
+                                                        border: 'none',
+                                                        padding: '15px',
+                                                        backgroundColor: '#000',
+                                                        '-webkit-border-radius': '10px',
+                                                        '-moz-border-radius': '10px',
+                                                        opacity: .5,
+                                                        color: '#fff'
+                                                    }
+                                                }))
+                                                .ajaxSend(
+                                                    $.blockUI({
+                                                        message: '<h1><img src="' + loading + '" /> Comparando importes ...</h1>',
+                                                        css: {
+                                                            border: 'none',
+                                                            padding: '15px',
+                                                            backgroundColor: '#000',
+                                                            '-webkit-border-radius': '10px',
+                                                            '-moz-border-radius': '10px',
+                                                            opacity: .5,
+                                                            color: '#fff'
+                                                        }
+                                                    }))
+                                                .ajaxError($.unblockUI)
+                                                .ajaxComplete($.unblockUI)
+                                                .ajaxStop($.unblockUI);
+
+                             //Tengo permiso de continuar?
+                             $.ajax({
+                                 type: "post",
+                                 url: url_dir + '/MigoMiro/soloUsuariosInternos',
+                                 data: { 'oc': oc },
+                                 cache: false,
+                                 success: function (lista) {
+                                     if(lista!=null)
+                                     {
+                                         if(lista.Key!=true)
+                                         {
+                                             showErrorMessage(lista.Value);
+                                             $('#MyWizard').wizard('selectedItem', { step: 1 });
+                                         }
+                                         else
+                                         {
+                                             showSuccess(lista.Value);
+                                             //  REVISANDO    X   M    L        EN LINEA
+                                             //Visor del XML
+                                             $.ajax({
+                                                 type: "post",
+                                                 data: { 'oc': oc },
+                                                 url: url_dir + '/MigoMiro/VerOnlineXML',
+                                                 cache: false,
+                                                 success: function (verXML) {
+                                                     if (verXML.length != 0) {
+                                                         // Se ocultan controles de carga de XML
+                                                         //$("#XMLyaCargado").show();
+                                                         //$("#ControlesCargaXML").hide();
+                                                         var resultado = verXML[0];
+                                                         //cargaGrafico();
+                                                         if (resultado == 'True') {
+                                                             var factura = verXML[1];
+                                                             var orden = verXML[2];
+                                                             var folio = verXML[3];
+                                                             //Pasar valores a Span
+                                                             document.getElementById('gauge-text').textContent = factura;
+                                                             document.getElementById('goal-text').innerHTML = orden;
+                                                             orden = orden.replace("$", "");
+                                                             factura = factura.replace("$", "");
+                                                             var diferencia = parseFloat(orden) - parseFloat(factura);
+                                                             document.getElementById('ImporteOrdenCompra').innerHTML = oc;
+                                                             document.getElementById('txtOrdenCompra').innerHTML = oc;
+                                                             document.getElementById('ImporteFactura').innerHTML = folio;
+                                                             var signo = '';
+                                                             if (factura > orden) {
+                                                                 signo = ' +';
+                                                             }
+                                                             else {
+                                                                 signo = '';
+                                                             }
+                                                             document.getElementById('diferenciaOCFact').innerHTML = '$' + signo + String(parseFloat(String(diferencia)).toFixed(2));
+                                                             document.getElementById('MensajeOrdenvsFactura').innerHTML = 'Existe diferencia en los importes';
+                                                         }
+                                                     }
+                                                     else {
+                                                         //Error recuperando la informacion
+                                                     }
+                                                 }
+                                             });
+                                             //  REVISANDO    X   M    L         EN LINEA
+                                         }
+                                     }
+                                 },
+                                 error: function (error) {
+                                 }
+                             });
+
+
+                             break;
+                         case 4:
+                             $(document).ajaxStart(
+                                    $.blockUI({
+                                        message: '<h1><img src="' + loading + '" /> Procesando verificación ...</h1>',
+                                        css: {
+                                            border: 'none',
+                                            padding: '15px',
+                                            backgroundColor: '#000',
+                                            '-webkit-border-radius': '10px',
+                                            '-moz-border-radius': '10px',
+                                            opacity: .5,
+                                            color: '#fff'
+                                        }
+                                    }))
+                                    .ajaxSend(
+                                        $.blockUI({
+                                            message: '<h1><img src="' + loading + '" /> Procesando verificación ... </h1>',
+                                            css: {
+                                                border: 'none',
+                                                padding: '15px',
+                                                backgroundColor: '#000',
+                                                '-webkit-border-radius': '10px',
+                                                '-moz-border-radius': '10px',
+                                                opacity: .5,
+                                                color: '#fff'
+                                            }
+                                        }))
+                                    .ajaxError($.unblockUI)
+                                    .ajaxComplete($.unblockUI)
+                                    .ajaxStop($.unblockUI);
+
+
+                             break;
+                         case 5:
+
+                             var oc=$("#NoOrdenCompra")[0].value;
+                             var tipo = true;//$('#checkTipo')["0"].checked;
+                             var norecepcion= validaCantidadaRecibir(tipo);
+                             $(document).ajaxStart(
+                                   $.blockUI({
+                                       message: '<h1><img src="' + loading + '" /> Recuperando info...</h1>',
+                                       css: {
+                                           border: 'none',
+                                           padding: '15px',
+                                           backgroundColor: '#000',
+                                           '-webkit-border-radius': '10px',
+                                           '-moz-border-radius': '10px',
+                                           opacity: .5,
+                                           color: '#fff'
+                                       }
+                                   }))
+                                   .ajaxSend(
+                                       $.blockUI({
+                                           message: '<h1><img src="' + loading + '" /> Procesando...</h1>',
+                                           css: {
+                                               border: 'none',
+                                               padding: '15px',
+                                               backgroundColor: '#000',
+                                               '-webkit-border-radius': '10px',
+                                               '-moz-border-radius': '10px',
+                                               opacity: .5,
+                                               color: '#fff'
+                                           }
+                                       }))
+                                   .ajaxError($.unblockUI)
+                                   .ajaxComplete($.unblockUI)
+                                   .ajaxStop($.unblockUI);
+
+                             //Hardcore para la Orden 4500017331 : 0050000164
+                             //norecepcion='0050000164';
+                             servicio='AvanceObra';
+                             //Hardcore para la Orden 4500017331 : 0050000164
+                             if(norecepcion!='0')
+                             {
+                                 $.ajax({
+                                     type: "post",
+                                     data: { 'oc': oc,'norecepcion':norecepcion,'_servicio':servicio },
+                                     url: url_dir + '/MigoMiro/EntraVerifica',
+                                     cache: false,
+                                     success: function (verPasivo) {
+                                         if(verPasivo.length != 0)
+                                         {
+                                             var resultado=verPasivo[0];
+                                             if(resultado=='OK')
+                                             {
+                                                 var factura=verPasivo[1];
+                                                 var orden=verPasivo[2];
+                                                 var folio=verPasivo[3];
+                                                 showSuccess('Para la Orden de Compra '+orden+' la factura fue verificada, '+folio);
+                                             }
+                                         }
+                                         else
+                                         {
+                                             //Error recuperando la informacion
+                                         }
+                                     }
+                                 });
+                             }
+
+                             break;
+                         case 3:
+
+                             var oc=$("#NoOrdenCompra")[0].value;
+
+                             $(document).ajaxStart(
+                                    $.blockUI({
+                                        message: '<h1><img src="' + loading + '" /> Iniciando Workflow ...</h1>',
+                                        css: {
+                                            border: 'none',
+                                            padding: '15px',
+                                            backgroundColor: '#000',
+                                            '-webkit-border-radius': '10px',
+                                            '-moz-border-radius': '10px',
+                                            opacity: .5,
+                                            color: '#fff'
+                                        }
+                                    }))
+                                    .ajaxSend(
+                                        $.blockUI({
+                                            message: '<h1><img src="' + loading + '" />Iniciando Workflow ... </h1>',
+                                            css: {
+                                                border: 'none',
+                                                padding: '15px',
+                                                backgroundColor: '#000',
+                                                '-webkit-border-radius': '10px',
+                                                '-moz-border-radius': '10px',
+                                                opacity: .5,
+                                                color: '#fff'
+                                            }
+                                        }))
+                                    .ajaxError($.unblockUI)
+                                    .ajaxComplete($.unblockUI)
+                                    .ajaxStop($.unblockUI);
+
+                             $.ajax({
+                                 type: "post",
+                                 data: { 'oc': oc },
+                                 url: url_dir + '/MigoMiro/pasandoTab',
+                                 cache: false,
+                                 success: function (resultpasando1) {
+                                     if(resultpasando1.length != 0)
+                                     {
+
+                                     }
+                                 }
+                             });
+
+                             break;
+                         default:
+                     }
+                 }
+                 else if (direccion == "previous") {
+                     $("#InfoAcordion").attr("data-toggle", "collapse");
+                     $("#InfoAcordion").attr("aria-expanded", false);
+                     $("#NotasAcordion").attr("data-toggle", "collapse");
+                     $("#NotasAcordion").attr("aria-expanded", false);
+                     $("#RecepAcordion").attr("data-toggle", "collapse");
+                     $("#RecepAcordion").attr("aria-expanded", false);
+                     $("#collapseOne").attr("aria-expanded", false);
+                     $("#collapseOne").removeClass().addClass("panel-collapse collapse");
+                     $("#collapseTwo").attr("aria-expanded", false);
+                     $("#collapseTwo").removeClass().addClass("panel-collapse collapse");
+                     $("#collapseThree").attr("aria-expanded", false);
+                     $("#collapseThree").removeClass().addClass("panel-collapse collapse");
+                     $("#btnSeleccionarTodo").click();
+                 }
+             });
+            //Administracion del TAB ###############################
+
+            //Seleccionando todos los renglones al inicio #############
+            var grid = $('#GridDetalle_OrdenCompra').data('kendoGrid');
+
+            grid.bind('dataBound', function (e) {
+                $.each(grid.tbody.find('tr'), function () {
+                    var model = grid.dataItem(this);
+                    if (model.Posicion_OC != "00000") {
+
+                        //alguna condicion va aqui
+                        $('[data-uid=' + model.uid + ']').addClass('k-state-selected');
+                        $('#checkTipo')["0"].checked = false;
+
+                    }
+                });
+            });
+            //Seleccionando todos los renglones al inicio ############
+
+            //Carga y verifica la factura ############################
+            var exists = dropzoneExists('div#zonaCargaFactura');
+            if (exists) return;
+            zona1 = app.zonaCargaDoc("#zonaCargaFactura", "text/xml, application/pdf, application/zip", url_dir + "@Url.Action("SubirFactura", "MigoMiro")", false);
+            zona1.on("success", function (file, response) {
+
+                $.ajax({
+                    type: "post",
+                    url: url_dir + "/MigoMiro/ResultadoFactura",
+                    cache: false,
+                    success: function (obj) {
+                        facturaCargada = true;
+                        if (typeof (obj) == "string") {
+                            $("#btnCerrarFactura").click();
+                            $("#cuerpoMensaje").html(obj);
+                            $("#btnMensaje").click();
+                        }
+                        else {
+                            var cadenaElementos = "";
+                            for (var i = 0; i < obj.elementos.length; i++) {
+                                cadenaElementos += obj.elementos[i];
+                            }
+                            //CargarRecepciones(false);
+                            showSuccess('¡Hemos recibido y almacenado su Factura XML!');
+                            $("#div1").html(cadenaElementos);
+                            $("#btnCerrarFactura").click();
+                            $("#btnAbrirCargaNotas").css("display", "block");
+                            $("#RecepAcordion").click();
+                            lsMensajes = obj.mensajes;
+                            if (lsMensajes.length > 0) {
+                                $("#InfoAcordion").click();
+
+                                var oc = $("#NoOrdenCompra")[0].value;
+                                $.ajax({
+                                    type: "post",
+                                    url: url_dir + '/MigoMiro/soloUsuariosInternos',
+                                    data: { 'oc': oc },
+                                    cache: false,
+                                    success: function (lista) {
+                                    },
+                                    error: function (error) {
+                                    }
+                                });
+
+                            }
+                        }
+                    }
+                });
+
+            });
+
+
+            //Carga y verifica la factura ############################
+
+            //Botones de acción ###################################
+            $("#btnAnterior").click();
+
+            $("#btnYaXML").click(function (e) {
+                $('#MyWizard').wizard('selectedItem', {
+                    step: 3
+                });
+            });
+
+            $("#IniciarVerificacion").click(function (e) {
+                $('#MyWizard').wizard('selectedItem', {
+                    step: 5
+                });
+            });
+
+            $("#btnEliminarXML").click(function (e) {
+                var oc=$("#NoOrdenCompra")[0].value;
+                $.ajax({
+                    type: "post",
+                    data: { 'oc':oc},
+                    url: url_dir + '/MigoMiro/EliminarXML',
+                    cache: false,
+                    success: function (eliminacion) {
+                        if (eliminada==true) {
+                            showSuccess('Factura fue eliminada!');
+                        }
+                        else
+                        {
+                            showError('Factura NO fue eliminada!');
+                        }
+                    }
+                });
+            });
+
+
+            //Botones de acción ###################################}}
+
+            //#############################################
+
+            var popupNotification = $("#popupNotification").data("kendoNotification");
+            $("#showPopupNotification").click(function () {
+                var d = new Date();
+                popupNotification.show('No se encontraron resultados a la consulta o quizás ocurrio un problema de comunicación, reintente por favor. ' + kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+                return false;
+            });
+
+            var notification = $("#notification").data("kendoNotification");
+            $("#showSuccessNotification").click(function () {
+                notification.show({
+                    message: "Upload Successful"
+                }, "upload-success");
+                return false;
+            });
+
+            //#############################################
+
+            $("#btnCargarOC").click(function (e) {
+                disparaCargarOrdenCompra();
+            });
+
+            $("#btnFormularioCapturaLineaMercancia").click(function (e) {
+                disparaCargarLineaOrdenCompra();
+            });
+
+            $("#btnAprobarFlujo").click(function (e) {
+                var oc=$("#NoOrdenCompra")[0].value;
+                procesoWorkflow(oc,true);
+            });
+
+            $("#btnRechazarFlujo").click(function (e) {
+                var oc=$("#NoOrdenCompra")[0].value;
+                procesoWorkflow(oc,false);
+            });
+
+            jQuery('.numbersOnly').keyup(function () {
+                this.value = this.value.replace(/[^0-9\.]/g, '');
+            });
+
+            //##########################################################################################################################################################################################4500017331
+
+            app.chartJs();
+            app.spinStart();
+            app.spinStop();
+
+        }
+        );
+
+        function procesoWorkflow(oc,aprobacion)
+        {
+            $(document).ajaxStart(
+            $.blockUI({
+                message: '<h1><img src="' + loading + '" /> Historial autorizaciones...</h1>',
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            }))
+            .ajaxSend(
+                $.blockUI({
+                    message: '<h1><img src="' + loading + '" /> Cargando autorizaciones...</h1>',
+                    css: {
+                        border: 'none',
+                        padding: '15px',
+                        backgroundColor: '#000',
+                        '-webkit-border-radius': '10px',
+                        '-moz-border-radius': '10px',
+                        opacity: .5,
+                        color: '#fff'
+                    }
+                }))
+            .ajaxError($.unblockUI)
+            .ajaxComplete($.unblockUI)
+            .ajaxStop($.unblockUI);
+
+            $("#Like").hide();
+            $("#NoLike").hide();
+            $("#btndisparaVerificacion").hide();
+
+            $.ajax({
+                type: "post",
+                data: { 'oc': oc,'aprobacion':aprobacion },
+                url: url_dir + '/MigoMiro/procesoWorkflow',
+                cache: false,
+                success: function (resultWorkflow) {
+                    if(resultWorkflow.length != 0)
+                    {
+                        var resultado=resultWorkflow[0];
+                        if(resultado=='OK')
+                        {
+                            //EL flujo ha diso LIBERADO - Se INICIA proceso de Verificación
+                            $("#Like").show();
+                            $("#btndisparaVerificacion").show();
+                            $("#NoLike").hide();
+                            $("#observacionesWF").html('El flujo ha sido liberado,inicié el proceso de recepción de mercancias y recepción de la factura presionando "Finalizar" a continuación.');
+                        }
+                        else
+                        {
+                            if(resultado=='Error')
+                            {
+                                //EL flujo esta RECHAZADO - NO se avanza a verificación de la Factura
+                                var observaciones=resultWorkflow[1];
+                                $("#Like").hide();
+                                $("#NoLike").show();
+                                $("#observacionesWF").html('El flujo aún NO puede liberarse. '+observaciones);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //Error recuperando la informacion, Nos e recupero ningún dato del Controller
+                        $("#Like").hide();
+                        $("#NoLike").hide();
+                        $("#observacionesWF").html('Ocurrío un problema actualizando las aprobaciones o en la comunicación con el Portal, reintente por favor!. Detalles'+observaciones);
+                    }
+                }
+            });
+
+        }
+
+        function disparaVerificacion()
+        {
+            $('#MyWizard').wizard('selectedItem', {
+                step: 5
+            });
+            //procesoEntraVerifica();
+        }
+
+        function procesoEntraVerifica()
+        {
+
+            var oc=$("#NoOrdenCompra")[0].value;
+            var tipo= true; //$('#checkTipo')["0"].checked;
+            var norecepcion= validaCantidadaRecibir(tipo);
+
+            $(document).ajaxStart(
+                  $.blockUI({
+                      message: '<h1><img src="' + loading + '" /> Recuperando info...</h1>',
+                      css: {
+                          border: 'none',
+                          padding: '15px',
+                          backgroundColor: '#000',
+                          '-webkit-border-radius': '10px',
+                          '-moz-border-radius': '10px',
+                          opacity: .5,
+                          color: '#fff'
+                      }
+                  }))
+                  .ajaxSend(
+                      $.blockUI({
+                          message: '<h1><img src="' + loading + '" /> Recuperando info...</h1>',
+                          css: {
+                              border: 'none',
+                              padding: '15px',
+                              backgroundColor: '#000',
+                              '-webkit-border-radius': '10px',
+                              '-moz-border-radius': '10px',
+                              opacity: .5,
+                              color: '#fff'
+                          }
+                      }))
+                  .ajaxError($.unblockUI)
+                  .ajaxComplete($.unblockUI)
+                  .ajaxStop($.unblockUI);
+
+            //Hardcore para la Orden 4500017331 : 0050000164
+            //norecepcion='0050000164';
+            servicio = JSON.parse('@Html.Raw(Json.Encode(System.Web.HttpContext.Current.Session["nombreWF"]))');
+            //Hardcore para la Orden 4500017331 : 0050000164
+            if(norecepcion!='0')
+            {
+                $.ajax({
+                    type: "post",
+                    data: { 'oc': oc,'norecepcion':norecepcion,'_servicio':servicio },
+                    url: url_dir + '/MigoMiro/EntraVerifica',
+                    cache: false,
+                    success: function (verPasivo) {
+                        if(verPasivo.length != 0)
+                        {
+                            var resultado=verPasivo[0];
+                            if(resultado=='Ok')
+                            {
+                                var factura=verPasivo[1];
+                                var orden=verPasivo[2];
+                                var folio=verPasivo[3];
+                                showSuccess('Factura verificada!');
+                            }
+                        }
+                        else
+                        {
+                            //Error recuperando la informacion
+                        }
+                    }
+                });
+
+            }
+
+        }
+
+        function dropzoneExists(selector) {
+            var elements = $(selector).find('.dz-default');
+            return elements.length > 0;
+        }
+
+        function disparaCargarOrdenCompra() {
+            $("#panelNoOrdenCompra").hide();
+            var ordenCompra = document.getElementById('OrdenCompra').value;
+            $(document).ajaxStart(
+                      $.blockUI({
+                          message: '<h1><img src="' + loading + '" /> Buscando Orden...</h1>',
+                          css: {
+                              border: 'none',
+                              padding: '15px',
+                              backgroundColor: '#000',
+                              '-webkit-border-radius': '10px',
+                              '-moz-border-radius': '10px',
+                              opacity: .5,
+                              color: '#fff'
+                          }
+                      }))
+                      .ajaxSend(
+                          $.blockUI({
+                              message: '<h1><img src="' + loading + '" /> Buscando Orden...</h1>',
+                              css: {
+                                  border: 'none',
+                                  padding: '15px',
+                                  backgroundColor: '#000',
+                                  '-webkit-border-radius': '10px',
+                                  '-moz-border-radius': '10px',
+                                  opacity: .5,
+                                  color: '#fff'
+                              }
+                          }))
+                      .ajaxError($.unblockUI)
+                      .ajaxComplete($.unblockUI)
+                      .ajaxStop($.unblockUI);
+
+            $.ajax
+          (
+             {
+                 type: "post",
+                 url: url_dir + '/MigoMiro/cargaOrdenCompra',
+                 data: { 'ordenCompra': ordenCompra },
+                 cache: false,
+                 success: function (listaOC) {
+                     if (listaOC.length == 0) {
+                         showErrorMessage('La orden capturada no existe.');
+                         $("#GridDetalle_OrdenCompra").data("kendoGrid").dataSource.data([]);
+                     }
+                     else {
+                         CargarGrid(listaOC, 'Detalle_OrdenCompra');
+                         showSuccess('La orden existe y su información esta en pantalla.');
+                         $('#OrdenCompra').val('');
+                         $("#NoOrdenCompra").prop('value', ordenCompra);
+                         var nombreFlujo = JSON.parse('@Html.Raw(Json.Encode(System.Web.HttpContext.Current.Session["nombreWF"]))');
+                         $("#NoOrdenCompra").html('Información de la orden de compra ' + ordenCompra + ' relacionado a un Workflow de ' + nombreFlujo);
+                         $("#panelNoOrdenCompra").show();
+                         $("#GridlineasOrdenCompra").show();
+                     }
+         }
+        }
+     );
+  }
+
+function cargaGridVistaPrevia()
+{
+    var oc = $("#NoOrdenCompra")[0].value;
+    $.ajax
+  (
+         {
+             type: "post",
+             url: url_dir + '/MigoMiro/cargaVistaPreviaOrdenCompra',
+             data: { 'ordenCompra': oc },
+             cache: false,
+             success: function (listaOC) {
+                 if (listaOC.length == 0) {
+                     showErrorMessage('La orden capturada no existe.');
+                     $("#GridVistaPreviaOrdenCompra").data("kendoGrid").dataSource.data([]);
+                 }
+                 else {
+                     CargarGrid(listaOC, 'VistaPreviaOrdenCompra');
+                     showSuccess('La(s) línea(s) específica(s) selecionada(s) a procesar se están mostrando en pantalla.');
+                     @*$('#OrdenCompra').val('');
+                     $("#NoOrdenCompra").prop('value', ordenCompra);
+                     var nombreFlujo = JSON.parse('@Html.Raw(Json.Encode(System.Web.HttpContext.Current.Session["nombreWF"]))');
+                     $("#NoOrdenCompra").html('Información de la orden de compra ' + ordenCompra + ' relacionado a un Workflow de ' + nombreFlujo);
+                     $("#panelNoOrdenCompra").show();
+                     $("#GridlineasOrdenCompra").show();*@
+                 }
+             }
+         }
+    );
+}
+
+      function disparaCargarLineaOrdenCompra() {
+
+      }
+
+      function CargarGrid(lista, namegrid) {
+       if (namegrid == 'Detalle_OrdenCompra')
+           var grid = $("#GridDetalle_OrdenCompra").data("kendoGrid");
+       else
+       {
+           if (namegrid == 'VistaPreviaOrdenCompra')
+               var grid = $("#GridVistaPreviaOrdenCompra").data("kendoGrid");
+       }
+
+       var dataSource = new kendo.data.DataSource(
+            {
+             data: lista,
+             pageSize: 20
+            });
+       grid.setDataSource(dataSource);
+       grid.refresh();
+      }
+
+      function dgChange() {
+       //Captura todos los renglones seleccionados
+       var grid = $('#GridDetalle_OrdenCompra').data('kendoGrid');
+       var rows = grid.select();
+       rows.each(
+           function () {
+            var noRow = this.cells[0].innerText;
+            $('#lblNombreMaterial').text(this.cells[1].innerText);
+            $('#lblPosicion').text('Posicion: ' + this.cells[2].innerText);
+            $('#lblCantidad').text('Cantidad: ' + this.cells[3].innerText);
+            $('#lblImporte').text('Importe: ' + this.cells[4].innerText);
+            $('#lblUnidadMedida').text('U. de medida: ' + this.cells[6].innerText);
+            $('#lblNoCompras').text('No. Compras: ' + this.cells[7].innerText);
+            $('#lblNoMaterial').text('No. Material: ' + this.cells[8].innerText);
+            if ($('#checkTipo')["0"].checked == true) {
+             $("#divCantidad").hide();
+             $("#divRecepcionCompleta").show();
+            }
+            else {
+             $("#divCantidad").show();
+             $("#divRecepcionCompleta").hide();
+            }
+            var ordenCompra = $("#NoOrdenCompra")[0].value;
+            //Tomando nota que posicion desea procesar PARCIALMENTE
+            $.ajax({
+                type: "post",
+                url: url_dir + '/MigoMiro/addProcesables',
+                data: { 'posGrid': this.cells[2].innerText, 'oc': ordenCompra },
+                cache: false,
+                success: function (exitosa) {
+
+                 },
+                error: function (error) {
+
+                }
+            });
+
+            //Solo si se desea ejercer un aacción al tocar una línea del Grid
+            //$("#btnFormularioCapturaLineaMercancia").click();
+            //------
+           }
+       )
+
+      }
+
+      function validaCantidadaRecibir( _tipo) {
+       var modo = '';
+       var tipo = _tipo
+       var var1;
+       var var2;
+       var Solicitado;
+       var Capturado;
+       var porIngresar;
+       var norecepcion='0';
+
+       if (tipo == true) {
+        modo = 'Completa';
+        porIngresar = 0;
+       }
+       else {
+           modo = 'Parcial';
+
+        var1 = $('#lblCantidad').text();
+        var2 = document.getElementById('inputEmail3').value;
+        Solicitado = parseFloat(var1.replace('Cantidad:', ''));
+        Capturado = parseFloat(var2);
+        porIngresar = Solicitado - Capturado;
+       }
+
+       if (porIngresar < 0) {
+                   //ERROR
+                   showErrorMessage('La cantidad que desea Recepcionar no es válida, verifique por favor!.')
+                 }
+             else {
+             //LA CANTIDAD ES VALIDA
+             //alert('La cantidad es válida');
+             var posicion = $('#lblPosicion').text();
+            //############### INICIA PROCESO DISPARO DE MIGO
+
+            $(document).ajaxStart(
+                  $.blockUI({
+                      message: '<h1><img src="' + loading + '" /> Recepcionando...</h1>',
+                      css: {
+                          border: 'none',
+                          padding: '15px',
+                          backgroundColor: '#000',
+                          '-webkit-border-radius': '10px',
+                          '-moz-border-radius': '10px',
+                          opacity: .5,
+                          color: '#fff'
+                      }
+                  }))
+                  .ajaxSend(
+                      $.blockUI({
+                          message: '<h1><img src="' + loading + '" /> Recepcionando...</h1>',
+                          css: {
+                              border: 'none',
+                              padding: '15px',
+                              backgroundColor: '#000',
+                              '-webkit-border-radius': '10px',
+                              '-moz-border-radius': '10px',
+                              opacity: .5,
+                              color: '#fff'
+                          }
+                      }))
+                  .ajaxError($.unblockUI)
+                  .ajaxComplete($.unblockUI)
+                  .ajaxStop($.unblockUI);
+
+            $.ajax
+                     (
+                      {
+                          type: "post",
+                          url: url_dir + '/MigoMiro/disparaMIGO',
+                          data: { 'posicion': posicion, 'poringresar': Capturado, 'modo': modo },
+                          cache: false,
+                          success: function (listaMIGO) {
+                              if (listaMIGO.length == 0) {
+                                  showErrorMessage('Ocurrío un problema, no fue posible hacer la Recepción.');
+                                  showErrorMessage('El mensaje final muestra los detalles desde SAP.');
+                              }
+                              else {
+                                  try {
+                                      if (listaMIGO.includes("javascript:showErrorMessage") == false) {
+                                          CargarGrid(listaMIGO, 'Detalle_OrdenCompra');
+                                          norecepcion=listaMIGO[0].Numero_Recepcion;
+                                          showSuccess('La(s) linea(s) capturada(s) han sido correctamente Recepcionadas para la orden de compra ' + listaMIGO[0].OrdenCompra + '.');
+                                      }
+                                      else {
+                                          showErrorMessage('Ocurrío un problema y no fue posible ninguna Recepción');
+                                          showErrorMessage('Presione el botón inferior de Chat Soporte para obtener ayuda.');
+                                          showErrorMessage('Llame a su Comprador o  a su contacto en Cuentas por Pagar/ Finanzas.');
+                                      }
+                                  }
+                                  catch (err) {
+
+                                  }
+                              }
+                          }
+                      }
+                     );
+            //############### INICIA PROCESO DISPARO DE MIGO
+        }
+        return norecepcion;
+        }
+
+        function cargaGrafico()
+        {
+            var ctx = document.getElementById("myChart").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [12, 19, 3, 5, 2, 3],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+
+        function onShow(e) {
+            if (!$("." + e.sender._guid)[1]) {
+                var element = e.element.parent(),
+                  eWidth = element.width(),
+                  eHeight = element.height(),
+                  wWidth = $(window).width(),
+                  wHeight = $(window).height(),
+                  newTop, newLeft;
+
+                newLeft = Math.floor(wWidth / 2 - eWidth / 2);
+                newTop = Math.floor(wHeight / 2 - eHeight / 2);
+
+                e.element.parent().css({ top: newTop, left: newLeft });
+            }
+        }
+
+
+</script>
+
+<!--Sección configuración de Window Telerik Orden de Compra-->
+<script>
+    function onClose() {
+        $("#undo").show();
+    }
+
+    $(document).ready(function() {
+        $("#undo").bind("click", function() {
+                $("#window").data("kendoWindow").center().open();
+                $("#undo").hide();
+            });
+    });
+
+</script>
+
+        <style>
+            #example {
+                min-height: 100px;
+            }
+
+            #undo {
+                text-align: center;
+                position: absolute;
+                white-space: nowrap;
+                padding: 1em;
+                cursor: pointer;
+            }
+
+            .armchair {
+                float: left;
+                margin: 30px 30px 120px 30px;
+                text-align: center;
+            }
+
+                .armchair img {
+                    display: block;
+                    margin-bottom: 10px;
+                }
+
+            .k-window-content p {
+                margin-bottom: 1em;
+            }
+
+            .k-window-content a {
+                color: #BBB;
+            }
+
+            @@media screen and (max-width: 1023px) {
+                div.k-window {
+                    display: none !important;
+                }
+            }
+        </style>
+
+<!---->
+
+}
+

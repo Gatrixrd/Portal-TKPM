@@ -1,0 +1,66 @@
+﻿@model ClickFactura_Entidades.BD.Entidades.Cat_TipoUsuarioWF
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Cat_TipoUsuarioWF</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idWF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idWF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombreRol)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreRol)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idPadre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idPadre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idHijo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idHijo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.activo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.relevanciaJerarquica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.relevanciaJerarquica)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idTipoUsuarioWF }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

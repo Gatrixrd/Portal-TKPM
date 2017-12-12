@@ -1,0 +1,112 @@
+﻿@model IEnumerable<ClickFactura_Entidades.BD.Entidades.Cat_UsuariosWF>
+
+@{
+    ViewBag.Title = "Usuarios para Workflow";
+}
+
+<script type="text/javascript">
+        @{ ClickFactura_Entidades.BD.Entidades.Desarrollo_CF _db = new ClickFactura_Entidades.BD.Entidades.Desarrollo_CF();}
+        @{int idWF = 0;}
+        @{int idTipo = 0;}
+        @{string nombreProceso = "";}
+        $(document).ready(function () {
+                                                               });
+</script>
+<div class="pageheader">
+    <h2>Usuarios para Workflow´s</h2>
+    <p>
+        @Html.ActionLink("Crear nuevo usuario", "Create")
+    </p>
+</div>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.idTipoUsuarioWF)*@
+            @Html.Label("Tipo de usuario", htmlAttributes: new { @class = "control-label col-md-8" })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.nombre)*@
+            @Html.Label("Nombre usuario", htmlAttributes: new { @class = "control-label col-md-8" })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.correo)*@
+            @Html.Label("Correo", htmlAttributes: new { @class = "control-label col-md-8" })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.centroCostos)*@
+            @Html.Label("Centro de Costos", htmlAttributes: new { @class = "control-label col-md-8" })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.idUsuarioPortal)*@
+            @Html.Label("Enlazado a usuario portal", htmlAttributes: new { @class = "control-label col-md-4" })
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.idTipoUsuarioWF)*@
+            @{
+                List<KeyValuePair<string, string>> respuestaAux = new List<KeyValuePair<string, string>>();
+                List<ClickFactura_Entidades.BD.Entidades.Cat_TipoUsuarioWF> _ProcesoWF = _db.Cat_TipoUsuarioWF.ToList();
+                foreach (ClickFactura_Entidades.BD.Entidades.Cat_TipoUsuarioWF wf in _ProcesoWF)
+                {
+                    string key = wf.idTipoUsuarioWF.ToString();
+                    string value = wf.nombreRol.ToString();
+                    respuestaAux.Add(new KeyValuePair<string, string>(key, value));
+                }
+                IEnumerable<SelectListItem> CategorySelectListAux = respuestaAux.Select(x => new SelectListItem() { Text = x.Value.Trim(), Value = x.Key.Trim() });
+                foreach (var _p in CategorySelectListAux)
+                {
+                    if (item.idTipoUsuarioWF.ToString().Trim().Equals(_p.Value.ToString().Trim()) == true)
+                    {
+                        nombreProceso = _p.Text;
+                    }
+                }
+            }
+            @Html.Label(nombreProceso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.correo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.centroCostos)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.idUsuarioPortal)*@
+            @{
+                List<KeyValuePair<string, string>> respuestaP = new List<KeyValuePair<string, string>>();
+                List<ClickFactura_Entidades.BD.Entidades.Cat_Usuario> _ProcesoWFP = _db.Cat_Usuario.ToList();
+                foreach (ClickFactura_Entidades.BD.Entidades.Cat_Usuario wf in _ProcesoWFP)
+                {
+                    string key = wf.IdUsuario.ToString();
+                    string value = wf.Usuario.ToString();
+                    respuestaP.Add(new KeyValuePair<string, string>(key, value));
+                }
+                IEnumerable<SelectListItem> CategorySelectListP = respuestaP.Select(x => new SelectListItem() { Text = x.Value.Trim(), Value = x.Key.Trim() });
+                foreach (var _p in CategorySelectListP)
+                {
+                    if (item.idUsuarioPortal.ToString().Trim().Equals(_p.Value.ToString().Trim()) == true)
+                    {
+                        nombreProceso = _p.Text;
+                    }
+                }
+            }
+            @Html.Label(nombreProceso)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.idUsuarioWF }) |
+            @*@Html.ActionLink("Detalles", "Details", new { id=item.idUsuarioWF }) |*@
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.idUsuarioWF })
+        </td>
+    </tr>
+}
+
+</table>

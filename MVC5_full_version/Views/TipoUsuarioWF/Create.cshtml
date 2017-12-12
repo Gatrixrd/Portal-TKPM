@@ -1,0 +1,266 @@
+﻿@model ClickFactura_Entidades.BD.Entidades.Cat_TipoUsuarioWF
+
+@{
+    ViewBag.Title = "Crear Tipo de Usuario";
+}
+<div class="pageheader">
+    <h2>Registrar nuevo tipo</h2>
+    <h4>Ponga especial atención al proceso workflow al que lo enlazará, quién será su Superior, pero sobre todo el porcentaje de liberación que se le asigna pues si esté satisface el mínimo requerido por un workflow determinará si lo liberá o nó.</h4>
+</div>
+<script type="text/javascript">
+    @{ClickFactura_Entidades.BD.Entidades.Desarrollo_CF db = new ClickFactura_Entidades.BD.Entidades.Desarrollo_CF();}
+     @{int idWF = 0;}
+     $(document).ready(function ()
+            {
+                                $("#identificaWorkflow").click();
+             });
+     $("#asignaWorkflow").click(function (e) {
+         cargaWF();
+     });
+    function cargaWF()
+     {
+
+        var id = idWF;
+        var options = $("#PadreWF");
+        $.ajax({
+            type: "post",
+            url: url_dir + '/TipoUsuarioWF/estableceWF',
+            data: { 'id': id},
+            cache: false,
+            success: function (data) {
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        var optionString = '<option value="' + data[i].Value + '">' + data[i].Text + ' </option>';
+                        options.append($(optionString));
+                    }
+                }
+            },
+            error: function (error) {
+            }
+        });
+    }
+
+    function fijaWorkflow(val)
+    {
+        idWF = val;
+    }
+</script>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.nombreRol, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Nombre del Rol ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.nombreRol, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nombreRol, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@{
+                ClickFactura_Entidades.BD.Entidades.Desarrollo_CF db = new ClickFactura_Entidades.BD.Entidades.Desarrollo_CF();
+                List<KeyValuePair<string, string>> respuestaP = new List<KeyValuePair<string, string>>();
+                List<ClickFactura_Entidades.BD.Entidades.Cat_TipoUsuarioWF> Padres = db.Cat_TipoUsuarioWF.ToList();
+                string flujoSeleccionado = (string)ViewData["idWF"];
+                string keyP = "0";
+                string valueP = "Ninguno";
+                if (Padres.Count() == 0)
+                {
+                    keyP = "0";
+                    valueP = "Es el primero";
+                    respuestaP.Add(new KeyValuePair<string, string>(keyP, valueP));
+                }
+                else
+                {
+                    if (flujoSeleccionado != null)
+                          { 
+                            foreach (ClickFactura_Entidades.BD.Entidades.Cat_TipoUsuarioWF wf in Padres)
+                            {
+                                    if (wf.idWF.Trim().ToString().Equals(flujoSeleccionado) == true)
+                                    {
+                                        keyP = wf.idTipoUsuarioWF.ToString();
+                                        valueP = wf.nombreRol.ToString();
+                                        short? _mitipo = wf.idTipoUsuarioWF;
+                                        var porcentaje = from todos in Padres where todos.idTipoUsuarioWF == _mitipo select todos;
+                                        if (porcentaje != null)
+                                        {
+                                            if (porcentaje.Count() > 0)
+                                            {
+                                                var p = porcentaje.ToArray();
+                                                ViewData["PorcentajeMayor"] = Convert.ToDouble(p[0].relevanciaJerarquica);
+                                            }
+                                        }
+                                    }
+                                }
+                                respuestaP.Add(new KeyValuePair<string, string>(keyP, valueP));
+                          }
+                }
+                IEnumerable<SelectListItem> CategorySelectListP = respuestaP.Select(x => new SelectListItem() { Text = x.Value.Trim(), Value = x.Key.Trim() });
+            }*@
+
+            @Html.Label("Superior asignado", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                <select id="PadreWF" onchange="pasaUsuario(this.value)"></select>
+                @*@Html.DropDownList("PadreWF", CategorySelectListP, "Nadie me supervisa")*@
+            </div>
+        </div>
+
+  <div class="form-group">
+            @*@Html.LabelFor(model => model.idHijo, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                @{
+                    ClickFactura_Entidades.BD.Entidades.Desarrollo_CF dB = new ClickFactura_Entidades.BD.Entidades.Desarrollo_CF();
+                    List<KeyValuePair<string, string>> respuestaH = new List<KeyValuePair<string, string>>();
+                    List<ClickFactura_Entidades.BD.Entidades.Cat_TipoUsuarioWF> Hijos = dB.Cat_TipoUsuarioWF.ToList();
+                    string keyH = "0";
+                    string valueH = "Ninguno";
+                    if (Hijos.Count() == 0)
+                    {
+                        keyH = "0";
+                        valueH = "Es el primero";
+                        respuestaH.Add(new KeyValuePair<string, string>(keyH, valueH));
+                    }
+                    else
+                    {
+                        foreach (ClickFactura_Entidades.BD.Entidades.Cat_TipoUsuarioWF wf in Hijos)
+                        {
+                            keyH = wf.idTipoUsuarioWF.ToString();
+                            valueH = wf.nombreRol.ToString();
+                            short? _mitipo = wf.idTipoUsuarioWF;
+                            var porcentajeH = from todos in Hijos where todos.idTipoUsuarioWF == _mitipo select todos;
+                            if (porcentajeH != null)
+                            {
+                                if (porcentajeH.Count() > 0)
+                                {
+                                    try
+                                    {
+                                        if ((double)ViewData["PorcentajeMayor"] < 100)
+                                        {
+                                            var p = porcentajeH.ToArray();
+                                            double acu = Convert.ToDouble(ViewData["PorcentajeMayor"]);
+                                            ViewData["PorcentajeMayor"] = acu + Convert.ToDouble(p[0].relevanciaJerarquica);
+                                        }
+                                        else
+                                        {
+                                            ViewData["PorcentajeMayor"] = "ND";
+                                        }
+                                    }
+                                    catch
+                                    {
+                                        ViewData["PorcentajeMayor"] = "100";
+                                    }
+                                }
+                            }
+                        }
+
+                        respuestaH.Add(new KeyValuePair<string, string>(keyH, valueH));
+                    }
+                    IEnumerable<SelectListItem> CategorySelectListH = respuestaH.Select(x => new SelectListItem() { Text = x.Value.Trim(), Value = x.Key.Trim() });
+                }
+                @*@Html.EditorFor(model => model.idHijo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.idHijo, "", new { @class = "text-danger" })*@
+                @*@Html.DropDownList("HijoWF", CategorySelectListH, "No superviso a  nadie")*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.activo, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Activo ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.activo)
+                    @Html.ValidationMessageFor(model => model.activo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Hidden("porcentajeFaltante",0)
+            @*@Html.LabelFor(model => model.relevanciaJerarquica, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("% de aprobación asignado ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-1">
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                            $(function()
+                            {
+                                    var acumulado=JSON.parse('@Html.Raw(Json.Encode(ViewData["PorcentajeMayor"]))');
+                                    var disponible = 100 - acumulado;
+                                    JSON.parse('@Html.Raw(Json.Encode(ViewData["PorcentajeMayor"]))')= disponible;
+                                });
+                    });
+                </script>
+                @Html.EditorFor(model => model.relevanciaJerarquica, new { htmlAttributes = new { @class = "form-control" ,@Id="rj", @Value= ViewData["PorcentajeMayor"] } })
+                @Html.ValidationMessageFor(model => model.relevanciaJerarquica, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver al listado", "Index")
+</div>
+
+<!-- Basic Modal -->
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Indique el Workflow</h4>
+            </div>
+            <div class="modal-body">
+                <p>Especifíque sobre que proceso o Workflow agregará el nuevo tipo de usuario&hellip;</p>
+
+                <div class="form-group">
+                    @{
+                        ClickFactura_Entidades.BD.Entidades.Desarrollo_CF _db = new ClickFactura_Entidades.BD.Entidades.Desarrollo_CF();
+                        List<KeyValuePair<string, string>> respuesta = new List<KeyValuePair<string, string>>();
+                        List<ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF> _TipoUsuarioWF = _db.Cat_ProcesosWF.ToList();
+                        foreach (ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF wf in _TipoUsuarioWF)
+                        {
+                            string key = wf.idWF.ToString();
+                            string value = wf.nombreWF.ToString();
+                            respuesta.Add(new KeyValuePair<string, string>(key, value));
+                        }
+                        IEnumerable<SelectListItem> CategorySelectList = respuesta.Select(x => new SelectListItem() { Text = x.Value.Trim(), Value = x.Key.Trim() });
+                    }
+                    <div class="col-md-5">
+                        @Html.Label("Workflow", htmlAttributes: new { @class = "control-label col-md-2" })
+                    </div>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.idWF, CategorySelectList, "Seleccione un proceso", htmlAttributes: new { @ID = "procesoWF", @onBlur = " fijaWorkflow(this.value)" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ninguno</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="asignaWorkflow" onclick="cargaWF();">Seleccionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="visibility:hidden">
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#basicModal" id="identificaWorkflow">
+        Pregunta que Workflow
+    </button>
+</div>
+<!-- End Basic Modal -->

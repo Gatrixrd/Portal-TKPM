@@ -1,0 +1,83 @@
+﻿@model ClickFactura_Entidades.BD.Entidades.Cat_UMedidaWF
+
+@{
+    ViewBag.Title = "Agregar nueva unidad de medida";
+}
+<div class="pageheader">
+    <h2>Nueva Unidad de Medida</h2>
+    <p>En esta sección agregue unidades de medida que se relacionan con algún Workflow específico. Esta unidad debe registrarse tal como existen en SAP.</p>
+</div>
+<script type="text/javascript">
+    @{ ClickFactura_Entidades.BD.Entidades.Desarrollo_CF _db = new ClickFactura_Entidades.BD.Entidades.Desarrollo_CF();}
+    @{int idWF = 0 ;}
+</script>
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("Siglas unidad de medida", htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.UnidadMedida, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UnidadMedida, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UnidadMedida, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.DescripcionUM, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Descripción de la unidad", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DescripcionUM, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DescripcionUM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.activo, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Activo", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.activo)
+                    @Html.ValidationMessageFor(model => model.activo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.idWF, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @{
+                ClickFactura_Entidades.BD.Entidades.Desarrollo_CF db = new ClickFactura_Entidades.BD.Entidades.Desarrollo_CF();
+                List<KeyValuePair<string, string>> respuesta = new List<KeyValuePair<string, string>>();
+                List<ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF> _TipoUsuarioWF = db.Cat_ProcesosWF.ToList();
+                foreach (ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF wf in _TipoUsuarioWF)
+                {
+                    string key = wf.idWF.ToString();
+                    string value = wf.nombreWF.ToString();
+                    respuesta.Add(new KeyValuePair<string, string>(key, value));
+                }
+                IEnumerable<SelectListItem> CategorySelectList = respuesta.Select(x => new SelectListItem() { Text = x.Value.Trim(), Value = x.Key.Trim() });
+            }
+            @Html.Label("Asignada a workflow", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.idWF, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.idWF, "", new { @class = "text-danger" })*@
+                @Html.DropDownListFor(model => model.idWF, CategorySelectList, "Seleccione un proceso", htmlAttributes: new { @ID = "procesoWF" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver al listado", "Index")
+</div>

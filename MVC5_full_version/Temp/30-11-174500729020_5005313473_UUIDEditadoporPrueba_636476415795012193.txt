@@ -1,0 +1,15 @@
+-----------Excepcion ocurrio el  30/11/2017 12:27:40 p.m.-----------------
+-------------------------------------------------------------------------------------
+0> 
+LOG escrito el día: 30/11/2017 12:27:40 p.m.Detalles  :Error-->destination T11 (ORIGINAL) [NAME=T11 USER=RFC_EACCMX PASSWD=******** CLIENT=021 LANG=EN ASHOST=15.91.75.186 MSHOST= SYSNR=01 SYSID=01 MAX_POOL_SIZE=5 IDLE_TIMEOUT=600 GROUP= GWHOST= GWSERV=] failed when calling RFC_METADATA_GET -- see log for details
+-------------------------------------------------------------------------------------
+1> 
+LOG escrito el día: 30/11/2017 12:27:40 p.m.Detalles  :Error-->destination T11 (ORIGINAL) [NAME=T11 USER=RFC_EACCMX PASSWD=******** CLIENT=021 LANG=EN ASHOST=15.91.75.186 MSHOST= SYSNR=01 SYSID=01 MAX_POOL_SIZE=5 IDLE_TIMEOUT=600 GROUP= GWHOST= GWSERV=] failed when calling RFC_METADATA_GET -- see log for detailsOrden de Compra -->4500729020
+-------------------------------------------------------------------------------------
+2> 
+LOG escrito el día: 30/11/2017 12:27:40 p.m.Detalles  :Error-->destination T11 (ORIGINAL) [NAME=T11 USER=RFC_EACCMX PASSWD=******** CLIENT=021 LANG=EN ASHOST=15.91.75.186 MSHOST= SYSNR=01 SYSID=01 MAX_POOL_SIZE=5 IDLE_TIMEOUT=600 GROUP= GWHOST= GWSERV=] failed when calling RFC_METADATA_GET -- see log for detailsOrden de Compra -->4500729020Recepción -->5005313473
+-------------------------------------------------------------------------------------
+3> 
+LOG escrito el día: 30/11/2017 12:27:40 p.m.Detalles  :Error-->destination T11 (ORIGINAL) [NAME=T11 USER=RFC_EACCMX PASSWD=******** CLIENT=021 LANG=EN ASHOST=15.91.75.186 MSHOST= SYSNR=01 SYSID=01 MAX_POOL_SIZE=5 IDLE_TIMEOUT=600 GROUP= GWHOST= GWSERV=] failed when calling RFC_METADATA_GET -- see log for detailsOrden de Compra -->4500729020Recepción -->5005313473UUID -->UUIDEditadoporPrueba_636476415795012193
+-------------------------------------------------------------------------------------
+--------------------------------*Fin*------------------------------------------

@@ -1,0 +1,57 @@
+﻿@model ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF
+
+@{
+    ViewBag.Title = "Detalles del registro";
+}
+<div class="pageheader">
+    <h2>Detalles</h2>
+    <h4>Esta es la información almacenada para el registro seleccionado.</h4>
+</div>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Nombre Proceso", htmlAttributes: new { @class = "control-label col-md-4" })
+            @*@Html.DisplayNameFor(model => model.nombreWF)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreWF)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayName("No. de aprobaciones requeridas")*@
+            @*@Html.DisplayNameFor(model => model.noAprobacionesRequeridas)*@
+            @Html.Label("Niveles", htmlAttributes: new { @class = "control-label col-md-4" })
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.noAprobacionesRequeridas)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.controlador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.controlador)
+        </dd>*@
+
+        <dt>
+            @*@Html.DisplayName("Porcentaje mínimo requerido para liberar flujo")
+            @Html.DisplayNameFor(model => model.minimoRelevanciaJerarquica)*@
+            @Html.Label("% mínimo", htmlAttributes: new { @class = "control-label col-md-4" })
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.minimoRelevanciaJerarquica)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.idWF }) |
+    @Html.ActionLink("Volver a listar todo", "Index")
+</p>

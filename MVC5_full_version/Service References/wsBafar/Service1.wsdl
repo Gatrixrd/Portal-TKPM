@@ -1,0 +1,1068 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service1" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="SecureHttp_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsoma:OptimizedMimeSerialization xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" />
+      <xsd:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd3" />
+      <xsd:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/System.IO" />
+      <xsd:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/" />
+      <xsd:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/System.Xml" />
+      <xsd:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Clases.ServicioSAPLocal" />
+      <xsd:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Clases.Facturacion" />
+      <xsd:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Datos" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IServicio_ClickFactura_ObtenCorreos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenCorreos" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_ObtenCorreos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenCorreosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_FiltroCorreo_InputMessage">
+    <wsdl:part name="parameters" element="tns:FiltroCorreo" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_FiltroCorreo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FiltroCorreoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Valida_Factura_InputMessage">
+    <wsdl:part name="parameters" element="tns:Valida_Factura" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Valida_Factura_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Valida_FacturaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Get_Proveedores_SAP_InputMessage">
+    <wsdl:part name="parameters" element="tns:Get_Proveedores_SAP" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Get_Proveedores_SAP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Get_Proveedores_SAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Valida_Menu_InputMessage">
+    <wsdl:part name="parameters" element="tns:Valida_Menu" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Valida_Menu_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Valida_MenuResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Carga_OrdenesCompra_InputMessage">
+    <wsdl:part name="parameters" element="tns:Carga_OrdenesCompra" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Carga_OrdenesCompra_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Carga_OrdenesCompraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Carga_DetalleOrden_InputMessage">
+    <wsdl:part name="parameters" element="tns:Carga_DetalleOrden" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Carga_DetalleOrden_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Carga_DetalleOrdenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Get_OrdenCompra_SAP_InputMessage">
+    <wsdl:part name="parameters" element="tns:Get_OrdenCompra_SAP" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Get_OrdenCompra_SAP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Get_OrdenCompra_SAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Get_DetalleOrdenCompra_SAP_InputMessage">
+    <wsdl:part name="parameters" element="tns:Get_DetalleOrdenCompra_SAP" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Get_DetalleOrdenCompra_SAP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Get_DetalleOrdenCompra_SAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Get_Recepcion_Facturas_Correo_InputMessage">
+    <wsdl:part name="parameters" element="tns:Get_Recepcion_Facturas_Correo" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Get_Recepcion_Facturas_Correo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Get_Recepcion_Facturas_CorreoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Get_Pasivo_Clase_InputMessage">
+    <wsdl:part name="parameters" element="tns:Get_Pasivo_Clase" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Get_Pasivo_Clase_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Get_Pasivo_ClaseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Get_SAP_Prov_InputMessage">
+    <wsdl:part name="parameters" element="tns:Get_SAP_Prov" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Get_SAP_Prov_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Get_SAP_ProvResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Genera_Pasivo_SOC_SRE_InputMessage">
+    <wsdl:part name="parameters" element="tns:Genera_Pasivo_SOC_SRE" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Genera_Pasivo_SOC_SRE_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Genera_Pasivo_SOC_SREResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Get_Parametros_Prov_InputMessage">
+    <wsdl:part name="parameters" element="tns:Get_Parametros_Prov" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Get_Parametros_Prov_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Get_Parametros_ProvResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Genera_Pasivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:Genera_Pasivo" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Genera_Pasivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Genera_PasivoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Documentos_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Documentos" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Documentos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_DocumentosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Proveedores_SAP_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Proveedores_SAP" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Proveedores_SAP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Proveedores_SAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_OrdenesCompra_SAP_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_OrdenesCompra_SAP" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_OrdenesCompra_SAP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_OrdenesCompra_SAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Detalle_OrdenCompra_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Detalle_OrdenCompra" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Detalle_OrdenCompra_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Detalle_OrdenCompraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Recepcion_OrdenCompra_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Recepcion_OrdenCompra" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Recepcion_OrdenCompra_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Recepcion_OrdenCompraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Pasivo_Consignacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:Pasivo_Consignacion" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Pasivo_Consignacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Pasivo_ConsignacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Valida_XML_InputMessage">
+    <wsdl:part name="parameters" element="tns:Valida_XML" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Valida_XML_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Valida_XMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Envia_Correo_InputMessage">
+    <wsdl:part name="parameters" element="tns:Envia_Correo" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Envia_Correo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Envia_CorreoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_TipoCambio_SAP_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_TipoCambio_SAP" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_TipoCambio_SAP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_TipoCambio_SAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_TipoCambio_InputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_TipoCambio" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_TipoCambio_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_TipoCambioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_NotaCargo_SAP_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_NotaCargo_SAP" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_NotaCargo_SAP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_NotaCargo_SAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_EstadoCuenta_SAP_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_EstadoCuenta_SAP" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_EstadoCuenta_SAP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_EstadoCuenta_SAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_Proveedor_InputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_Proveedor" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_Proveedor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_ProveedorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_Sociedad_InputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_Sociedad" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_Sociedad_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_SociedadResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_Relacion_Proveedor_InputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_Relacion_Proveedor" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_Relacion_Proveedor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_Relacion_ProveedorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_Usuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_Usuario" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_Usuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_UsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_Orden_Compra_InputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_Orden_Compra" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_Orden_Compra_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_Orden_CompraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_Detalle_Orden_Compra_InputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_Detalle_Orden_Compra" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_Detalle_Orden_Compra_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_Detalle_Orden_CompraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_Detalle_Orden_Compra_Incrementable_InputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_Detalle_Orden_Compra_Incrementable" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_Detalle_Orden_Compra_Incrementable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_Detalle_Orden_Compra_IncrementableResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_Recepcion_Orden_Compra_InputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_Recepcion_Orden_Compra" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Mantto_Recepcion_Orden_Compra_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Mantto_Recepcion_Orden_CompraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Genera_Pasivo_Membresia_InputMessage">
+    <wsdl:part name="parameters" element="tns:Genera_Pasivo_Membresia" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Genera_Pasivo_Membresia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Genera_Pasivo_MembresiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_NotaCargo_SAPV2_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_NotaCargo_SAPV2" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_NotaCargo_SAPV2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_NotaCargo_SAPV2Response" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_ConsultaFacturasVerificadas_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaFacturasVerificadas" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_ConsultaFacturasVerificadas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaFacturasVerificadasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_ConsultaAllProveedoresSAP_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaAllProveedoresSAP" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_ConsultaAllProveedoresSAP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaAllProveedoresSAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_ConsultaAllSociedadesSAP_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaAllSociedadesSAP" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_ConsultaAllSociedadesSAP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaAllSociedadesSAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_ConsultaAllRelacionesPSSAP_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaAllRelacionesPSSAP" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_ConsultaAllRelacionesPSSAP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaAllRelacionesPSSAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Detalle_OrdenCompraMultiple_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Detalle_OrdenCompraMultiple" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Detalle_OrdenCompraMultiple_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Detalle_OrdenCompraMultipleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Recepcion_OrdenCompraMultiples_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Recepcion_OrdenCompraMultiples" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Recepcion_OrdenCompraMultiples_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Recepcion_OrdenCompraMultiplesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Incrementable_OrdenCompraMultiple_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Incrementable_OrdenCompraMultiple" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Incrementable_OrdenCompraMultiple_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Incrementable_OrdenCompraMultipleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Incrementable_OrdenCompraMultiple2_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Incrementable_OrdenCompraMultiple2" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Incrementable_OrdenCompraMultiple2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Incrementable_OrdenCompraMultiple2Response" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_EstadoCuenta_SAP2_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_EstadoCuenta_SAP2" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_EstadoCuenta_SAP2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_EstadoCuenta_SAP2Response" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_NotasCargo_SAP2_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_NotasCargo_SAP2" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_NotasCargo_SAP2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_NotasCargo_SAP2Response" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Correos_Proveedores_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Correos_Proveedores" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Correos_Proveedores_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Correos_ProveedoresResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Update_Correos_Proveedores_InputMessage">
+    <wsdl:part name="parameters" element="tns:Update_Correos_Proveedores" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Update_Correos_Proveedores_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Update_Correos_ProveedoresResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_MetodoGeneric_InputMessage">
+    <wsdl:part name="parameters" element="tns:MetodoGeneric" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_MetodoGeneric_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MetodoGenericResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Freight_Order_SAP_InputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Freight_Order_SAP" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_Consulta_Freight_Order_SAP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Consulta_Freight_Order_SAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_FreightOrderPasivo_SAP_InputMessage">
+    <wsdl:part name="parameters" element="tns:FreightOrderPasivo_SAP" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_FreightOrderPasivo_SAP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FreightOrderPasivo_SAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_VerificarFacturaBD_InputMessage">
+    <wsdl:part name="parameters" element="tns:VerificarFacturaBD" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_VerificarFacturaBD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VerificarFacturaBDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_RegistrarBitacoraOperaciones_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarBitacoraOperaciones" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ClickFactura_RegistrarBitacoraOperaciones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarBitacoraOperacionesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IServicio_ClickFactura">
+    <wsdl:operation name="ObtenCorreos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/ObtenCorreos" message="tns:IServicio_ClickFactura_ObtenCorreos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/ObtenCorreosResponse" message="tns:IServicio_ClickFactura_ObtenCorreos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FiltroCorreo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/FiltroCorreo" message="tns:IServicio_ClickFactura_FiltroCorreo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/FiltroCorreoResponse" message="tns:IServicio_ClickFactura_FiltroCorreo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Valida_Factura">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Valida_Factura" message="tns:IServicio_ClickFactura_Valida_Factura_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Valida_FacturaResponse" message="tns:IServicio_ClickFactura_Valida_Factura_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_Proveedores_SAP">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Get_Proveedores_SAP" message="tns:IServicio_ClickFactura_Get_Proveedores_SAP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Get_Proveedores_SAPResponse" message="tns:IServicio_ClickFactura_Get_Proveedores_SAP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Valida_Menu">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Valida_Menu" message="tns:IServicio_ClickFactura_Valida_Menu_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Valida_MenuResponse" message="tns:IServicio_ClickFactura_Valida_Menu_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Carga_OrdenesCompra">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Carga_OrdenesCompra" message="tns:IServicio_ClickFactura_Carga_OrdenesCompra_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Carga_OrdenesCompraResponse" message="tns:IServicio_ClickFactura_Carga_OrdenesCompra_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Carga_DetalleOrden">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Carga_DetalleOrden" message="tns:IServicio_ClickFactura_Carga_DetalleOrden_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Carga_DetalleOrdenResponse" message="tns:IServicio_ClickFactura_Carga_DetalleOrden_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_OrdenCompra_SAP">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Get_OrdenCompra_SAP" message="tns:IServicio_ClickFactura_Get_OrdenCompra_SAP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Get_OrdenCompra_SAPResponse" message="tns:IServicio_ClickFactura_Get_OrdenCompra_SAP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_DetalleOrdenCompra_SAP">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Get_DetalleOrdenCompra_SAP" message="tns:IServicio_ClickFactura_Get_DetalleOrdenCompra_SAP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Get_DetalleOrdenCompra_SAPResponse" message="tns:IServicio_ClickFactura_Get_DetalleOrdenCompra_SAP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_Recepcion_Facturas_Correo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Get_Recepcion_Facturas_Correo" message="tns:IServicio_ClickFactura_Get_Recepcion_Facturas_Correo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Get_Recepcion_Facturas_CorreoResponse" message="tns:IServicio_ClickFactura_Get_Recepcion_Facturas_Correo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_Pasivo_Clase">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Get_Pasivo_Clase" message="tns:IServicio_ClickFactura_Get_Pasivo_Clase_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Get_Pasivo_ClaseResponse" message="tns:IServicio_ClickFactura_Get_Pasivo_Clase_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_SAP_Prov">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Get_SAP_Prov" message="tns:IServicio_ClickFactura_Get_SAP_Prov_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Get_SAP_ProvResponse" message="tns:IServicio_ClickFactura_Get_SAP_Prov_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Genera_Pasivo_SOC_SRE">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Genera_Pasivo_SOC_SRE" message="tns:IServicio_ClickFactura_Genera_Pasivo_SOC_SRE_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Genera_Pasivo_SOC_SREResponse" message="tns:IServicio_ClickFactura_Genera_Pasivo_SOC_SRE_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_Parametros_Prov">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Get_Parametros_Prov" message="tns:IServicio_ClickFactura_Get_Parametros_Prov_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Get_Parametros_ProvResponse" message="tns:IServicio_ClickFactura_Get_Parametros_Prov_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Genera_Pasivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Genera_Pasivo" message="tns:IServicio_ClickFactura_Genera_Pasivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Genera_PasivoResponse" message="tns:IServicio_ClickFactura_Genera_Pasivo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Documentos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Documentos" message="tns:IServicio_ClickFactura_Consulta_Documentos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_DocumentosResponse" message="tns:IServicio_ClickFactura_Consulta_Documentos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Proveedores_SAP">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Proveedores_SAP" message="tns:IServicio_ClickFactura_Consulta_Proveedores_SAP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Proveedores_SAPResponse" message="tns:IServicio_ClickFactura_Consulta_Proveedores_SAP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_OrdenesCompra_SAP">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_OrdenesCompra_SAP" message="tns:IServicio_ClickFactura_Consulta_OrdenesCompra_SAP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_OrdenesCompra_SAPResponse" message="tns:IServicio_ClickFactura_Consulta_OrdenesCompra_SAP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Detalle_OrdenCompra">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Detalle_OrdenCompra" message="tns:IServicio_ClickFactura_Consulta_Detalle_OrdenCompra_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Detalle_OrdenCompraResponse" message="tns:IServicio_ClickFactura_Consulta_Detalle_OrdenCompra_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Recepcion_OrdenCompra">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Recepcion_OrdenCompra" message="tns:IServicio_ClickFactura_Consulta_Recepcion_OrdenCompra_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Recepcion_OrdenCompraResponse" message="tns:IServicio_ClickFactura_Consulta_Recepcion_OrdenCompra_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Pasivo_Consignacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Pasivo_Consignacion" message="tns:IServicio_ClickFactura_Pasivo_Consignacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Pasivo_ConsignacionResponse" message="tns:IServicio_ClickFactura_Pasivo_Consignacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Valida_XML">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Valida_XML" message="tns:IServicio_ClickFactura_Valida_XML_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Valida_XMLResponse" message="tns:IServicio_ClickFactura_Valida_XML_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Envia_Correo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Envia_Correo" message="tns:IServicio_ClickFactura_Envia_Correo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Envia_CorreoResponse" message="tns:IServicio_ClickFactura_Envia_Correo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_TipoCambio_SAP">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_TipoCambio_SAP" message="tns:IServicio_ClickFactura_Consulta_TipoCambio_SAP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_TipoCambio_SAPResponse" message="tns:IServicio_ClickFactura_Consulta_TipoCambio_SAP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_TipoCambio">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_TipoCambio" message="tns:IServicio_ClickFactura_Mantto_TipoCambio_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_TipoCambioResponse" message="tns:IServicio_ClickFactura_Mantto_TipoCambio_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_NotaCargo_SAP">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_NotaCargo_SAP" message="tns:IServicio_ClickFactura_Consulta_NotaCargo_SAP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_NotaCargo_SAPResponse" message="tns:IServicio_ClickFactura_Consulta_NotaCargo_SAP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_EstadoCuenta_SAP">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_EstadoCuenta_SAP" message="tns:IServicio_ClickFactura_Consulta_EstadoCuenta_SAP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_EstadoCuenta_SAPResponse" message="tns:IServicio_ClickFactura_Consulta_EstadoCuenta_SAP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_Proveedor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_Proveedor" message="tns:IServicio_ClickFactura_Mantto_Proveedor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_ProveedorResponse" message="tns:IServicio_ClickFactura_Mantto_Proveedor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_Sociedad">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_Sociedad" message="tns:IServicio_ClickFactura_Mantto_Sociedad_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_SociedadResponse" message="tns:IServicio_ClickFactura_Mantto_Sociedad_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_Relacion_Proveedor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_Relacion_Proveedor" message="tns:IServicio_ClickFactura_Mantto_Relacion_Proveedor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_Relacion_ProveedorResponse" message="tns:IServicio_ClickFactura_Mantto_Relacion_Proveedor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_Usuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_Usuario" message="tns:IServicio_ClickFactura_Mantto_Usuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_UsuarioResponse" message="tns:IServicio_ClickFactura_Mantto_Usuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_Orden_Compra">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_Orden_Compra" message="tns:IServicio_ClickFactura_Mantto_Orden_Compra_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_Orden_CompraResponse" message="tns:IServicio_ClickFactura_Mantto_Orden_Compra_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_Detalle_Orden_Compra">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_Detalle_Orden_Compra" message="tns:IServicio_ClickFactura_Mantto_Detalle_Orden_Compra_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_Detalle_Orden_CompraResponse" message="tns:IServicio_ClickFactura_Mantto_Detalle_Orden_Compra_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_Detalle_Orden_Compra_Incrementable">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_Detalle_Orden_Compra_Incrementable" message="tns:IServicio_ClickFactura_Mantto_Detalle_Orden_Compra_Incrementable_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_Detalle_Orden_Compra_IncrementableResponse" message="tns:IServicio_ClickFactura_Mantto_Detalle_Orden_Compra_Incrementable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_Recepcion_Orden_Compra">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_Recepcion_Orden_Compra" message="tns:IServicio_ClickFactura_Mantto_Recepcion_Orden_Compra_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Mantto_Recepcion_Orden_CompraResponse" message="tns:IServicio_ClickFactura_Mantto_Recepcion_Orden_Compra_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Genera_Pasivo_Membresia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Genera_Pasivo_Membresia" message="tns:IServicio_ClickFactura_Genera_Pasivo_Membresia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Genera_Pasivo_MembresiaResponse" message="tns:IServicio_ClickFactura_Genera_Pasivo_Membresia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_NotaCargo_SAPV2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_NotaCargo_SAPV2" message="tns:IServicio_ClickFactura_Consulta_NotaCargo_SAPV2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_NotaCargo_SAPV2Response" message="tns:IServicio_ClickFactura_Consulta_NotaCargo_SAPV2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaFacturasVerificadas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/ConsultaFacturasVerificadas" message="tns:IServicio_ClickFactura_ConsultaFacturasVerificadas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/ConsultaFacturasVerificadasResponse" message="tns:IServicio_ClickFactura_ConsultaFacturasVerificadas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaAllProveedoresSAP">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/ConsultaAllProveedoresSAP" message="tns:IServicio_ClickFactura_ConsultaAllProveedoresSAP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/ConsultaAllProveedoresSAPResponse" message="tns:IServicio_ClickFactura_ConsultaAllProveedoresSAP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaAllSociedadesSAP">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/ConsultaAllSociedadesSAP" message="tns:IServicio_ClickFactura_ConsultaAllSociedadesSAP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/ConsultaAllSociedadesSAPResponse" message="tns:IServicio_ClickFactura_ConsultaAllSociedadesSAP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaAllRelacionesPSSAP">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/ConsultaAllRelacionesPSSAP" message="tns:IServicio_ClickFactura_ConsultaAllRelacionesPSSAP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/ConsultaAllRelacionesPSSAPResponse" message="tns:IServicio_ClickFactura_ConsultaAllRelacionesPSSAP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Detalle_OrdenCompraMultiple">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Detalle_OrdenCompraMultiple" message="tns:IServicio_ClickFactura_Consulta_Detalle_OrdenCompraMultiple_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Detalle_OrdenCompraMultipleResponse" message="tns:IServicio_ClickFactura_Consulta_Detalle_OrdenCompraMultiple_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Recepcion_OrdenCompraMultiples">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Recepcion_OrdenCompraMultiples" message="tns:IServicio_ClickFactura_Consulta_Recepcion_OrdenCompraMultiples_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Recepcion_OrdenCompraMultiplesResponse" message="tns:IServicio_ClickFactura_Consulta_Recepcion_OrdenCompraMultiples_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Incrementable_OrdenCompraMultiple">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Incrementable_OrdenCompraMultiple" message="tns:IServicio_ClickFactura_Consulta_Incrementable_OrdenCompraMultiple_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Incrementable_OrdenCompraMultipleResponse" message="tns:IServicio_ClickFactura_Consulta_Incrementable_OrdenCompraMultiple_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Incrementable_OrdenCompraMultiple2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Incrementable_OrdenCompraMultiple2" message="tns:IServicio_ClickFactura_Consulta_Incrementable_OrdenCompraMultiple2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Incrementable_OrdenCompraMultiple2Response" message="tns:IServicio_ClickFactura_Consulta_Incrementable_OrdenCompraMultiple2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_EstadoCuenta_SAP2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_EstadoCuenta_SAP2" message="tns:IServicio_ClickFactura_Consulta_EstadoCuenta_SAP2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_EstadoCuenta_SAP2Response" message="tns:IServicio_ClickFactura_Consulta_EstadoCuenta_SAP2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_NotasCargo_SAP2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_NotasCargo_SAP2" message="tns:IServicio_ClickFactura_Consulta_NotasCargo_SAP2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_NotasCargo_SAP2Response" message="tns:IServicio_ClickFactura_Consulta_NotasCargo_SAP2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Correos_Proveedores">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Correos_Proveedores" message="tns:IServicio_ClickFactura_Consulta_Correos_Proveedores_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Correos_ProveedoresResponse" message="tns:IServicio_ClickFactura_Consulta_Correos_Proveedores_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Update_Correos_Proveedores">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Update_Correos_Proveedores" message="tns:IServicio_ClickFactura_Update_Correos_Proveedores_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Update_Correos_ProveedoresResponse" message="tns:IServicio_ClickFactura_Update_Correos_Proveedores_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MetodoGeneric">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/MetodoGeneric" message="tns:IServicio_ClickFactura_MetodoGeneric_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/MetodoGenericResponse" message="tns:IServicio_ClickFactura_MetodoGeneric_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Freight_Order_SAP">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Freight_Order_SAP" message="tns:IServicio_ClickFactura_Consulta_Freight_Order_SAP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/Consulta_Freight_Order_SAPResponse" message="tns:IServicio_ClickFactura_Consulta_Freight_Order_SAP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FreightOrderPasivo_SAP">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/FreightOrderPasivo_SAP" message="tns:IServicio_ClickFactura_FreightOrderPasivo_SAP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/FreightOrderPasivo_SAPResponse" message="tns:IServicio_ClickFactura_FreightOrderPasivo_SAP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VerificarFacturaBD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/VerificarFacturaBD" message="tns:IServicio_ClickFactura_VerificarFacturaBD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/VerificarFacturaBDResponse" message="tns:IServicio_ClickFactura_VerificarFacturaBD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarBitacoraOperaciones">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio_ClickFactura/RegistrarBitacoraOperaciones" message="tns:IServicio_ClickFactura_RegistrarBitacoraOperaciones_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio_ClickFactura/RegistrarBitacoraOperacionesResponse" message="tns:IServicio_ClickFactura_RegistrarBitacoraOperaciones_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SecureHttp" type="tns:IServicio_ClickFactura">
+    <wsp:PolicyReference URI="#SecureHttp_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenCorreos">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/ObtenCorreos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FiltroCorreo">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/FiltroCorreo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Valida_Factura">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Valida_Factura" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Proveedores_SAP">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Get_Proveedores_SAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Valida_Menu">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Valida_Menu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Carga_OrdenesCompra">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Carga_OrdenesCompra" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Carga_DetalleOrden">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Carga_DetalleOrden" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_OrdenCompra_SAP">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Get_OrdenCompra_SAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_DetalleOrdenCompra_SAP">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Get_DetalleOrdenCompra_SAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Recepcion_Facturas_Correo">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Get_Recepcion_Facturas_Correo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Pasivo_Clase">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Get_Pasivo_Clase" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_SAP_Prov">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Get_SAP_Prov" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Genera_Pasivo_SOC_SRE">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Genera_Pasivo_SOC_SRE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Parametros_Prov">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Get_Parametros_Prov" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Genera_Pasivo">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Genera_Pasivo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Documentos">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_Documentos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Proveedores_SAP">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_Proveedores_SAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_OrdenesCompra_SAP">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_OrdenesCompra_SAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Detalle_OrdenCompra">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_Detalle_OrdenCompra" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Recepcion_OrdenCompra">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_Recepcion_OrdenCompra" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Pasivo_Consignacion">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Pasivo_Consignacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Valida_XML">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Valida_XML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Envia_Correo">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Envia_Correo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_TipoCambio_SAP">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_TipoCambio_SAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_TipoCambio">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Mantto_TipoCambio" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_NotaCargo_SAP">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_NotaCargo_SAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_EstadoCuenta_SAP">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_EstadoCuenta_SAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_Proveedor">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Mantto_Proveedor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_Sociedad">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Mantto_Sociedad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_Relacion_Proveedor">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Mantto_Relacion_Proveedor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_Usuario">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Mantto_Usuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_Orden_Compra">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Mantto_Orden_Compra" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_Detalle_Orden_Compra">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Mantto_Detalle_Orden_Compra" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_Detalle_Orden_Compra_Incrementable">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Mantto_Detalle_Orden_Compra_Incrementable" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mantto_Recepcion_Orden_Compra">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Mantto_Recepcion_Orden_Compra" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Genera_Pasivo_Membresia">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Genera_Pasivo_Membresia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_NotaCargo_SAPV2">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_NotaCargo_SAPV2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaFacturasVerificadas">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/ConsultaFacturasVerificadas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaAllProveedoresSAP">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/ConsultaAllProveedoresSAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaAllSociedadesSAP">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/ConsultaAllSociedadesSAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaAllRelacionesPSSAP">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/ConsultaAllRelacionesPSSAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Detalle_OrdenCompraMultiple">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_Detalle_OrdenCompraMultiple" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Recepcion_OrdenCompraMultiples">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_Recepcion_OrdenCompraMultiples" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Incrementable_OrdenCompraMultiple">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_Incrementable_OrdenCompraMultiple" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Incrementable_OrdenCompraMultiple2">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_Incrementable_OrdenCompraMultiple2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_EstadoCuenta_SAP2">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_EstadoCuenta_SAP2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_NotasCargo_SAP2">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_NotasCargo_SAP2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Correos_Proveedores">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_Correos_Proveedores" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update_Correos_Proveedores">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Update_Correos_Proveedores" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MetodoGeneric">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/MetodoGeneric" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consulta_Freight_Order_SAP">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/Consulta_Freight_Order_SAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FreightOrderPasivo_SAP">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/FreightOrderPasivo_SAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarFacturaBD">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/VerificarFacturaBD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarBitacoraOperaciones">
+      <soap12:operation soapAction="http://tempuri.org/IServicio_ClickFactura/RegistrarBitacoraOperaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="SecureHttp" binding="tns:SecureHttp">
+      <soap12:address location="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

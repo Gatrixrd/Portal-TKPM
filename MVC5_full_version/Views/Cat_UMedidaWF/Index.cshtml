@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ClickFactura_Entidades.BD.Entidades.Cat_UMedidaWF>
+
+@{
+    ViewBag.Title = "Unidades de Medida por Workflow";
+}
+<div class="pageheader">
+    <h2>Unidades de medida por Workflow</h2>
+    <p>
+        @Html.ActionLink("Registrar nueva Unidad", "Create")
+    </p>
+</div>
+
+<script type="text/javascript">
+        @{ ClickFactura_Entidades.BD.Entidades.Desarrollo_CF _db = new ClickFactura_Entidades.BD.Entidades.Desarrollo_CF();}
+        @{int idWF = 0;}
+        @{string nombreProceso = "";}
+</script>
+
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.UnidadMedida)*@
+            @Html.Label("Siglas SAP", htmlAttributes: new { @class = "control-label col-md-8" })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.DescripcionUM)*@
+            @Html.Label("Descripción de la unidad", htmlAttributes: new { @class = "control-label col-md-8" })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.activo)*@
+            @Html.Label("Activo", htmlAttributes: new { @class = "control-label col-md-8" })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.idWF)*@
+            @Html.Label("Workflow", htmlAttributes: new { @class = "control-label col-md-8" })
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnidadMedida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DescripcionUM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.activo)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.idWF)*@
+            @{
+                List<KeyValuePair<string, string>> respuestaAux = new List<KeyValuePair<string, string>>();
+                List<ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF> _ProcesoWF = _db.Cat_ProcesosWF.ToList();
+                foreach (ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF wf in _ProcesoWF)
+                {
+                    string key = wf.idWF.ToString();
+                    string value = wf.nombreWF.ToString();
+                    respuestaAux.Add(new KeyValuePair<string, string>(key, value));
+                }
+                IEnumerable<SelectListItem> CategorySelectListAux = respuestaAux.Select(x => new SelectListItem() { Text = x.Value.Trim(), Value = x.Key.Trim() });
+                foreach (var _p in CategorySelectListAux)
+                {
+                    if (item.idWF.ToString().Trim().Equals(_p.Value.ToString().Trim()) == true)
+                    {
+                        nombreProceso = _p.Text;
+                    }
+                }
+            }
+            @Html.Label(nombreProceso)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.idUnidadMedida }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.idUnidadMedida }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.idUnidadMedida })
+        </td>
+    </tr>
+}
+
+</table>

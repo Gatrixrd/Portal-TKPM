@@ -1,0 +1,136 @@
+﻿@model ClickFactura_Entidades.BD.Entidades.Cat_UMedidaWF
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<script type="text/javascript">
+        @{ ClickFactura_Entidades.BD.Entidades.Desarrollo_CF _db = new ClickFactura_Entidades.BD.Entidades.Desarrollo_CF();}
+        @{int idWF = 0;}
+        @{  IEnumerable<SelectListItem> CategorySelectListP=null ; }
+        var procesoSeleccionado = '';
+    $(document).ready(function () {
+       //#############################################
+        //$("#btnSeleccionaWorkFlow").click();
+        var valor = JSON.parse('@Html.Raw(Json.Encode(Model.idWF))');
+        $('#procesoWF option:eq(' + valor + ') ').prop('selected', true);
+        CallChangefunc(valor);
+        //#############################################
+    });
+</script>
+
+<div class="pageheader">
+    <h2>Detalles de la Unidad de Medida</h2>
+    <p>Información almacenada en el Portal</p>
+</div>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Unidad de Medida")
+            @*@Html.DisplayNameFor(model => model.UnidadMedida)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnidadMedida)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.DescripcionUM)*@
+            @Html.Label("Descripción")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescripcionUM)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.activo)*@
+            @Html.Label("Activo")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activo)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.idWF)*@
+            @Html.Label("Workflow asignado")
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.idWF)*@
+            @{
+                List<KeyValuePair<string, string>> respuestaAux = new List<KeyValuePair<string, string>>();
+                List<ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF> _ProcesoWF = _db.Cat_ProcesosWF.ToList();
+                foreach (ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF wf in _ProcesoWF)
+                {
+                    string key = wf.idWF.ToString();
+                    string value = wf.nombreWF.ToString();
+                    respuestaAux.Add(new KeyValuePair<string, string>(key, value));
+                }
+                IEnumerable<SelectListItem> CategorySelectListAux = respuestaAux.Select(x => new SelectListItem() { Text = x.Value.Trim(), Value = x.Key.Trim() });
+            }
+            <script>
+                                function CallChangefunc(val)
+                                {
+                                    idWF = val;
+                                    @{ System.Web.HttpContext.Current.Session["idWF"] = idWF;}
+                                    obtenPadres();
+                                }
+                                function obtenPadres()
+                                {
+                                    var options = $("#PadreWF");
+                                    var original=JSON.parse('@Html.Raw(Json.Encode(Model.idUnidadMedida))');
+                                    options.empty();
+                                    $.ajax
+                                                (
+                                                 {
+                                                     type: "post",
+                                                     url: url_dir + '/Cat_UMedidaWF/actualizaTipos',
+                                                     data: { 'idWF': idWF },
+                                                     cache: false,
+                                                     success: function (data) {
+                                                         var optionString = '';
+                                                         if (data.length > 0) {
+                                                                    for (var i = 0; i < data.length; i++) {
+                                                                        var optionString='<option value="' +data[i].Value+'">' +  data[i].Text +' </option>';
+                                                                        options.append($(optionString));
+                                                                    }
+                                                                    $('#PadreWF option:eq(' + original + ') ').prop('selected', true);
+                                                                    $("#PadreWF").attr("disabled",true);
+                                                           }
+                                                         else {
+
+                                                         }
+                                                     }
+                                                 }
+                                                );
+                                }
+                                //function pasaPadre(val)
+                                //{
+                                //    var _id = idTipo;
+                                //    $.ajax
+                                //            (
+                                //             {
+                                //                 type: "post",
+                                //                 url: url_dir + '/Cat_UMedidaWF/actualizaPadre',
+                                //                 data: { 'id': _id,'nuevo':val },
+                                //                 cache: false,
+                                //                 success: function (data) {
+                                //                 }
+                                //             }
+                                //            );
+                                //}
+            </script>
+            <select id="PadreWF" onchange="pasaPadre(this.value)" style=""></select>
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.idUnidadMedida }) |
+    @Html.ActionLink("Volver al listado", "Index")
+</p>

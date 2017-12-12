@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="73b89067-6a80-40d0-aedc-47f6f36c6970" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://67.205.93.25:8097/servicio/Servicio_ClickFactura.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Servicio_ClickFactura.disco" MetadataType="Disco" ID="279dde7d-6ba8-46b9-af38-d10e6e25b44b" SourceId="1" SourceUrl="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?disco" />
+    <MetadataFile FileName="Servicio_ClickFactura.xsd" MetadataType="Schema" ID="164f1f8e-ac29-4d7b-ac56-feab4d790a00" SourceId="1" SourceUrl="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd8" />
+    <MetadataFile FileName="Servicio_ClickFactura1.xsd" MetadataType="Schema" ID="7d3902bd-5bca-4eb1-9d58-7b5a6d5d5166" SourceId="1" SourceUrl="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd6" />
+    <MetadataFile FileName="Servicio_ClickFactura2.xsd" MetadataType="Schema" ID="15161dbb-5b12-4843-8708-9e3cda222ee0" SourceId="1" SourceUrl="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd4" />
+    <MetadataFile FileName="Service1.wsdl" MetadataType="Wsdl" ID="a7dd1738-d3cf-4738-a9a5-0a86e5ecfef3" SourceId="1" SourceUrl="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?wsdl" />
+    <MetadataFile FileName="Servicio_ClickFactura3.xsd" MetadataType="Schema" ID="9be8ff6e-8a6a-4dee-a0f0-5d03ae51ceaf" SourceId="1" SourceUrl="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd0" />
+    <MetadataFile FileName="Servicio_ClickFactura4.xsd" MetadataType="Schema" ID="09600005-ec3e-45b3-b6bf-d24d441a9d3d" SourceId="1" SourceUrl="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd9" />
+    <MetadataFile FileName="Servicio_ClickFactura5.xsd" MetadataType="Schema" ID="ad6aeee7-f579-4d1e-b9c4-2a55bedb906e" SourceId="1" SourceUrl="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd2" />
+    <MetadataFile FileName="Servicio_ClickFactura6.xsd" MetadataType="Schema" ID="ed164d52-d65b-4a52-9616-fc40d633f328" SourceId="1" SourceUrl="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd7" />
+    <MetadataFile FileName="Servicio_ClickFactura7.xsd" MetadataType="Schema" ID="045ddae5-baca-4710-bb89-2f3c6540b13d" SourceId="1" SourceUrl="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd11" />
+    <MetadataFile FileName="Servicio_ClickFactura8.xsd" MetadataType="Schema" ID="bb81c558-3da9-4717-b044-630c717b43e7" SourceId="1" SourceUrl="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd5" />
+    <MetadataFile FileName="Servicio_ClickFactura9.xsd" MetadataType="Schema" ID="04b41f48-b5e4-4361-bee3-83c81928115d" SourceId="1" SourceUrl="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd12" />
+    <MetadataFile FileName="Servicio_ClickFactura10.xsd" MetadataType="Schema" ID="c110b5db-b1ae-4f3c-ac4b-d67cc3ace452" SourceId="1" SourceUrl="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd3" />
+    <MetadataFile FileName="Servicio_ClickFactura11.xsd" MetadataType="Schema" ID="443f0ca5-0f1e-4734-8398-479abf8fbf79" SourceId="1" SourceUrl="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd10" />
+    <MetadataFile FileName="Servicio_ClickFactura12.xsd" MetadataType="Schema" ID="426506d4-c724-45cb-a9d8-7deab2addd76" SourceId="1" SourceUrl="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

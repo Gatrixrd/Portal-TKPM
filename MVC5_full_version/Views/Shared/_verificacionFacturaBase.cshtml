@@ -1,0 +1,1291 @@
+﻿@using Kendo.Mvc
+  <script type="text/javascript"   src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<div class="col-md-12">
+    <section class="fuelux">
+        <div id="MyWizard" class="wizard" data-initialize="wizard">
+            <div class="steps-container">
+                <ul class="steps">
+                    <li data-step="1" class="active">
+                        <span class="badge badge-info">1</span>Buscar Información<span class="chevron"></span>
+                    </li>
+                    <li data-step="2">
+                        <span class="badge">2</span>Seleccione Recepciones<span class="chevron"></span>
+                    </li>
+                    <li data-step="3">
+                        <span class="badge">3</span>Aplicar Factura(s) vs WE<span class="chevron"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="actions">
+                <button type="button" class="btn btn-default btn-mini btn-prev" id="btnAnterior"> <i class="fa fa-chevron-left"></i> Anterior</button>
+                <button type="button" class="btn btn-primary btn-mini btn-next" data-last="Finalizar" id="btnSiguiente">
+                    Siguiente <i class="fa fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="step-content">
+                <div class="step-pane active" data-step="1">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <h3 class="title">Buscar Orden</h3>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" id="lblOC">Orden de Compra</label>
+                            <div class="col-sm-6" id="controlUsuario"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <button type="button" class="btn btn-warning" id="btnAbrirModalBuscarOC"><i class="fa icon-question"></i>¡No encuentro mi OC!</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="step-pane" data-step="2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <div class="panel-group">
+                                    <p class="text-justify" id="textoOrdenInfo"></p>
+                                </div>
+                                <div class="panel-group">
+                                    <button type="button" class="btn btn-info" id="btnDetallesOC"><i class="fa icon-info"></i>Detalles de la OC</button>
+                                </div>
+                            </div>
+                        </div>                        
+                        <div class="col-md-12" id="tabla"></div>
+                    </div>
+                </div>
+                <div class="step-pane" data-step="3">
+                    <div class="row" style="">
+                        <div class="panel-body">
+                            <div class="col-md-12">
+                                <div class="col-md-6"><button type="button" class="btn btn-info" id="btnAbrirCargaNotas" style="display:none;"><i class='fa fa-upload'></i>Notas de Crédito</button></div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-group accordion" id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed" id="InfoAcordion">
+                                                Información de las Facturas
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse">
+                                        <div class="panel-body" id="div1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" id="NotasAcordion">
+                                                Notas de Crédito
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="col-md-12" id="tablaFacturas">No se han agregado Notas de Crédito</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" id="RecepAcordion">
+                                                Recepciones a Facturar
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="col-md-12" id="tablaRecepciones"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<div class="modal fade" id="modDetalles" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="btnCerrarDetalles" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Detalles</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body" id="mensajes">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarDetalles2" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modMensaje" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="btnCerrarMensajes" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Mensaje</h4>
+            </div>
+            <div class="modal-body">
+                <p id="cuerpoMensaje"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarMensaje2" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<button id="btnMensaje" style="display:none;"></button>
+<div class="modal fade" id="modConfirmar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Evaluación de importes vs facturas</h4>
+            </div>
+            <div class="modal-body">
+                <style>
+                    .pre-scrollable {
+                        max-height: 250px;
+                    }
+                </style>
+                <p class="text-justify">A continuación se realizará la comparación de importes entre Recepciones y Factura(s) relacionadas.</p>
+                <div class="text-justify pre-scrollable" id="mensajesComparacion"></div>
+                <p class="text-justify"><strong>Nota:</strong> Aquellos que no calificaron para ser enviados a verificación no serán tomados en cuenta.</p>
+                <p class="text-justify" id="pregunta"><strong>¿Continuar y enviar los correctos?</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnGenerarPasivo">Generar Pasivo</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnCancelaPasivo">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modBuscarOC" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="btnCerrarBuscarOC" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Buscar</h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-justify">Estos datos son obligatorios. Proporcione el número de Orden de Compra o bien su número de Ticket</p>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <input type="text" id="txtTicketOC" class="form-control" placeholder="Orden de Compra ó Ticket">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnBuscarOC" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-search"></i>Buscar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modDetallesOC" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Detalles de Orden de Compra</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive" id="RegistrosDetalle">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrarMensaje2" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modCargaFactura" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="btnCerrarFactura" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Cargar Factura</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form action="@Url.Action("SubirFactura", "facturasXML")" class="dropzone" id="zonaCargaFactura" enctype="multipart/form-data">
+                        <div class="dz-message">
+                            Arrastre o de click para seleccionar el archivo
+                        </div>
+                        <div class="fallback">
+                            <input name="files" type="file" accept="text/xml" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modCargaNota" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="btnCerrarNota" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Cargar Nota Crédito</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form action="@Url.Action("SubirNotaCredito", "facturasXML")" class="dropzone dz-clickable" id="zonaCargaNotas" enctype="multipart/form-data">
+                        <div class="dz-message">
+                            Arrastre o de click para seleccionar el archivo
+                        </div>
+                        <div class="fallback">
+                            <input name="file" type="file" accept="text/xml" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles {
+    <style>
+        #pregunta, #btnGenerarPasivo {
+            display: none;
+        }        
+    </style>
+
+}
+
+
+@section Scripts {
+
+    @Scripts.Render("~/plugins/wizard")
+    @Scripts.Render("~/plugins/dropzone")
+
+    <script type="text/javascript">
+     var lsMensajes;
+     var zona1;
+     var zona2;
+     var tabs;
+     var finalizado = false;
+     var facturaCargada = false;
+     var todo = false;
+     $(document).ready(function () {
+      url_dir = '@System.Configuration.ConfigurationManager.AppSettings["dirImagenTMS"].ToString()';
+
+      $('#MyWizard').wizard()
+      .on('actionclicked.fu.wizard', function (e, data) {
+           var OC;
+           var opcion = data.step;
+           var direccion = data.direction;
+           if (direccion == "next") {
+            switch (opcion) {
+             case 1:
+              registrosSeleccionados = new Array();
+              if ($("#txtOC").val() == "" || $("#txtOC").val() == "0") {
+               $("#cuerpoMensaje").html("Falta el Número de Orden de Compra para poder continuar.</br>");
+               $("#btnMensaje").click();
+               e.preventDefault();
+              } else {
+               CargaInformacionOrden($("#txtOC").val());
+              }
+              break;
+             case 2:
+              CargarRecepciones(true);
+              break;
+             case 3:
+              var grid = $("#Grid").data("kendoGrid");
+              if (grid.dataSource._data.length == 0) {
+               $("#cuerpoMensaje").html("No a seleccionado registros para procesar.");
+               $("#btnMensaje").click();
+               $("#btnAnterior").click();
+               e.preventDefault();
+              } else {
+               var listado = new Array();
+               var i = 0;
+               $.each(grid.dataSource._data, function () {
+                var reg = grid.dataSource._data[i];
+                if (reg.R6 != "") {
+                 var obj = new Object();
+                 obj.R1 = reg.R1;
+                 obj.R2 = reg.R2;
+                 obj.R3 = reg.R3;
+                 obj.R4 = reg.R4;
+                 obj.R5 = reg.R5;
+                 obj.R6 = reg.R6;
+                 obj.R7 = reg.R7;
+                 obj.R8 = reg.R8;
+                 obj.R9 = reg.R9;
+                 obj.R10 = reg.R10;
+                 listado[i] = obj;
+                 i += 1;
+                }
+               });
+               var i = 0;
+               for (var i = 0; i < grid.dataSource._data.length; i++ )
+               {              
+
+                 reg=grid.dataSource._data[i];
+                 if (reg.R6 != "") {
+                  var obj = new Object();
+                  obj.R1 = reg.R1;
+                  obj.R2 = reg.R2;
+                  obj.R3 = reg.R3;
+                  obj.R4 = reg.R4;
+                  obj.R5 = reg.R5;
+                  obj.R6 = reg.R6;
+                  obj.R7 = reg.R7;
+                  obj.R8 = reg.R8;
+                  obj.R9 = reg.R9;
+                  obj.R10 = reg.R10;
+                  listado[i] = obj;
+                 }
+               }
+
+               if (listado.length == 0) {
+                $("#cuerpoMensaje").html("No hay factura seleccionada que se relacione con la orden de compra.");
+                $("#btnMensaje").click();
+                e.preventDefault();
+               }
+               else {
+                $(document).ajaxStart(
+                    $.blockUI({
+                     message: '<h1><img src="' + loading + '" /> Espere...</h1>',
+                     css: {
+                      border: 'none',
+                      padding: '15px',
+                      backgroundColor: '#000',
+                      '-webkit-border-radius': '10px',
+                      '-moz-border-radius': '10px',
+                      opacity: .5,
+                      color: '#fff'
+                     }
+                    }))
+                    .ajaxSend(
+                        $.blockUI({
+                         message: '<h1><img src="' + loading + '" /> Espere...</h1>',
+                         css: {
+                          border: 'none',
+                          padding: '15px',
+                          backgroundColor: '#000',
+                          '-webkit-border-radius': '10px',
+                          '-moz-border-radius': '10px',
+                          opacity: .5,
+                          color: '#fff'
+                         }
+                        }))
+                    .ajaxError($.unblockUI)
+                    .ajaxComplete($.unblockUI)
+                    .ajaxStop($.unblockUI);
+
+                $.ajax({
+                 type: "post",
+                 data: { 'registros': listado },
+                 url: url_dir + '/facturasXML/CompararImportes',
+                 cache: false,
+                 success: function (obj) {
+                  var mensajes = "";
+                  for (var i = 0; i < obj.lista.length; i++) {
+                   mensajes += obj.lista[i];
+                  }
+                  if (obj.correcto == true) {
+                   $("#pregunta").css("display", "inline-block");
+                   $("#btnGenerarPasivo").css("display", "inline-block");
+                   $("#btnCancelaPasivo").text("Cancelar");
+                  }
+                  else {
+                   $("#pregunta").css("display", "none");
+                   $("#btnGenerarPasivo").css("display", "none");
+                   $("#btnCancelaPasivo").text("Cerrar");
+                  }
+                  $("#mensajesComparacion").html(mensajes);
+                  $("#modConfirmar").modal("show");
+
+                 }
+                });
+               }
+              }
+              e.stopPropagation();
+              break;
+             default:
+            }
+           }
+           else if (direccion == "previous") {
+            $("#InfoAcordion").attr("data-toggle", "collapse");
+            $("#InfoAcordion").attr("aria-expanded", false);
+            $("#NotasAcordion").attr("data-toggle", "collapse");
+            $("#NotasAcordion").attr("aria-expanded", false);
+            $("#RecepAcordion").attr("data-toggle", "collapse");
+            $("#RecepAcordion").attr("aria-expanded", false);
+            $("#collapseOne").attr("aria-expanded", false);
+            $("#collapseOne").removeClass().addClass("panel-collapse collapse");
+            $("#collapseTwo").attr("aria-expanded", false);
+            $("#collapseTwo").removeClass().addClass("panel-collapse collapse");
+            $("#collapseThree").attr("aria-expanded", false);
+            $("#collapseThree").removeClass().addClass("panel-collapse collapse");
+            $("#btnSeleccionarTodo").click();
+           }
+      });
+
+      var exists = dropzoneExists('div#zonaCargaFactura');
+      if(exists) return;
+
+      zona1 = app.zonaCargaDoc("#zonaCargaFactura", "text/xml, application/pdf, application/zip", url_dir + "@Url.Action("SubirFactura", "facturasXML")", false);
+
+      Inicio();
+
+      zona1.on("success", function (file, response) {
+       $.ajax({
+        type: "post",
+        url: url_dir + "/facturasXML/ResultadoFactura",
+        cache: false,
+        success: function (obj) {
+         facturaCargada = true;
+         if (typeof (obj) == "string") {
+          $("#btnCerrarFactura").click();
+          $("#cuerpoMensaje").html(obj);
+          $("#btnMensaje").click();
+         }
+         else {
+          var cadenaElementos = "";
+
+          for (var i = 0; i < obj.elementos.length; i++) {
+           cadenaElementos += obj.elementos[i];
+          }
+
+          CargarRecepciones(false);
+          $("#div1").html(cadenaElementos);
+          $("#btnCerrarFactura").click();
+          $("#btnAbrirCargaNotas").css("display", "block");
+          $("#RecepAcordion").click();
+          lsMensajes = obj.mensajes;
+          if (lsMensajes.length > 0) {
+           $("#InfoAcordion").click();
+          }
+         }
+        }
+       });
+      });
+
+
+      $("#btnCerrarFactura").click(function (e) {
+       e.preventDefault();
+       if (!facturaCargada) {
+
+        $("#btnAnterior").click();
+       }
+
+      });
+      $("#btnGenerarPasivo").click(function (e) {
+       $(document).ajaxStart(
+                   $.blockUI({
+                    message: '<h1><img src="' + loading + '" /> Generando Pasivo...</h1>',
+                    css: {
+                     border: 'none',
+                     padding: '15px',
+                     backgroundColor: '#000',
+                     '-webkit-border-radius': '10px',
+                     '-moz-border-radius': '10px',
+                     opacity: .5,
+                     color: '#fff'
+                    }
+                   }))
+                   .ajaxSend(
+                       $.blockUI({
+                        message: '<h1><img src="' + loading + '" /> Generando Pasivo...</h1>',
+                        css: {
+                         border: 'none',
+                         padding: '15px',
+                         backgroundColor: '#000',
+                         '-webkit-border-radius': '10px',
+                         '-moz-border-radius': '10px',
+                         opacity: .5,
+                         color: '#fff'
+                        }
+                       }))
+                   .ajaxError($.unblockUI)
+                   .ajaxComplete($.unblockUI)
+                   .ajaxStop($.unblockUI);
+       $.ajax({
+        type: "post",
+        url: url_dir + '/facturasXML/GenerarPasivo',
+        cache: false,
+        success: function (obj) {
+         finalizado = obj.pasivo;
+         if (obj.pasivo) {
+          $("#cuerpoMensaje").html(obj.mensaje);
+          $("#btnMensaje").click();
+          e.preventDefault();
+         }
+         else {
+          $("#cuerpoMensaje").html(obj.mensaje);
+          $("#btnMensaje").click();
+          e.preventDefault();
+         }
+        }
+       });
+      });
+      $("#btnBuscarOC").click(function (e) {
+       if ($("#txtTicketOC").val() == "") {
+        $("#btnCerrarBuscarOC").click();
+        $("#cuerpoMensaje").html("Falta el Número de Orden de Compra o Ticket para poder realizar la búsqueda.</br>");
+        $("#btnMensaje").click();
+        e.preventDefault();
+       } else {
+        $(document).ajaxStart(
+                $.blockUI({
+                 message: '<h1><img src="' + loading + '" /> Buscando...</h1>',
+                 css: {
+                  border: 'none',
+                  padding: '15px',
+                  backgroundColor: '#000',
+                  '-webkit-border-radius': '10px',
+                  '-moz-border-radius': '10px',
+                  opacity: .5,
+                  color: '#fff'
+                 }
+                }))
+                .ajaxSend(
+                    $.blockUI({
+                     message: '<h1><img src="' + loading + '" /> Buscando...</h1>',
+                     css: {
+                      border: 'none',
+                      padding: '15px',
+                      backgroundColor: '#000',
+                      '-webkit-border-radius': '10px',
+                      '-moz-border-radius': '10px',
+                      opacity: .5,
+                      color: '#fff'
+                     }
+                    }))
+                .ajaxError($.unblockUI)
+                .ajaxComplete($.unblockUI)
+                .ajaxStop($.unblockUI);
+        $.ajax({
+         type: "post",
+         data: { 'cadena': $("#txtTicketOC").val() },
+         url: url_dir + '/facturasXML/BuscarTicketOC',
+         cache: false,
+         success: function (cargo) {
+          $("#cuerpoMensaje").html(cargo);
+          $("#btnMensaje").click();
+         }
+        });
+       }
+      });
+      $("#btnCerrarMensaje2").click(function (e) {                
+       if (finalizado) {
+        if ($("#lblOC").text() == "Número de Ticket") {
+         window.location = "/Tickets";
+        }
+        else {
+         window.location = "/OC";
+        }
+       }
+       e.preventDefault();
+      });
+      $("#btnAbrirModalBuscarOC").click(function (e) {
+       $("#txtTicketOC").val("");
+       $("#modBuscarOC").modal("show");
+      });
+      $("#btnDetallesOC").click(function (e) {
+       $("#modDetallesOC").modal("show");
+      });
+      $("#btnAbrirCargaNotas").click(function (e) {
+       $("#modCargaNota").modal("show");
+      });
+      $("#btnMensaje").click(function (e) {
+       $("#modMensaje").modal("show");
+      });            
+     });
+
+
+     function CargaInformacionOrden(OC) {
+      $(document).ajaxStart(
+       function () {
+                                      $.blockUI	({
+                                       message: '<h1><img src="' + loading + '" /> Buscando...</h1>',
+                                       css: {
+                                        border: 'none',
+                                        padding: '15px',
+                                        backgroundColor: '#000',
+                                        '-webkit-border-radius': '10px',
+                                        '-moz-border-radius': '10px',
+                                        opacity: .5,
+                                        color: '#fff'
+                                       }
+                                      })
+                        }
+                                      )
+                                      .ajaxSend(
+                                          $.blockUI({
+                                           message: '<h1><img src="' + loading + '" /> Buscando...</h1>',
+                                           css: {
+                                            border: 'none',
+                                            padding: '15px',
+                                            backgroundColor: '#000',
+                                            '-webkit-border-radius': '10px',
+                                            '-moz-border-radius': '10px',
+                                            opacity: .5,
+                                            color: '#fff'
+                                           }
+                                          }))
+                                      .ajaxError($.unblockUI)
+                                      .ajaxComplete($.unblockUI)
+                                      .ajaxStop($.unblockUI);
+      $.ajax({
+       type: "post",
+       data: { 'oc': OC },
+       url: url_dir + '/facturasXML/CargaInformacionOrden',
+       cache: false,
+       success: function (lista) {
+        if (lista.substring(0, 4) == "msg:") {
+         debugger;
+         $("#cuerpoMensaje").html(lista.substring(4));
+         $("#btnMensaje").click();
+         $("#btnAnterior").click();
+        }
+        else {
+         $("#tabla").html(lista);
+         debugger;
+         Config(OC);
+        }
+       }
+      });
+     }
+     function AbrirDetallesMensajes(archivo) {
+      for (var i = 0; i < lsMensajes.length; i++) {
+       var mensajes = lsMensajes[i];
+       if (mensajes[0] == archivo) {
+        $("#mensajes").html("");
+        for (var j = 1; j < mensajes.length; j++) {
+         var msg = mensajes[j];
+         if (msg == "False" || msg == "false") {
+          msg = "0No es completó la operación.";
+         }
+         else if (msg == "True" || msg == "true") {
+          msg = "1Se completó la operación con algunos detalles.";
+         }
+         if (msg.substring(0, 1) == 1) {
+          var elemento1 = '<div class="alert alert-success alert-dismissable">' +
+              '<table style="width: 100%;">' +
+              '<tbody>' +
+              '<tr><td style="width: 30px; max-width: 30px;"><div>' +
+              '<img class="img-circle" src= "' + url_dir + '/Images/bafar/iconProcedio.png" />' +
+              '</div></td><td>' +
+              '<div style="padding-left: 10px; text-align: justify;">' + msg.substring(1) + '</div>' +
+              '</td></tr>' +
+              '</tbody>' +
+              '</div>';
+          $("#mensajes").append(elemento1);
+
+         }
+         else if (msg.substring(0, 1) == 2) {
+          var elementoW = '<div class="alert alert-warning alert-dismissable">' +
+              '<table style="width: 100%;">' +
+              '<tbody>' +
+              '<tr><td style="width: 30px; max-width: 30px;"><div>' +
+              '<img class="img-circle" src= "' + url_dir + '/Images/bafar/iconProcedio.png" />' +
+              '</div></td><td>' +
+              '<div style="padding-left: 10px; text-align: justify;">' + msg.substring(1) + '</div>' +
+              '</td></tr>' +
+              '</tbody>' +
+              '</div>';
+          $("#mensajes").append(elementoW);
+
+         }
+         else if (msg.substring(0, 1) == 0) {
+          var elemento2 = '<div class="alert alert-danger alert-dismissable">' +
+              '<table style="width: 100%;">' +
+              '<tbody>' +
+              '<tr><td style="width: 30px; max-width: 30px;"><div>' +
+              '<img class="img-circle" src="' + url_dir + '/Images/bafar/iconNoProcedio.png" />' +
+              '</div></td><td>' +
+              '<div style="padding-left: 10px; text-align: justify;">' + msg.substring(1) + '</div>' +
+              '</td></tr>' +
+              '</tbody>' +
+              '</div>';
+          $("#mensajes").append(elemento2);
+         }
+         else {
+          var elemento3 = '<div class="alert alert-info alert-dismissable">' +
+             '<table style="width: 100%;">' +
+             '<tbody>' +
+             '<tr><td>' +
+             '<div style="padding-left: 10px; text-align: center;">' + msg + '</div>' +
+             '</td></tr>' +
+             '</tbody>' +
+             '</div>';
+          $("#mensajes").append(elemento3);
+         }
+        }
+        $("#modDetalles").modal("show");
+        break;
+       }
+      }
+     }
+     function CargarRecepciones(ventana) {
+  
+      if (todo) {
+       if (ListaDatosSinQ.length == 0) {
+        debugger;
+        $("#cuerpoMensaje").html("No a seleccionado registros para procesar.");
+        $("#btnMensaje").click();
+        $("#btnAnterior").click();
+        return;
+       }
+       else {
+        debugger;
+        registrosSeleccionados = ListaDatosSinQ;
+       }
+       todo = false;
+      }
+      if (registrosSeleccionados.length == 0) {
+       $("#cuerpoMensaje").html("No a seleccionado registros para procesar.");
+       $("#btnMensaje").click();
+       $("#btnAnterior").click();
+       return;
+      } else {
+       var listado = new Array();
+       var i = 0;
+       $.each(registrosSeleccionados, function () {
+        var reg = this;
+        var obj = new Object();
+        debugger;
+        obj.R1 = reg.R1;
+        obj.R2 = reg.R2;
+        obj.R3 = reg.R3;
+        obj.R4 = reg.R4;
+        obj.R5 = reg.R5;
+        obj.R6 = reg.R6;
+        obj.R7 = reg.R7;
+        obj.R8 = reg.R8;
+        obj.R9 = reg.R9;
+        obj.R10 = reg.R10;
+        obj.R11 = reg.R11;
+        obj.R12 = reg.R12;
+        obj.R13 = reg.R13;
+        obj.R14 = reg.R14;
+        obj.R15 = reg.R15;
+        obj.R16 = reg.R16;
+        obj.R17 = reg.R17;
+        listado[i] = obj;
+        i += 1;
+       });
+       $(document).ajaxStart(
+               function () {
+               $.blockUI({
+                message: '<h1><img src="' + loading + '" /> Espere...</h1>',
+                css: {
+                 border: 'none',
+                 padding: '15px',
+                 backgroundColor: '#000',
+                 '-webkit-border-radius': '10px',
+                 '-moz-border-radius': '10px',
+                 opacity: .5,
+                 color: '#fff'
+                }
+               })
+       }
+               )
+               .ajaxSend(
+                   $.blockUI({
+                    message: '<h1><img src="' + loading + '" /> Espere...</h1>',
+                    css: {
+                     border: 'none',
+                     padding: '15px',
+                     backgroundColor: '#000',
+                     '-webkit-border-radius': '10px',
+                     '-moz-border-radius': '10px',
+                     opacity: .5,
+                     color: '#fff'
+                    }
+                   }))
+               .ajaxError($.unblockUI)
+               .ajaxComplete($.unblockUI)
+               .ajaxStop($.unblockUI);
+       $.ajax({
+        type: "post",
+        data: { 'registros': listado },
+        url: url_dir + '/facturasXML/CargarTablaRecepciones',
+        cache: false,
+        success: function (lista) {
+         debugger;
+
+         $("#tablaRecepciones").html(lista);
+
+         if (ventana) {
+          debugger;
+          $("#modCargaFactura").modal("show");
+          $("#div1").html("");
+          zona1.removeAllFiles();
+         }
+        }
+       });
+      }
+     }
+     function Combo() {
+      var grid = $("#GridFacturas").data("kendoGrid");
+      $.each(grid.tbody.find('tr'), function () {
+       var model = grid.dataItem(this);
+       var registroUID = $('[data-uid=' + model.uid + ']').children();
+       var celda = $(registroUID[1]).children();
+       var ele = $(celda[0]).children();
+       for (var i = 0; i < ele.length; i++) {
+        var op = ele[i];
+        if (op.selected == true) {
+         model.R2 = op.value;
+         break;
+        }
+       }
+      });
+      var registros = grid._data;
+      var listado = new Array();
+      var i = 0;
+      $.each(registros, function () {
+       var reg = this;
+       var obj = new Object();
+       obj.R1 = reg.R1;
+       obj.R2 = reg.R2;
+       obj.R3 = reg.R3;
+       obj.R4 = reg.R4;
+       obj.R5 = reg.R5;
+       obj.R6 = reg.R6;
+       obj.R7 = reg.R7;
+       listado[i] = obj;
+       i += 1;
+      });
+      $.ajax({
+       type: "post",
+       url: url_dir + "/facturasXML/ActualizarListaNotasCredito",
+       data: { 'registros': listado },
+       cache: false,
+       success: function (lista) {
+        $("#tablaFacturas").html(lista);
+        var grid = $("#GridFacturas").data("kendoGrid");
+        $.each(grid.tbody.find('tr'), function () {
+         var model = grid.dataItem(this);
+         if (model.R2 != "") {
+          var registroUID = $('[data-uid=' + model.uid + ']').children();
+          var celda = $(registroUID[1]).children();
+          var ele = $(celda[0]).children();
+          for (var i = 0; i < ele.length; i++) {
+           var op = ele[i];
+           if (op.value == model.R2) {
+            op.selected = true;
+            break;
+           }
+          }
+         }
+        });
+       }
+      });
+     };
+     function Combo2() {
+      var grid = $("#GridRecepciones").data("kendoGrid");
+      $.each(grid.tbody.find('tr'), function () {
+       var model = grid.dataItem(this);
+       var registroUID = $('[data-uid=' + model.uid + ']').children();
+       var celda = $(registroUID[5]).children();
+       var ele = $(celda[0]).children();
+       for (var i = 0; i < ele.length; i++) {
+        var op = ele[i];
+        if (op.selected == true) {
+         model.R6 = op.value;
+         break;
+        }
+       }
+      });
+      var registros = grid._data;
+      var listado = new Array();
+      var i = 0;
+      $.each(registrosSeleccionados, function () {
+       var reg = this;
+       var obj = new Object();
+       obj.R1 = reg.R1;
+       obj.R2 = reg.R2;
+       obj.R3 = reg.R3;
+       obj.R4 = reg.R4;
+       obj.R5 = reg.R5;
+       obj.R6 = reg.R6;
+       obj.R7 = reg.R7;
+       obj.R8 = reg.R8;
+       obj.R9 = reg.R9;
+       obj.R10 = reg.R10;
+       obj.R11 = reg.R11;
+       obj.R12 = reg.R12;
+       obj.R13 = reg.R13;
+       obj.R14 = reg.R14;
+       obj.R15 = reg.R15;
+       obj.R16 = reg.R16;
+       obj.R17 = reg.R17;
+       obj.R18 = registros[i].R6;
+       listado[i] = obj;
+       i += 1;
+      });
+      $.ajax({
+       type: "post",
+       url: url_dir + "/facturasXML/CargarTablaRecepciones",
+       data: { 'registros': listado },
+       cache: false,
+       success: function (lista) {
+        $("#tablaRecepciones").html(lista);
+        var grid = $("#GridRecepciones").data("kendoGrid");
+        $.each(grid.tbody.find('tr'), function () {
+         var model = grid.dataItem(this);
+         if (model.R6 != "") {
+          var registroUID = $('[data-uid=' + model.uid + ']').children();
+          var celda = $(registroUID[5]).children();
+          var ele = $(celda[0]).children();
+          for (var i = 0; i < ele.length; i++) {
+           var op = ele[i];
+           if (op.value == model.R6) {
+            op.selected = true;
+            break;
+           }
+          }
+         }
+        });
+       }
+      });
+     };
+     //Modificacion función Inicio
+     //Se modifico el ciclo cuando se obtiene el listado de ordenes de compra disponibles
+     //ya que si solo se traia una orden esta no se mostraba en el combo de ordenes
+     //7 Julio 2016
+     //GRD
+
+     function Inicio() {
+      $.ajax({
+       type: "post",
+       url: url_dir + '/facturasXML/CargarOrdenes',
+       cache: false,
+       success: function (ordenes) {
+        if (typeof (ordenes) == "string") {
+
+         $("#controlUsuario").html(ordenes);
+         if ($("#txtOC").attr("placeholder") == "No de Ticket") {
+          $("#lblOC").text("Número de Ticket");
+         }
+         else {
+          $("#lblOC").text("Orden de Compra");
+         }
+        }
+        else {
+         var combo = "<select id='txtOC' class='form-control'>";
+         var opciones;
+         if (ordenes.length > 0) {
+          opciones = "<option value='0'>Seleccione</option>";
+          for (var i = 0; i < ordenes.length; i++) {
+           opciones += "<option value='" + ordenes[i] + "'>" + ordenes[i] + "</option>";
+          }
+         }
+         else {
+          opciones = "<option value='0'>No hay ordenes disponibles en este momento</option>";
+         }
+         combo += opciones + "</select>";
+         $("#controlUsuario").html(combo);
+        }
+       }
+      });
+     }
+
+
+     function Config(orden) {
+      var iconos = $(".k-grid-btnCheck");
+      $(".k-grid-btnCheck").attr("data-toggle", "tooltip");
+      $(".k-grid-btnCheck").attr("data-placement", "left");
+      $(".k-grid-btnCheck").attr("title", "Seleccionar");
+      $(".k-grid-btnCheck").removeClass("k-button k-button-icontext");
+
+      var grid = $("#Grid").data("kendoGrid");
+      var totalR = grid.dataSource._total;
+      if (totalR == 0) {
+       $("#btnAnterior").click();
+       $("#cuerpoMensaje").html("No se encontraron datos de la búsqueda.");
+       $("#btnMensaje").click();
+       return;
+      }
+      else {
+       if ($("#txtOC").attr("placeholder") == "No de Ticket") {
+        $("#textoOrdenInfo").html("<h2>Recepciones del Número de Ticket " + orden + " (" + totalR + " registros actualmente)</h2>");
+       }
+       else {
+        $("#textoOrdenInfo").html("<h2>Recepciones de la Orden de Compra " + orden + " (" + totalR + " registros actualmente)</h2>");
+       }
+       grid.options.selectable = false;
+       crearTablaDetalles();
+      }
+     }
+     function crearTablaDetalles() {
+      debugger;
+      $.ajax({
+       type: "post",
+       url: url_dir + '/facturasXML/MostrarTablaDetallesOC',
+       cache: false,
+       success: function (tabla) {
+        debugger;
+        $("#RegistrosDetalle").html(tabla);
+       }
+      });
+     }
+     function onRowDataBound(e) {
+      var grid = e.sender;
+      if (grid.content.context.id == "Grid") {
+       $.each(grid.tbody.find('tr'), function () {
+        var model = grid.dataItem(this);
+        var registroUID = $('[data-uid=' + model.uid + ']').children();
+        var celda = $(registroUID[0]).children();
+        var ele = $(celda[0]).children();
+        var boton = ele[1];
+        if (model.R4 == "Q") {
+         $(boton).attr("disabled", "true");
+         //$('[data-uid=' + model.uid + ']').addClass('k-state-selected');
+        }
+        else {
+         $(boton).addClass('btn-info').removeClass('btn-success');
+         var icono = $(boton).children();
+         $(icono).addClass('fa-circle').removeClass('fa-check-circle');
+         if (todo) {
+          VerificaSeleccionElemento(model)
+         }
+        }
+       });
+       $(".k-grid-btnCheck").attr("data-toggle", "tooltip");
+       $(".k-grid-btnCheck").attr("data-placement", "left");
+       $(".k-grid-btnCheck").attr("title", "Seleccionar");
+       $(".k-grid-btnCheck").css("width", "0px");
+       $(".k-grid-btnCheck").removeClass("k-button k-button-icontext");
+      }
+     }
+     function onChange(arg) {
+      $(".k-grid-btnCheck").attr("data-toggle", "tooltip");
+      $(".k-grid-btnCheck").attr("data-placement", "left");
+      $(".k-grid-btnCheck").attr("title", "Seleccionar");
+      $(".k-grid-btnCheck").css("width", "0px");
+      $(".k-grid-btnCheck").removeClass("k-button k-button-icontext");
+     }
+     function onCancel(e) {
+      $(".k-grid-btnCheck").attr("data-toggle", "tooltip");
+      $(".k-grid-btnCheck").attr("data-placement", "left");
+      $(".k-grid-btnCheck").attr("title", "Seleccionar");
+      $(".k-grid-btnCheck").css("width", "0px");
+      $(".k-grid-btnCheck").removeClass("k-button k-button-icontext");
+     }
+     function onSave(e) {
+
+     }
+     function onEdit(e) {
+
+     }
+     var registrosSeleccionados = new Array();
+     function Seleccionar(e) {
+      e.preventDefault();
+      var model = this.dataItem($(e.currentTarget).closest("tr"));
+      var index = registrosSeleccionados.length;
+      var registroUID = $('[data-uid=' + model.uid + ']').children();
+      var celda = $(registroUID[0]).children();
+      var ele = $(celda[0]).children();
+      var boton = ele[1];
+      var icono = $(boton).children();
+      if (icono[0].className == "fa fa-circle") {
+       $(icono).addClass('fa-check-circle').removeClass('fa-circle');
+       $('[data-uid=' + model.uid + ']').addClass('k-state-selected');
+       registrosSeleccionados[index] = model;
+       if (todo) {
+        index = ListaDatosSinQ.length;
+        i = ListaDatosSinQ[index] = model;
+       }
+      }
+      else {
+       $(icono).addClass('fa-circle').removeClass('fa-check-circle');
+       $('[data-uid=' + model.uid + ']').removeClass('k-state-selected');
+       var i = registrosSeleccionados.indexOf(model);
+       registrosSeleccionados.splice(i, 1);
+       if (todo) {
+        i = ListaDatosSinQ.indexOf(model);
+        ListaDatosSinQ.splice(i, 1);
+       }
+      }
+     }
+     function SeleccionarTodo(e) {
+      debugger;
+      var grid = $("#Grid").data("kendoGrid");
+      var index = registrosSeleccionados.length;
+      var opcion = $(e).children();
+      var btn = opcion[0];
+      if (btn.className == "fa fa-check-circle") {
+       $(btn).addClass('fa-circle').removeClass('fa-check-circle');
+       $.each(grid.tbody.find('tr'), function () {
+        var model = grid.dataItem(this);
+        var registroUID = $('[data-uid=' + model.uid + ']').children();
+        var celda = $(registroUID[0]).children();
+        var ele = $(celda[0]).children();
+        var boton = ele[1];
+        var icono = $(boton).children();
+        if (icono[0].className == "fa fa-circle") {
+         $(icono).addClass('fa-check-circle').removeClass('fa-circle');
+         $('[data-uid=' + model.uid + ']').addClass('k-state-selected');
+         registrosSeleccionados[index] = model;
+         index += 1;
+        }
+       });
+       todo = true;
+       ElementosSinQ(true);
+      }
+      else {
+       $(btn).addClass('fa-check-circle').removeClass('fa-circle');
+       $.each(registrosSeleccionados, function () {
+        var model = this;//grid.dataItem(this);
+        var registroUID = $('[data-uid=' + model.uid + ']').children();
+        var celda = $(registroUID[0]).children();
+        var ele = $(celda[0]).children();
+        var boton = ele[1];
+        var icono = $(boton).children();
+
+        $(icono).addClass('fa-circle').removeClass('fa-check-circle');
+        $('[data-uid=' + model.uid + ']').removeClass('k-state-selected');
+       });
+       registrosSeleccionados = new Array();
+       ListaDatosSinQ = new Array();
+       todo = false;
+      }
+     };
+     var ListaDatosSinQ = new Array();
+     function ElementosSinQ(todos, elemento) {
+      var grid = $("#Grid").data("kendoGrid");
+      var i = 0;
+      todo = true;
+      $.each(grid.dataSource._data, function () {
+       var model = this;
+       if (todos) {
+        if (model.R4 != "Q") {
+         ListaDatosSinQ[i] = model;
+         i += 1;
+        }
+       } else {
+        i = ListaDatosSinQ.length;
+        if (model.R4 == elemento.R4 && model.R1 == elemento.R1 && model.R2 == elemento.R2) {
+         ListaDatosSinQ[i] = model;
+         return;
+        }
+       }
+      });
+     }
+     function VerificaSeleccionElemento(elemento) {
+      debugger;
+      if (ListaDatosSinQ != undefined && ListaDatosSinQ.length > 0) {
+       var tmp = new Array();
+       var i = 0;
+       $.each(ListaDatosSinQ, function () {
+        var model = this;
+        if (model.uid == undefined) {
+         if (model.R4 == elemento.R4 && model.R1 == elemento.R1 && model.R2 == elemento.R2) {
+          ListaDatosSinQ[i] = elemento;
+          SeleccionaR(elemento);
+         }
+        }
+        else {
+         if (model.uid == elemento.uid && elemento.R4 != "Q")
+          SeleccionaR(elemento);
+        }
+        i += 1;
+       });
+
+      }
+     }
+     function SeleccionaR(elemento) {
+      var registroUID = $('[data-uid=' + elemento.uid + ']').children();
+      var celda = $(registroUID[0]).children();
+      var ele = $(celda[0]).children();
+      var boton = ele[1];
+      var icono = $(boton).children();
+      if (icono[0].className == "fa fa-circle") {
+       $(icono).addClass('fa-check-circle').removeClass('fa-circle');
+       $('[data-uid=' + elemento.uid + ']').addClass('k-state-selected');
+      }
+     }
+     function CrearGridFacturas(lista) {
+      var grid = $("#tablaFacturas").kendoGrid({
+       dataSource: {
+        data: lista,
+        pageSize: 20
+       },
+       schema: {
+        model: {
+         id: "IdFacturas",
+         fields: {
+          IdFacturas: { type: "number" },
+          Facturas: { type: "string" },
+          Complemento: { type: "string" },
+          ImporteDoc: { type: "number" },
+          ImporteIni: { type: "number" },
+          ImporteFin: { type: "number" },
+          FacturaApta: { type: "string" }
+         }
+        }
+       },
+       height: 500,
+       pageable: true,
+       columns: [
+               { field: "IdFacturas", title: "Id" },
+               { field: "Facturas", title: "Facturas XML" },
+               { field: "Complemento", title: "Nota Crédito/Complementaria" },
+               { field: "ImporteDoc", title: "Importe Doc" },
+               { field: "ImporteIni", title: "Importe Inicial Factura" },
+               { field: "ImporteFin", title: "Importe Final Factura" },
+               { field: "FacturaApta", title: "Factura Apta" }
+       ],
+      });
+     };
+     function ValidarNotas(carga) {
+      if (carga) {
+       $.ajax({
+        type: "post",
+        data: { 'carga': carga },
+        url: url_dir + '/facturasXML/ValidarNotaCredito',
+        cache: false,
+        success: function (lista) {
+         if (typeof (lista) == "string") {
+
+         }
+         else {
+          if (lista.lenght > 0) {
+           var grid = $("#Grid").data("kendoGrid");
+           if (grid != undefined) {
+            var elementos = grid.dataSource.data;
+            if (elementos.lenght > 0) {
+
+            }
+           }
+           CrearGridFacturas(lista);
+          }
+         }
+        }
+       });
+      }
+     }
+
+     function dropzoneExists(selector) {
+      var elements = $(selector).find('.dz-default');
+      return elements.length > 0;
+     }
+    </script>
+}
+

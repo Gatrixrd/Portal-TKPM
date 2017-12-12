@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/System.Xml" />
+  <xs:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="Comprobante">
+    <xs:sequence>
+      <xs:element name="addendaField" nillable="true" type="tns:ComprobanteAddenda" />
+      <xs:element name="certificadoField" nillable="true" type="xs:string" />
+      <xs:element name="complementoField" nillable="true" type="tns:ComprobanteComplemento" />
+      <xs:element name="conceptosField" nillable="true" type="tns:ArrayOfComprobanteConcepto" />
+      <xs:element name="condicionesDePagoField" nillable="true" type="xs:string" />
+      <xs:element name="descuentoField" type="xs:decimal" />
+      <xs:element name="descuentoFieldSpecified" type="xs:boolean" />
+      <xs:element name="emisorField" nillable="true" type="tns:ComprobanteEmisor" />
+      <xs:element name="fechaField" type="xs:dateTime" />
+      <xs:element name="fechaFolioFiscalOrigField" type="xs:dateTime" />
+      <xs:element name="fechaFolioFiscalOrigFieldSpecified" type="xs:boolean" />
+      <xs:element name="folioField" nillable="true" type="xs:string" />
+      <xs:element name="folioFiscalOrigField" nillable="true" type="xs:string" />
+      <xs:element name="formaDePagoField" nillable="true" type="xs:string" />
+      <xs:element name="impuestosField" nillable="true" type="tns:ComprobanteImpuestos" />
+      <xs:element name="lugarExpedicionField" nillable="true" type="xs:string" />
+      <xs:element name="metodoDePagoField" nillable="true" type="xs:string" />
+      <xs:element name="monedaField" nillable="true" type="xs:string" />
+      <xs:element name="montoFolioFiscalOrigField" type="xs:decimal" />
+      <xs:element name="montoFolioFiscalOrigFieldSpecified" type="xs:boolean" />
+      <xs:element name="motivoDescuentoField" nillable="true" type="xs:string" />
+      <xs:element name="noCertificadoField" nillable="true" type="xs:string" />
+      <xs:element name="numCtaPagoField" nillable="true" type="xs:string" />
+      <xs:element name="receptorField" nillable="true" type="tns:ComprobanteReceptor" />
+      <xs:element name="selloField" nillable="true" type="xs:string" />
+      <xs:element name="serieField" nillable="true" type="xs:string" />
+      <xs:element name="serieFolioFiscalOrigField" nillable="true" type="xs:string" />
+      <xs:element name="subTotalField" type="xs:decimal" />
+      <xs:element name="tipoCambioField" nillable="true" type="xs:string" />
+      <xs:element name="tipoDeComprobanteField" type="tns:ComprobanteTipoDeComprobante" />
+      <xs:element name="totalField" type="xs:decimal" />
+      <xs:element name="versionField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Comprobante" nillable="true" type="tns:Comprobante" />
+  <xs:complexType name="ComprobanteAddenda">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System.Xml" name="anyField" nillable="true" type="q1:ArrayOfXmlElement" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ComprobanteAddenda" nillable="true" type="tns:ComprobanteAddenda" />
+  <xs:complexType name="ComprobanteComplemento">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System.Xml" name="anyField" nillable="true" type="q2:ArrayOfXmlElement" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ComprobanteComplemento" nillable="true" type="tns:ComprobanteComplemento" />
+  <xs:complexType name="ArrayOfComprobanteConcepto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ComprobanteConcepto" nillable="true" type="tns:ComprobanteConcepto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfComprobanteConcepto" nillable="true" type="tns:ArrayOfComprobanteConcepto" />
+  <xs:complexType name="ComprobanteConcepto">
+    <xs:sequence>
+      <xs:element name="cantidadField" type="xs:decimal" />
+      <xs:element name="descripcionField" nillable="true" type="xs:string" />
+      <xs:element name="importeField" type="xs:decimal" />
+      <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="itemsField" nillable="true" type="q3:ArrayOfanyType" />
+      <xs:element name="noIdentificacionField" nillable="true" type="xs:string" />
+      <xs:element name="unidadField" nillable="true" type="xs:string" />
+      <xs:element name="valorUnitarioField" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ComprobanteConcepto" nillable="true" type="tns:ComprobanteConcepto" />
+  <xs:complexType name="ComprobanteEmisor">
+    <xs:sequence>
+      <xs:element name="domicilioFiscalField" nillable="true" type="tns:t_UbicacionFiscal" />
+      <xs:element name="expedidoEnField" nillable="true" type="tns:t_Ubicacion" />
+      <xs:element name="nombreField" nillable="true" type="xs:string" />
+      <xs:element name="regimenFiscalField" nillable="true" type="tns:ArrayOfComprobanteEmisorRegimenFiscal" />
+      <xs:element name="rfcField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ComprobanteEmisor" nillable="true" type="tns:ComprobanteEmisor" />
+  <xs:complexType name="t_UbicacionFiscal">
+    <xs:sequence>
+      <xs:element name="calleField" nillable="true" type="xs:string" />
+      <xs:element name="codigoPostalField" nillable="true" type="xs:string" />
+      <xs:element name="coloniaField" nillable="true" type="xs:string" />
+      <xs:element name="estadoField" nillable="true" type="xs:string" />
+      <xs:element name="localidadField" nillable="true" type="xs:string" />
+      <xs:element name="municipioField" nillable="true" type="xs:string" />
+      <xs:element name="noExteriorField" nillable="true" type="xs:string" />
+      <xs:element name="noInteriorField" nillable="true" type="xs:string" />
+      <xs:element name="paisField" nillable="true" type="xs:string" />
+      <xs:element name="referenciaField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="t_UbicacionFiscal" nillable="true" type="tns:t_UbicacionFiscal" />
+  <xs:complexType name="t_Ubicacion">
+    <xs:sequence>
+      <xs:element name="calleField" nillable="true" type="xs:string" />
+      <xs:element name="codigoPostalField" nillable="true" type="xs:string" />
+      <xs:element name="coloniaField" nillable="true" type="xs:string" />
+      <xs:element name="estadoField" nillable="true" type="xs:string" />
+      <xs:element name="localidadField" nillable="true" type="xs:string" />
+      <xs:element name="municipioField" nillable="true" type="xs:string" />
+      <xs:element name="noExteriorField" nillable="true" type="xs:string" />
+      <xs:element name="noInteriorField" nillable="true" type="xs:string" />
+      <xs:element name="paisField" nillable="true" type="xs:string" />
+      <xs:element name="referenciaField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="t_Ubicacion" nillable="true" type="tns:t_Ubicacion" />
+  <xs:complexType name="ArrayOfComprobanteEmisorRegimenFiscal">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ComprobanteEmisorRegimenFiscal" nillable="true" type="tns:ComprobanteEmisorRegimenFiscal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfComprobanteEmisorRegimenFiscal" nillable="true" type="tns:ArrayOfComprobanteEmisorRegimenFiscal" />
+  <xs:complexType name="ComprobanteEmisorRegimenFiscal">
+    <xs:sequence>
+      <xs:element name="regimenField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ComprobanteEmisorRegimenFiscal" nillable="true" type="tns:ComprobanteEmisorRegimenFiscal" />
+  <xs:complexType name="ComprobanteImpuestos">
+    <xs:sequence>
+      <xs:element name="retencionesField" nillable="true" type="tns:ArrayOfComprobanteImpuestosRetencion" />
+      <xs:element name="totalImpuestosRetenidosField" type="xs:decimal" />
+      <xs:element name="totalImpuestosRetenidosFieldSpecified" type="xs:boolean" />
+      <xs:element name="totalImpuestosTrasladadosField" type="xs:decimal" />
+      <xs:element name="totalImpuestosTrasladadosFieldSpecified" type="xs:boolean" />
+      <xs:element name="trasladosField" nillable="true" type="tns:ArrayOfComprobanteImpuestosTraslado" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ComprobanteImpuestos" nillable="true" type="tns:ComprobanteImpuestos" />
+  <xs:complexType name="ArrayOfComprobanteImpuestosRetencion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ComprobanteImpuestosRetencion" nillable="true" type="tns:ComprobanteImpuestosRetencion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfComprobanteImpuestosRetencion" nillable="true" type="tns:ArrayOfComprobanteImpuestosRetencion" />
+  <xs:complexType name="ComprobanteImpuestosRetencion">
+    <xs:sequence>
+      <xs:element name="importeField" type="xs:decimal" />
+      <xs:element name="impuestoField" type="tns:ComprobanteImpuestosRetencionImpuesto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ComprobanteImpuestosRetencion" nillable="true" type="tns:ComprobanteImpuestosRetencion" />
+  <xs:simpleType name="ComprobanteImpuestosRetencionImpuesto">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ISR" />
+      <xs:enumeration value="IVA" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ComprobanteImpuestosRetencionImpuesto" nillable="true" type="tns:ComprobanteImpuestosRetencionImpuesto" />
+  <xs:complexType name="ArrayOfComprobanteImpuestosTraslado">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ComprobanteImpuestosTraslado" nillable="true" type="tns:ComprobanteImpuestosTraslado" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfComprobanteImpuestosTraslado" nillable="true" type="tns:ArrayOfComprobanteImpuestosTraslado" />
+  <xs:complexType name="ComprobanteImpuestosTraslado">
+    <xs:sequence>
+      <xs:element name="importeField" type="xs:decimal" />
+      <xs:element name="impuestoField" type="tns:ComprobanteImpuestosTrasladoImpuesto" />
+      <xs:element name="tasaField" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ComprobanteImpuestosTraslado" nillable="true" type="tns:ComprobanteImpuestosTraslado" />
+  <xs:simpleType name="ComprobanteImpuestosTrasladoImpuesto">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IVA" />
+      <xs:enumeration value="IEPS" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ComprobanteImpuestosTrasladoImpuesto" nillable="true" type="tns:ComprobanteImpuestosTrasladoImpuesto" />
+  <xs:complexType name="ComprobanteReceptor">
+    <xs:sequence>
+      <xs:element name="domicilioField" nillable="true" type="tns:t_Ubicacion" />
+      <xs:element name="nombreField" nillable="true" type="xs:string" />
+      <xs:element name="rfcField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ComprobanteReceptor" nillable="true" type="tns:ComprobanteReceptor" />
+  <xs:simpleType name="ComprobanteTipoDeComprobante">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ingreso" />
+      <xs:enumeration value="egreso" />
+      <xs:enumeration value="traslado" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ComprobanteTipoDeComprobante" nillable="true" type="tns:ComprobanteTipoDeComprobante" />
+</xs:schema>

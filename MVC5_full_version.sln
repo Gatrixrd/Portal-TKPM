@@ -1,0 +1,150 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC5_full_version", "MVC5_full_version\MVC5_full_version.csproj", "{30EB55A3-DC65-4E67-B276-9B47A1E02B0A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8EBD1009-847E-4CDA-AA33-FDCDC0DFF9A3} = {8EBD1009-847E-4CDA-AA33-FDCDC0DFF9A3}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickFactura_Entidades", "..\ClickFactura_Entidades\ClickFactura_Entidades.csproj", "{D0BF1AB7-5BA0-4ECD-807F-1BA5D937F1B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickFactura_WebServiceCF", "..\ClickFactura_WebServiceCF\ClickFactura_WebServiceCF.csproj", "{30965F65-6DE7-4BD8-B278-D92A2EC36A52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickFactura_Facturacion", "..\ClickFactura_Facturacion\ClickFactura_Facturacion.csproj", "{E54F4CEC-E3CD-4BB9-9AD9-28BF0B337643}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webAplicacionCF", "..\ClickFactura_WebServiceRESTfullCF\webAplicacionCF\webAplicacionCF.csproj", "{8EBD1009-847E-4CDA-AA33-FDCDC0DFF9A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCF_ClickFactura", "..\WCF_ClickFactura\WCF_ClickFactura\WCF_ClickFactura.csproj", "{3EC1718F-FEB8-4818-9608-1B7973F1379F}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Testing_ClickFactura_WebServiceCF", "http://localhost:12689", "{515F3120-D416-4315-B055-96221353D786}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "SAK"
+		SccAuxPath = "SAK"
+		SccLocalPath = "SAK"
+		SccProvider = "SAK"
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{D0BF1AB7-5BA0-4ECD-807F-1BA5D937F1B4}|ClickFactura_Entidades.dll;{E54F4CEC-E3CD-4BB9-9AD9-28BF0B337643}|ClickFactura_Facturacion.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_12689"
+		Debug.AspNetCompiler.PhysicalPath = "..\Testing_ClickFactura_WebServiceCF\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_12689\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_12689"
+		Release.AspNetCompiler.PhysicalPath = "..\Testing_ClickFactura_WebServiceCF\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_12689\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\Testing_ClickFactura_WebServiceCF\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServiceRESTSAP", "..\WebServiceRESTSAP\WebServiceRESTSAP.csproj", "{0F719ED8-B0DC-4AB3-99B0-9CB4DC3C271F}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 9
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://bafarclickfactura.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\ClickFactura_Entidades\\ClickFactura_Entidades.csproj
+		SccProjectName1 = ../ClickFactura_Entidades
+		SccLocalPath1 = ..\\ClickFactura_Entidades
+		SccProjectUniqueName2 = ..\\ClickFactura_Facturacion\\ClickFactura_Facturacion.csproj
+		SccProjectName2 = ../ClickFactura_Facturacion
+		SccLocalPath2 = ..\\ClickFactura_Facturacion
+		SccProjectUniqueName3 = ..\\ClickFactura_WebServiceCF\\ClickFactura_WebServiceCF.csproj
+		SccProjectName3 = ../ClickFactura_WebServiceCF
+		SccLocalPath3 = ..\\ClickFactura_WebServiceCF
+		SccProjectUniqueName4 = ..\\ClickFactura_WebServiceRESTfullCF\\webAplicacionCF\\webAplicacionCF.csproj
+		SccProjectName4 = ../ClickFactura_WebServiceRESTfullCF/webAplicacionCF
+		SccLocalPath4 = ..\\ClickFactura_WebServiceRESTfullCF\\webAplicacionCF
+		SccWebProject5 = true
+		SccProjectUniqueName5 = http://localhost:12689
+		SccProjectName5 = ../Testing_ClickFactura_WebServiceCF
+		SccLocalPath5 = ..\\Testing_ClickFactura_WebServiceCF
+		SccProjectEnlistmentChoice5 = 2
+		SccProjectUniqueName6 = ..\\WCF_ClickFactura\\WCF_ClickFactura\\WCF_ClickFactura.csproj
+		SccProjectName6 = ../WCF_ClickFactura/WCF_ClickFactura
+		SccLocalPath6 = ..\\WCF_ClickFactura\\WCF_ClickFactura
+		SccProjectUniqueName7 = MVC5_full_version\\MVC5_full_version.csproj
+		SccProjectName7 = MVC5_full_version
+		SccLocalPath7 = MVC5_full_version
+		SccProjectUniqueName8 = ..\\WebServiceRESTSAP\\WebServiceRESTSAP.csproj
+		SccProjectName8 = ../WebServiceRESTSAP
+		SccLocalPath8 = ..\\WebServiceRESTSAP
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30EB55A3-DC65-4E67-B276-9B47A1E02B0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30EB55A3-DC65-4E67-B276-9B47A1E02B0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30EB55A3-DC65-4E67-B276-9B47A1E02B0A}.Debug|x86.ActiveCfg = Debug|x86
+		{30EB55A3-DC65-4E67-B276-9B47A1E02B0A}.Debug|x86.Build.0 = Debug|x86
+		{30EB55A3-DC65-4E67-B276-9B47A1E02B0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30EB55A3-DC65-4E67-B276-9B47A1E02B0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30EB55A3-DC65-4E67-B276-9B47A1E02B0A}.Release|x86.ActiveCfg = Release|x86
+		{30EB55A3-DC65-4E67-B276-9B47A1E02B0A}.Release|x86.Build.0 = Release|x86
+		{D0BF1AB7-5BA0-4ECD-807F-1BA5D937F1B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0BF1AB7-5BA0-4ECD-807F-1BA5D937F1B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0BF1AB7-5BA0-4ECD-807F-1BA5D937F1B4}.Debug|x86.ActiveCfg = Debug|x86
+		{D0BF1AB7-5BA0-4ECD-807F-1BA5D937F1B4}.Debug|x86.Build.0 = Debug|x86
+		{D0BF1AB7-5BA0-4ECD-807F-1BA5D937F1B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0BF1AB7-5BA0-4ECD-807F-1BA5D937F1B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0BF1AB7-5BA0-4ECD-807F-1BA5D937F1B4}.Release|x86.ActiveCfg = Release|x86
+		{D0BF1AB7-5BA0-4ECD-807F-1BA5D937F1B4}.Release|x86.Build.0 = Release|x86
+		{30965F65-6DE7-4BD8-B278-D92A2EC36A52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30965F65-6DE7-4BD8-B278-D92A2EC36A52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30965F65-6DE7-4BD8-B278-D92A2EC36A52}.Debug|x86.ActiveCfg = Debug|x86
+		{30965F65-6DE7-4BD8-B278-D92A2EC36A52}.Debug|x86.Build.0 = Debug|x86
+		{30965F65-6DE7-4BD8-B278-D92A2EC36A52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30965F65-6DE7-4BD8-B278-D92A2EC36A52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30965F65-6DE7-4BD8-B278-D92A2EC36A52}.Release|x86.ActiveCfg = Release|x86
+		{30965F65-6DE7-4BD8-B278-D92A2EC36A52}.Release|x86.Build.0 = Release|x86
+		{E54F4CEC-E3CD-4BB9-9AD9-28BF0B337643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E54F4CEC-E3CD-4BB9-9AD9-28BF0B337643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E54F4CEC-E3CD-4BB9-9AD9-28BF0B337643}.Debug|x86.ActiveCfg = Debug|x86
+		{E54F4CEC-E3CD-4BB9-9AD9-28BF0B337643}.Debug|x86.Build.0 = Debug|x86
+		{E54F4CEC-E3CD-4BB9-9AD9-28BF0B337643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E54F4CEC-E3CD-4BB9-9AD9-28BF0B337643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E54F4CEC-E3CD-4BB9-9AD9-28BF0B337643}.Release|x86.ActiveCfg = Release|x86
+		{E54F4CEC-E3CD-4BB9-9AD9-28BF0B337643}.Release|x86.Build.0 = Release|x86
+		{8EBD1009-847E-4CDA-AA33-FDCDC0DFF9A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EBD1009-847E-4CDA-AA33-FDCDC0DFF9A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EBD1009-847E-4CDA-AA33-FDCDC0DFF9A3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8EBD1009-847E-4CDA-AA33-FDCDC0DFF9A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EBD1009-847E-4CDA-AA33-FDCDC0DFF9A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EBD1009-847E-4CDA-AA33-FDCDC0DFF9A3}.Release|x86.ActiveCfg = Release|Any CPU
+		{3EC1718F-FEB8-4818-9608-1B7973F1379F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EC1718F-FEB8-4818-9608-1B7973F1379F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EC1718F-FEB8-4818-9608-1B7973F1379F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3EC1718F-FEB8-4818-9608-1B7973F1379F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EC1718F-FEB8-4818-9608-1B7973F1379F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EC1718F-FEB8-4818-9608-1B7973F1379F}.Release|x86.ActiveCfg = Release|Any CPU
+		{515F3120-D416-4315-B055-96221353D786}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{515F3120-D416-4315-B055-96221353D786}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{515F3120-D416-4315-B055-96221353D786}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{515F3120-D416-4315-B055-96221353D786}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{515F3120-D416-4315-B055-96221353D786}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{515F3120-D416-4315-B055-96221353D786}.Release|x86.ActiveCfg = Debug|Any CPU
+		{0F719ED8-B0DC-4AB3-99B0-9CB4DC3C271F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F719ED8-B0DC-4AB3-99B0-9CB4DC3C271F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F719ED8-B0DC-4AB3-99B0-9CB4DC3C271F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0F719ED8-B0DC-4AB3-99B0-9CB4DC3C271F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F719ED8-B0DC-4AB3-99B0-9CB4DC3C271F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F719ED8-B0DC-4AB3-99B0-9CB4DC3C271F}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

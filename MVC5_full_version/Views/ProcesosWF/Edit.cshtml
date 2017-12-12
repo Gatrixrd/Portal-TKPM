@@ -1,0 +1,64 @@
+﻿@model ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF
+
+@{
+    ViewBag.Title = "Editar generales de un Proceso Workflow";
+}
+<div class="pageheader">
+    <h2>Editar Workflow</h2>
+    <h4>Ponga atención en el mínimo requerido para la aprobación de  su workflow.</h4>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.idWF)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.nombreWF, "Nombre del proceso: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nombreWF , new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nombreWF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.noAprobacionesRequeridas,"Aprobaciones requeridas: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.noAprobacionesRequeridas, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.noAprobacionesRequeridas, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.controlador, htmlAttributes: new { @class = "control-label col-md-2", style = "display: none;" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.controlador, new { htmlAttributes = new { @class = "form-control", style = "display: none;" } })
+                @Html.ValidationMessageFor(model => model.controlador, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.minimoRelevanciaJerarquica,"% mínimo de aprobación: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.minimoRelevanciaJerarquica, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.minimoRelevanciaJerarquica, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver a listar todo", "Index")
+</div>

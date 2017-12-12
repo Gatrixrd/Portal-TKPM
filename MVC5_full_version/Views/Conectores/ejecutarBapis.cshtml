@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Bapis Pruebas";
+}
+
+<h2>ejecutarBapis</h2>
+<button class="btn btn-info" id="btnEjecutar">Ejecutar</button>
+<script>
+    $("#btnEjecutar").click(function (e) {
+        $.ajax({
+            type: 'get',
+            url: "/Conectores/ejecutar",
+            cache: false,
+            success: function (resultado) {
+
+            }
+        });
+    });
+</script>

@@ -1,0 +1,151 @@
+﻿@model ClickFactura_Entidades.BD.Entidades.Cat_UMedidaWF
+
+@{
+    ViewBag.Title = "Editar UM";
+}
+<div class="pageheader">
+    <h2>Editar unidad de medida</h2>
+    <p>Modificar la información almacenada para cada Unida de Medida</p>
+</div>
+<script type="text/javascript">
+        @{ ClickFactura_Entidades.BD.Entidades.Desarrollo_CF _db = new ClickFactura_Entidades.BD.Entidades.Desarrollo_CF();}
+        @{int idWF = 0;}
+        @{int idUnidadMedida = 0;}
+        @{  IEnumerable<SelectListItem> CategorySelectListP=null ; }
+        var procesoSeleccionado = '';
+    $(document).ready(function () {
+       //#############################################
+        //$("#btnSeleccionaWorkFlow").click();
+        var idWF = JSON.parse('@Html.Raw(Json.Encode(Model.idWF))');
+        var idUnidadMedida= JSON.parse('@Html.Raw(Json.Encode(Model.idUnidadMedida))');
+        $('#procesoWF option:eq(' + idWF + ') ').prop('selected', true);
+        CallChangefunc(idWF);
+        //#############################################
+    });
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @*<h4>Cat_UMedidaWF</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.idUnidadMedida)
+        @Html.HiddenFor(model => model.idWF)
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.UnidadMedida, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Unidad (siglas)", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.UnidadMedida, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UnidadMedida, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.DescripcionUM, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.DescripcionUM, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DescripcionUM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.activo, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Activo", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.activo)
+                    @Html.ValidationMessageFor(model => model.activo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.idWF, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Workflow asignado", htmlAttributes: new { @class = "control-label col-md-2" })
+            @{
+                List<KeyValuePair<string, string>> respuestaAux = new List<KeyValuePair<string, string>>();
+                List<ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF> _ProcesoWF = _db.Cat_ProcesosWF.ToList();
+                foreach (ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF wf in _ProcesoWF)
+                {
+                    string key = wf.idWF.ToString();
+                    string value = wf.nombreWF.ToString();
+                    respuestaAux.Add(new KeyValuePair<string, string>(key, value));
+                }
+                IEnumerable<SelectListItem> CategorySelectListAux = respuestaAux.Select(x => new SelectListItem() { Text = x.Value.Trim(), Value = x.Key.Trim() });
+            }
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.idWF, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.idWF, "", new { @class = "text-danger" })*@
+                @*@Html.DropDownListFor(model => model.idWF, CategorySelectListAux, "Seleccione un proceso", htmlAttributes: new { @ID = "procesoWF", @onchange = "CallChangefunc(this.value)" })*@
+                <script>
+                                function CallChangefunc(val)
+                                {
+                                    idWF = val;
+                                    @{ System.Web.HttpContext.Current.Session["idWF"] = idWF;}
+                                    obtenPadres();
+                                }
+                                function obtenPadres()
+                                {
+                                    var options = $("#PadreWF");
+                                    var original=JSON.parse('@Html.Raw(Json.Encode(Model.idUnidadMedida))');
+                                    options.empty();
+                                    $.ajax
+                                                (
+                                                 {
+                                                     type: "post",
+                                                     url: url_dir + '/Cat_UMedidaWF/actualizaTipos',
+                                                     data: { 'idWF': idWF },
+                                                     cache: false,
+                                                     success: function (data) {
+                                                         var optionString = '';
+                                                         if (data.length > 0) {
+                                                                    for (var i = 0; i < data.length; i++) {
+                                                                        var optionString='<option value="' +data[i].Value+'">' +  data[i].Text +' </option>';
+                                                                        options.append($(optionString));
+                                                                    }
+                                                             $('#PadreWF option:eq(' +original +') ' ).prop('selected',true);
+                                                           }
+                                                         else {
+
+                                                         }
+                                                     }
+                                                 }
+                                                );
+                                }
+                                function pasaPadre(val)
+                                {
+                                    var _id = idUnidadMedida.value;
+                                    $.ajax
+                                            (
+                                             {
+                                                 type: "post",
+                                                 url: url_dir + '/Cat_UMedidaWF/actualizaPadre',
+                                                 data: { 'id': _id,'nuevo':val },
+                                                 cache: false,
+                                                 success: function (data) {
+                                                  showSucess("Workflow actualizado");
+                                                 }
+                                             }
+                                            );
+                                }
+                </script>
+                <select id="PadreWF" onchange="pasaPadre(this.value)"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver al listado", "Index")
+</div>

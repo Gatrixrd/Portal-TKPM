@@ -1,0 +1,273 @@
+﻿@model ClickFactura_Entidades.BD.Entidades.Cat_TipoUsuarioWF
+
+@{
+    ViewBag.Title = "Editar Tipo de Usuario";
+}
+
+<div class="pageheader">
+    <h2>Editar tipo de usuario</h2>
+    <h4>Tipos de usuarios para Workflow</h4>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <script type="text/javascript">
+        @{ ClickFactura_Entidades.BD.Entidades.Desarrollo_CF _db = new ClickFactura_Entidades.BD.Entidades.Desarrollo_CF();}
+        @{int idWF = 0;}
+        @{int idTipo = 0;}
+        @{  IEnumerable<SelectListItem> CategorySelectListP=null ; }
+        var procesoSeleccionado = '';
+    $(document).ready(function () {
+                    //#############################################
+        //$("#btnSeleccionaWorkFlow").click();
+        var valor = JSON.parse('@Html.Raw(Json.Encode(Model.idWF.Trim()))');
+        idTipo = JSON.parse('@Html.Raw(Json.Encode(Model.idTipoUsuarioWF))');
+        $('#procesoWF option:eq(' + valor + ') ').prop('selected', true);
+        _obtenPadres();
+    });
+
+    </script>
+    
+    <div class="form-horizontal">
+  
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.idTipoUsuarioWF)
+
+        <div class="form-group">
+            @{
+                List<KeyValuePair<string, string>> respuestaAux = new List<KeyValuePair<string, string>>();
+                List<ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF> _ProcesoWF = _db.Cat_ProcesosWF.ToList();
+                foreach (ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF wf in _ProcesoWF)
+                {
+                            string key = wf.idWF.ToString();
+                            string value = wf.nombreWF.ToString();
+                            respuestaAux.Add(new KeyValuePair<string, string>(key, value));
+                }
+                IEnumerable<SelectListItem> CategorySelectListAux = respuestaAux.Select(x => new SelectListItem() { Text = x.Value.Trim(), Value = x.Key.Trim() });
+            }
+            @*@Html.LabelFor(model => model.idWF, htmlAttributes: new { @class = "control-label col-md-2", @ID="elWF"})*@
+
+
+            @Html.Label("Pertenece al Proceso", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @*@Html.EditorFor(model => model.idWF, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.idWF, "", new { @class = "text-danger" })*@
+ 
+                @Html.DropDownListFor(model => model.idWF, CategorySelectListAux, "Seleccione un proceso", htmlAttributes: new { @ID = "procesoWF", @onchange = "CallChangefunc(this.value)" })
+                <script>
+                                function CallChangefunc(val)
+                                {
+                                    idWF = val;
+                                    @{ System.Web.HttpContext.Current.Session["idWF"] = idWF;}
+                                    pasaPadre(val);
+                                }
+                </script>
+
+                <div>
+                    <script>
+                                function obtenPadres()
+                                {
+                                    var options = $("#PadreWF");
+                                    var original=JSON.parse('@Html.Raw(Json.Encode(Model.idPadre))');
+                                    options.empty();
+                                    $.ajax
+                                                (
+                                                 {
+                                                     type: "post",
+                                                     url: url_dir + '/TipoUsuarioWF/actualizaTipos',
+                                                     data: { 'idWF': idWF },
+                                                     cache: false,
+                                                     success: function (data) {
+                                                         var optionString = '';
+                                                         if (data.length > 0) {
+                                                                    for (var i = 0; i < data.length; i++) {
+                                                                        var optionString='<option value="' +data[i].Value+'">' +  data[i].Text +' </option>';
+                                                                        options.append($(optionString));
+                                                                    }
+                                                             $('#PadreWF option:eq(' +original +') ' ).prop('selected',true);
+                                                           }
+                                                         else {
+
+                                                         }
+                                                     }
+                                                 }
+                                                );
+                                }
+                                function pasaPadre(val)
+                                {
+                                    var _id = idTipo;
+                                    $.ajax
+                                            (
+                                             {
+                                                 type: "post",
+                                                 url: url_dir + '/TipoUsuarioWF/actualizaPadre',
+                                                 data: { 'id': _id,'nuevo':val },
+                                                 cache: false,
+                                                 success: function (data) {
+                                                 }
+                                             }
+                                            );
+                                }
+                    </script>
+                    @*<select id="PadreWF" onchange="pasaPadre(this.value)"></select>*@
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.nombreRol, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Nombre del rol ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.nombreRol, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nombreRol, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.idPadre, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Superior", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.idPadre, new { htmlAttributes = new { @class = "form-control" } })*@
+                <div>
+                    <script>
+                                function _obtenPadres()
+                                {
+                                    var options = $("#PadreWF");
+                                    var original=JSON.parse('@Html.Raw(Json.Encode(Model.idPadre))');
+                                    options.empty();
+                                    $.ajax
+                                                (
+                                                 {
+                                                     type: "post",
+                                                     url: url_dir + '/TipoUsuarioWF/actualizaTiposPadres',
+                                                     data: { 'idWF': idTipo },
+                                                     cache: false,
+                                                     success: function (data) {
+                                                         var optionString = '';
+                                                         if (data.length > 0) {
+                                                                    for (var i = 0; i < data.length; i++) {
+                                                                        var optionString='<option value="' +data[i].Value+'">' +  data[i].Text +' </option>';
+                                                                        options.append($(optionString));
+                                                                        if (data[i].Value == original) {
+                                                                            $('#PadreWF option:eq(' + i + ') ').prop('selected', true);
+                                                                        }
+                                                                    }
+                                                             //$('#PadreWF option:eq(' +original +') ' ).prop('selected',true);
+                                                           }
+                                                         else {
+
+                                                         }
+                                                     }
+                                                 }
+                                                );
+                                }
+                                function _pasaPadre(val)
+                                {
+                                    var _id = idTipo;
+                                    $.ajax
+                                            (
+                                             {
+                                                 type: "post",
+                                                 url: url_dir + '/TipoUsuarioWF/actualizaPadre',
+                                                 data: { 'id': _id,'nuevo':val },
+                                                 cache: false,
+                                                 success: function (data) {
+                                                 }
+                                             }
+                                            );
+                                }
+                    </script>
+                    <select id="PadreWF" onchange="_pasaPadre(this.value)"></select>
+                </div>
+
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.idHijo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.idHijo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.idHijo, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.activo, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Activo ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.activo)
+                    @Html.ValidationMessageFor(model => model.activo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.relevanciaJerarquica, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Porcentaje de aprobación", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.relevanciaJerarquica, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.relevanciaJerarquica, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div style="visibility:hidden">
+    <button id="btnSeleccionaWorkFlow" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalSeleccionaWorkFlow">
+    </button>
+</div>
+
+<!-- Basic Modal -->
+<div class="modal fade" id="ModalSeleccionaWorkFlow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Proceso Workflow</h4>
+            </div>
+            <div class="modal-body">
+                <p>Indique sobre que proceso desea realizar cambios&hellip;</p>
+                @{
+                    ClickFactura_Entidades.BD.Entidades.Desarrollo_CF db = new ClickFactura_Entidades.BD.Entidades.Desarrollo_CF();
+                    List<KeyValuePair<string, string>> respuesta = new List<KeyValuePair<string, string>>();
+                    List<ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF> _TipoUsuarioWF = db.Cat_ProcesosWF.ToList();
+                    foreach (ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF wf in _TipoUsuarioWF)
+                    {
+                        string key = wf.idWF.ToString();
+                        string value = wf.nombreWF.ToString();
+                        respuesta.Add(new KeyValuePair<string, string>(key, value));
+                    }
+                    IEnumerable<SelectListItem> CategorySelectList = respuesta.Select(x => new SelectListItem() { Text = x.Value.Trim(), Value = x.Key.Trim() });
+                }
+                Workflow o flujo: 
+                @Html.DropDownListFor(model => model.idWF, CategorySelectList, "Seleccione un proceso", htmlAttributes: new { @ID = "procesoWF", @onchange = "CallChangefunc(this.value)" })
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" >Establecer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Basic Modal -->
+
+
+
+
+<div>
+    @Html.ActionLink("Volver al listado", "Index")
+</div>
+
+

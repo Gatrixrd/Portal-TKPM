@@ -1,0 +1,614 @@
+﻿@{
+    ViewBag.Title = "Facturas almacenadas TKPM";
+}
+
+@using Kendo.Mvc.UI
+    <script src="~/Scripts/jszip.min.js"></script>
+    <link rel="stylesheet" href="~/Content/kendo/kendo.common.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.default.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.default.mobile.min.css" />
+    <link href="~/Content/magic-check.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="~/Scripts/kendo.common.min.css" />
+    <link rel="stylesheet" href="~/Scripts/kendo.default.min.css" />
+    <link rel="stylesheet" href="~/Scripts/kendo.default.mobile.min.css" />
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/kendo.all.min.js"></script>
+
+
+<style >
+                 .demo-section p {
+                    margin: 3px 0 20px;
+                    line-height: 50px;
+                }
+                .demo-section .k-button {
+                    width: 250px;
+                }
+
+                .k-notification {
+                    border: 0;
+                }
+
+
+                /* Info template */
+                .k-notification-info.k-group {
+                    background: rgba(0%,0%,0%,.7);
+                    color: #fff;
+                }
+                .new-mail {
+                    width: 300px;
+                    height: 100px;
+                }
+                .new-mail h3 {
+                    font-size: 1em;
+                    padding: 32px 10px 5px;
+                }
+                .new-mail img {
+                    float: left;
+                    margin: 30px 15px 30px 30px;
+                }
+
+                /* Error template */
+                .k-notification-error.k-group {
+                    background: rgba(100%,0%,0%,.7);
+                    color: #ffffff;
+                }
+                .wrong-pass {
+                    width: 300px;
+                    height: 100px;
+                }
+                .wrong-pass h3 {
+                    font-size: 1em;
+                    padding: 32px 10px 5px;
+                }
+                .wrong-pass img {
+                    float: left;
+                    margin: 30px 15px 30px 30px;
+                }
+
+                /* Success template */
+                .k-notification-upload-success.k-group {
+                    background: rgba(0%,60%,0%,.7);
+                    color: #fff;
+                }
+                .upload-success {
+                    width: 240px;
+                    height: 100px;
+                    padding: 0 30px;
+                    line-height: 100px;
+                }
+                .upload-success h3 {
+                    font-size: 1.7em;
+                    font-weight: normal;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+                .upload-success img {
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-right: 10px;
+                }
+            </style>
+
+<!--ENCABEZADO-->
+<div class="pageheader">
+    <h1>Facturas procesadas</h1>
+    <p id="tipoReporte" class="description"></p>
+    <div class="breadcrumb-wrapper hidden-xs">
+        <span class="label">Esta aqui:</span>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>Monitoreo y Reportes</li>
+            <li class="active">Facturas procesadas</li>
+        </ol>
+    </div>
+ </div>
+<br />
+
+<!--CUERPO-->
+<form role="form">
+    <!--FILTROS-->
+    <div id="Filtros">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Filtros</h3>
+                    <div class="actions pull-right">
+                        <i class="fa fa-expand"></i>
+                        <i class="fa fa-chevron-down"></i>
+                        <i class="fa fa-times"></i>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table style="width:100%;">
+                        <tr>
+                            <td style="width:40%">
+                                <div class="form-group">
+                                    <div id="Sociedad">
+                                        <label for="sociedades" class="col-xs-3 col-sm-12 col-md-8 col-lg-12 control-label">Sociedades </label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" id="Sociedades" name="Sociedades" placeholder="Seleccione"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*<div class="form-group">
+                                    <div id="Documento">
+                                        <label for="documentos" class="col-sm-12 control-label">Tipo de documentos </label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" id="Documentos" name="Documentos" placeholder="Seleccione" runat="server"></select>
+                                        </div>
+                                    </div>
+                                </div>*@
+
+                                <div class="form-group">
+                                    <label for="lblRFC_Proveedor" class="col-sm-12 control-label">RFC del proveedor </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="txtRFC_Proveedor" name="txtRFC_Proveedor" placeholder="Escriba RFC del proveedor">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="lblRFC_Proveedor" class="col-sm-12 control-label">Orden de Compra </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="txtOrdenCompra" name="txtOrdenCompra" placeholder="Escriba una Orden de Compra">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="lblNum_Proveedor" class="col-sm-12 control-label">No. de Proveedor </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="txtNum_Proveedor" name="txtNum_Proveedor" placeholder="Escriba numero de proveedor">
+                                    </div>
+                                </div>
+                            </td>
+                            <td  style="width:40%">
+
+                                <div class="form-group" id="FInicial">
+                                    <div class="col-sm-12">
+                                     <!--####################################################################################################################-->
+                                                                <div id="example">
+                                                                    <div class="demo-section k-content">
+                                                                        <label for="lbl_FechaInicial" class="col-sm-8 control-label">Fecha Inicial </label>
+                                                                        <input id="start" style="width: 40%;"  />
+                                                                    </div>
+                                                                 <div class="demo-section k-content">
+                                                                       <label for="lbl_FechaFinal" class="col-sm-8 control-label">Fecha Final </label>
+                                                                        <input id="end" style="width: 40%;" />
+                                                                  </div>
+                                                                    <script>
+                                                                     $(document).ready(function() {
+                                                                      function startChange() {
+                                                                       var startDate = start.value(),
+                                                                       endDate = end.value();
+
+                                                                       if (startDate) {
+                                                                        startDate = new Date(startDate);
+                                                                        startDate.setDate(startDate.getDate());
+                                                                        end.min(startDate);
+                                                                       } else if (endDate) {
+                                                                        start.max(new Date(endDate));
+                                                                       } else {
+                                                                        endDate = new Date();
+                                                                        start.max(endDate);
+                                                                        end.min(endDate);
+                                                                       }
+                                                                      }
+
+                                                                      function endChange() {
+                                                                       var endDate = end.value(),
+                                                                       startDate = start.value();
+
+                                                                       if (endDate) {
+                                                                        endDate = new Date(endDate);
+                                                                        endDate.setDate(endDate.getDate());
+                                                                        start.max(endDate);
+                                                                       } else if (startDate) {
+                                                                        end.min(new Date(startDate));
+                                                                       } else {
+                                                                        endDate = new Date();
+                                                                        start.max(endDate);
+                                                                        end.min(endDate);
+                                                                       }
+                                                                      }
+
+                                                                      var start = $("#start").kendoDatePicker({
+                                                                       change: startChange,culture: "es-MX",
+                                                                       parseFormats:["dd/MM/yyyy"],
+                                                                       format: "dd/MM/yyyy"
+                                                                      }).data("kendoDatePicker");
+
+                                                                      var end = $("#end").kendoDatePicker({
+                                                                       change: endChange,culture: "es-MX",
+                                                                       parseFormats:["dd/MM/yyyy"],
+                                                                       format: "dd/MM/yyyy"
+                                                                      }).data("kendoDatePicker");
+
+                                                                      start.max(end.value());
+                                                                      end.min(start.value());
+                                                                     });
+                                                                    </script>
+
+                                                                </div>
+                                     <!--####################################################################################################################-->
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                           <div class="col-sm-8">
+                                                     <!--<input class="magic-checkbox" name="aplicarFechas" id="aplicarFechas" value="1" type="checkbox">-->
+                                                      <input type="checkbox" id="aplicarFechas" name="aplicarFechas"/>
+                                                     <label for="aplicarFechas">Filtro de fechas</label>
+                                                     <div id="txtAge" style="display:none" class="btn btn-success btn-xs">Activo</div>
+                                           </div>
+                                 </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <p class="help-block">Seleccione los filtros y después presione Buscar.</p>
+                                        <button type="button" class="btn btn-info btn-3d" id="btnBuscar" name="btnBuscar" data-toggle="tooltip" data-placement="bottom" title="Buscar información con estos filtros"><i class="icon-magnifier"></i>Buscar</button>
+                                        <button type="button" class="btn btn-primary" id="btnMuestraModalFechas" name="btnMuestraModalFechas" data-toggle="modal" data-target="#basicModal" style="visibility:hidden"><i class="icon-shuffle" ></i>Periodo fechas</button>
+                                         <button id="showPopupNotification" class="k-button" style="height:0px; width:0px;visibility:hidden"></button>
+                                        <button id="showSuccessNotification" class="k-button" style="height:0px; width:0px;visibility:hidden"></button>
+                                    </div>
+                                    <br />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="CarteraVencida">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Facturas encontradas</h3>
+                    <div class="actions pull-right">
+                        <i class="fa fa-expand"></i>
+                        <i class="fa fa-chevron-down"></i>
+                        <i class="fa fa-times"></i>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="Cuerpo">
+                        <div class="form-group" style="height:450px;">
+                            <div class="panel panel-primary">
+                            @(Html.Kendo().Notification()
+                                .Name("popupNotification")
+                                .Events(e => e.Show("onShow"))
+                                )
+                             @(Html.Kendo().Notification()
+                                 .Name("notification")
+                                 .Position(p => p.Pinned(true).Top(30).Right(30))
+                                 .Stacking(NotificationStackingSettings.Down)
+                                 .AutoHideAfter(0)
+                                 .Templates(t =>
+                                 {
+                                     t.Add().Type("upload-success").ClientTemplateID("successTemplate");
+                                 })
+                             )
+                            </div>
+                            <div class="table-responsive"  id="conDatos">
+                                @(Html.Kendo().Grid<ClickFactura_Entidades.BD.Modelos.FacturasVerificadasModel>()
+                                                    .Name("rg")
+                                                    .DataSource(dataSource => dataSource
+                                                    .Ajax()
+                                                    .PageSize(20))
+                                                    .Columns(columns =>
+                                                    {
+                                                        columns.Bound(p => p.R1).Title("<strong>Nombre</strong>").Width(300);
+                                                        columns.Bound(p => p.R2).Title("<strong>Orden Compra</strong>").Width(190);
+                                                        columns.Bound(p => p.R3).Title("<strong>Recepción</strong>").Width(190);
+                                                        columns.Bound(p => p.R4).Title("<strong>Verificado</strong>").Width(160);
+                                                       columns.Bound(p => p.R5).Title("<strong>UUID.</strong>").Width(350);
+                                                       columns.Bound(p => p.R6).Title("<strong>Observaciones</strong>").Width(550);
+                                                        columns.Bound(p => p.R7).Title("<strong>No. proveedor</strong>").Width(180);
+                                                        columns.Bound(p => p.R8).Title("<strong>Sociedad</strong>").Width(180);
+                                                        columns.Bound(p => p.R9).Title("<strong>Folio Fact.</strong>").Width(160);
+                                                        columns.Bound(p => p.R10).Format("{0:C}").Title("<strong>$ Factura</strong>").Width(190);
+                                                        columns.Bound(p => p.R11).Format("{0:C}").Title("<strong>$ Recepcionado</strong>").Width(190);
+                                                        columns.Bound(p => p.R12).Format("{0:C}").Title("<strong>$ Verificado</strong>").Width(190);
+                                                        columns.Bound(p => p.R13).Title("<strong>Fecha</strong>").Width(190);
+                                                        columns.Bound(p => p.R14).Title("<strong>RFC</strong>").Width(190);
+                                                        columns.Bound(p => p.R15).Title("<strong>Moneda</strong>").Width(190);
+                                                        columns.Bound(p => p.R16).Title("<strong>Id. Portal</strong>").Width(190);
+                                                    })
+                                                    .HtmlAttributes(new { style = "height:449px;" })
+                                                    .Pageable(pageable => pageable
+                                                    .Messages(messages => messages
+                                                    .Display("Registro {0} de {1}. Total de registros: {2}")
+                                                    .First("Primera página")
+                                                    .Next("Siguiente página")
+                                                    .Previous("Página anterior")
+                                                    .Last("Última página")
+                                                    .Page("Página actual")
+                                                    .MorePages("Más páginas")
+                                                    .Empty("No se encontraron registros.")))
+                                                    .Selectable(selectable => selectable
+                                                    .Mode(GridSelectionMode.Multiple)
+                                                    .Type(GridSelectionType.Row))
+                                                    .Sortable()
+                                                    .Scrollable()
+                                                    .Resizable(resize => resize.Columns(true))
+                                                    .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+                                                    .ToolBar(tools => tools.Excel())
+                                                    .Excel(excel => excel
+                                                                .FileName("CarteraVencida.xlsx")
+                                                                .Filterable(true)
+                                                                .ProxyURL(Url.Action("Excel_Export_Save", "Monitoreo"))
+                                                                )
+                                )
+                            </div>
+                           
+                            <div class="alert alert-danger fade in" id="sinDatos">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h2>La consulta no devolvío información!</h2>
+                                    <p>Con los filtros proporcionados no hubo resultados en el portal.Intente cambiando los criterios</p>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+     <div tabindex="-1" class="modal fade" id="basicModal" role="dialog" aria-hidden="true" aria-labelledby="myModalLabel" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>
+                    <h4 class="modal-title" id="myModalLabel">No hay periodo de fechas</h4>
+                </div>
+                <div class="modal-body">
+                    <p>La opción de 'Filtro de fechas' esta desmarcada, esto indica al portal buscar información desde su inicio de operaciones.</p>
+                    <p> El volúmen de información podría ser tán grande que la respuesta podria tardar demasiado, ¿Esta seguro de continuar sin periodo de fechas?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success btn-square" type="button"  id="btnContinuar" name="btnContinuar" data-dismiss="modal" >Continuar</button>
+                    <button class="btn btn-default btn-trans" data-dismiss="modal" type="button">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <div id="Complementos" style="visibility:hidden" >
+               <script id="successTemplate" type="text/x-kendo-template">        
+                <div class="upload-success">
+                    <img src="../Images/bafar/correctCirculoBlanco.png" width="250" height="70"/>
+                </div>
+            </script>
+ </div>
+
+</form>
+
+<!-- G L O B A L-->
+<script type="text/javascript">
+ var url_dir = '@System.Configuration.ConfigurationManager.AppSettings["dirImagenTMS"].ToString()';
+ $(document).ready(function () {
+  var url_dir = '@System.Configuration.ConfigurationManager.AppSettings["dirImagenTMS"].ToString()';
+  cargaSociedades();
+  ConfiguraCalendarios();
+  $("#sinDatos").hide();
+
+  $("#btnBuscar").click(function (e) {
+   disparaCargar();
+  });
+
+  $("#btnContinuar").click(function (e) {
+   disparaCargarFechas();
+  });
+
+  $('#aplicarFechas').click(function () {
+  $("#txtAge").toggle(this.checked);
+  });
+
+  var now = new Date();
+  var day = ('0' + now.getDate()).slice(-2);
+  var month = ('0' + (now.getMonth() + 1)).slice(-2);
+
+  var inicial = '01/' + month + '/' + now.getFullYear();
+  var final = (day)+'/'+(month)+'/'+now.getFullYear() ;
+
+  $('#start').val(inicial);
+  $('#end').val(final);
+  //#############################################
+  var popupNotification = $("#popupNotification").data("kendoNotification");
+  $("#showPopupNotification").click(function () {
+   var d = new Date();
+   popupNotification.show('No se encontraron resultados a la consulta '+kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+   return false;
+  });
+
+  var notification = $("#notification").data("kendoNotification");
+  $("#showSuccessNotification").click(function () {
+   notification.show({
+    message: "Upload Successful"
+   }, "upload-success");
+   return false;
+  });
+  //#############################################
+
+  //################ Es Admon  ####################
+     esAdministrador();
+  //################ Es Admon  ####################
+
+   });
+ 
+ function cargaSociedades() {
+  $.ajax({
+   type: "post",
+   url: url_dir + '/FacturasVerificadas/GetSociedades',
+   data: { 'esAdmon': 'No' },
+   cache: false,
+   success: function (lista) {
+    var combo = $("#Sociedades");
+    for (var i = 0; i < combo.length; i++) {
+     var ele = combo[i];
+     var total = ele.length;
+     if (total > 0) {
+      for (var j = total - 1; j >= 0; j--) {
+       ele.remove(j);
+      }
+     }
+    }
+    combo.append("<option value='0'>Seleccione una Sociedad</option>");
+    for (var i = 0; i < lista.length; i++) {
+     combo.append("<option value='" + lista[i].Num_Sociedad + "'>" + lista[i].Compania + "</option>");
+    }
+   }
+  });
+ }
+ 
+ function disparaCargar() {
+  var numproveedor = $("#txtNum_Proveedor").val();
+  var sociedad = $("#Sociedades").val();
+  var _finicial = $("#start").val();
+  var ffinal = $("#end").val();
+  var ordencompra = $("#txtOrdenCompra").val();
+  var rfc = $("#txtRFC_Proveedor").val();
+
+  //##############################################################################
+
+  //##############################################################################
+
+  var aplicarFechas = $('#txtAge').is(':visible');
+  if (aplicarFechas == false)
+      {
+           $("#btnMuestraModalFechas").click();
+      }
+      else
+      {
+          CargaResultados(sociedad, ordencompra, _finicial, ffinal, numproveedor,rfc,aplicarFechas);
+      }
+
+  }
+
+ function disparaCargarFechas() {
+  var numproveedor = $("#txtNum_Proveedor").val();
+  var sociedad = $("#Sociedades").val();
+  var _finicial = $("#start").val();
+  var ffinal = $("#end").val();
+  var ordencompra = $("#txtOrdenCompra").val();
+  var rfc = $("#txtRFC_Proveedor").val();
+
+  //##############################################################################
+
+  //##############################################################################
+   aplicarFechas = false;
+   CargaResultados(sociedad, ordencompra, _finicial, ffinal, numproveedor, rfc, aplicarFechas);
+ }
+
+ function CargaResultados(sociedad, ordencompra, _finicial, ffinal, numproveedor, rfc,aplicarFechas) {
+  $("#Cuerpo").removeClass('class="alert alert-danger"');
+  $.ajax
+   (
+       {
+        type: "post",
+        url: url_dir + '/FacturasVerificadas/CargaResultadosFacturasVerificadas',
+        data: { 'numProveedor': numproveedor, 'finicial': _finicial, 'ffinal': ffinal, 'ordencompra': ordencompra, 'sociedad': sociedad,'rfc':rfc,'aplicarfechas':aplicarFechas },
+        cache: false,
+        success: function (lista) {
+         if (lista.length == 0) {
+                  noSeEncontroFO = true;
+                 $("#conDatos").hide();
+                 $("#sinDatos").show();
+                 $("#showPopupNotification").click();
+         }
+         else {
+          CargarGrid(lista);
+          $("#sinDatos").hide();
+          $("#conDatos").show();
+          $("#showSuccessNotification").click();
+         }
+        }
+       }
+    );
+ }
+
+ function CargarGrid(lista) {
+  var grid = $("#rg").data("kendoGrid");
+  var dataSource = new kendo.data.DataSource(
+       {
+        data: lista,
+        pageSize: 20
+       })
+  ;
+  grid.setDataSource(dataSource);
+  grid.refresh();
+ }
+
+ function ConfiguraCalendarios()
+ {
+  var ini = $("#start").val();
+  var fin = $("#end").val();
+  $.ajax
+ (
+     {
+      type: "post",
+      url: url_dir + '/FacturasVerificadas/ConfiguraCalendarios',
+      data: {},
+      cache: false,
+      success: function (fechas) {
+       //$("#start").val() = fechas[0].val();
+       //$("#end").val() = fechas[1].val();
+       //$("#end").text = fechas[1].val();
+       $("#start").value = fechas[0];
+       $("#end").value = fechas[1];
+       $("#start").text = fechas[0];
+       $("#end").text = fechas[1];
+      }
+     }
+  );
+ }
+
+ function onShow(e) {
+  if (!$("." + e.sender._guid)[1]) {
+   var element = e.element.parent(),
+     eWidth = element.width(),
+     eHeight = element.height(),
+     wWidth = $(window).width(),
+     wHeight = $(window).height(),
+     newTop, newLeft;
+
+   newLeft = Math.floor(wWidth / 2 - eWidth / 2);
+   newTop = Math.floor(wHeight / 2 - eHeight / 2);
+
+   e.element.parent().css({ top: newTop, left: newLeft });
+  }
+ }
+
+ function esAdministrador() {
+  $.ajax
+ (
+     {
+      type: "post",
+      url: url_dir + '/FacturasVerificadas/esAdmon',
+      data: {},
+      cache: false,
+      success: function (num_proveedor) {
+             if (num_proveedor != 'error')
+             {
+                 if (num_proveedor.length>0)
+                 {
+                     $('#txtNum_Proveedor').attr('value', num_proveedor);
+                     $("#txtNum_Proveedor").prop('disabled', true);
+                  }
+
+             }
+      }
+     }
+  );
+ }
+
+</script>
+
+

@@ -1,0 +1,42 @@
+﻿
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=9">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+    @*<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>*@
+    <link href='~/fonts/montserrat.css' rel='stylesheet' type='text/css'>
+    <link href='~/fonts/opensans.css' rel='stylesheet' type='text/css'>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/Fechas")
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/bafar/jquery-ui-CSS")
+    @Styles.Render("~/Content/kendo/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+     @Scripts.Render("~/bundles/ie")
+     <![endif]-->
+</head>
+
+@RenderBody()
+
+@Scripts.Render("~/bundles/kendo")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/session")
+@Scripts.Render("~/bundles/Monedas")
+@Scripts.Render("~/bundles/blockUI")
+@Scripts.Render("~/plugins/navgoco")
+@Scripts.Render("~/plugins/pace")
+@Scripts.Render("~/plugins/switchery")
+@Scripts.Render("~/bundles/app")
+@Scripts.Render("~/bundles/appBafar")
+@Scripts.Render("~/plugins/wizard")
+@Scripts.Render("~/plugins/dropzone")
+@RenderSection("scripts", required: false)

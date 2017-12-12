@@ -1,0 +1,534 @@
+﻿<!--sidebar left start-->
+@{
+    @model IList<MVC5_full_version.Genericos.Login.Menu>
+}
+@helper CrearMenu(MVC5_full_version.Genericos.Login.Menu item, int left = 25)
+{
+    string padleft = "";
+    if (item.SubMenu.Count == 0)
+    {
+        <li class="@Html.IsSelected(controller: item.controlador)">
+            <a href="@Url.Action(item.accion, item.controlador)">
+                <i class="fa fa-fw @item.icono"></i> @item.titulo
+            </a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-dropdown @Html.IsSelected(controller: item.controlador)">
+            @if (left == 25)
+            {
+                <a href="#">
+                    <i class="fa fa-fw @item.icono"></i> @item.titulo
+                </a>
+            }
+            else
+            {
+                var pad = left - 15;
+                padleft = pad + "px";
+                <a href="#" style="padding-left:@padleft;">
+                    <i class="fa fa-fw @item.icono"></i> @item.titulo
+                </a>
+            }
+
+            <ul class="nav-sub">
+                @foreach (var subitem in item.SubMenu)
+                {
+                    if (subitem.SubMenu.Count > 0)
+                    {
+                        @CrearMenu(subitem, left + 15);
+                    }
+                    else
+                    {
+                        padleft = left + "px";
+                        <li class="@Html.IsSelected(action: subitem.accion)">
+                            <a style="padding-left: @padleft;" href="@Url.Action(subitem.accion, subitem.controlador)">
+                                <i class="fa fa-fw @subitem.icono"></i> @subitem.titulo
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+        </li>
+    }
+}
+<style>
+    #fixedContainer {
+        background-color: #ddd;
+        position: fixed;
+        width: 200px;
+        height: 70px;
+        left: 50%;
+        top: 80%;
+        margin-left: -100px; /*half the width*/
+    }
+</style>
+
+
+<aside class="sidebar sidebar-left">
+    <div class="sidebar-profile">
+        <div class="avatar">
+            <img class="img-circle profile-image" src="~/Images/profile.jpg" alt="profile">
+            <i class="on border-dark animated bounceIn"></i>
+        </div>
+        <div class="profile-body dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><h4>@MVC5_full_version.Helpers.SessionHelper.ObtenerUsuario()<span class="caret"></span></h4></a>
+            <small class="title">@MVC5_full_version.Helpers.SessionHelper.ObtenerUsuario()</small>
+            <ul class="dropdown-menu animated fadeInRight" role="menu">
+                <li class="profile-progress">
+                    <h5>
+                        <span>80%</span>
+                        <small>Profile complete</small>
+                    </h5>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar progress-bar-primary" style="width: 80%">
+                        </div>
+                    </div>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="javascript:void(0);">
+                        <span class="icon">
+                            <i class="fa fa-user"></i>
+                        </span>My Account
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">
+                        <span class="icon">
+                            <i class="fa fa-envelope"></i>
+                        </span>Messages
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">
+                        <span class="icon">
+                            <i class="fa fa-cog"></i>
+                        </span>Settings
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="javascript:void(0);">
+                        <span class="icon">
+                            <i class="fa fa-sign-out"></i>
+                        </span>Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <nav>
+        <h5 class="sidebar-header">Navegación</h5>
+<!--        <ul class="nav nav-pills nav-stacked">
+            <li class="@Html.IsSelected(controller: "Dashboard")">
+                <a href="@Url.Action("Index", "Dashboard")">
+                    <i class="fa fa-fw fa-tachometer"></i> Dashboard
+                </a>
+            </li>
+
+            <li class="@Html.IsSelected(action: "Proveedores")">
+                        <a href="@Url.Action("CargaMasiva", "Administracion")">
+                            <i class="fa fa-users"></i>Administración
+                        </a>
+             </li>
+
+            <li class="@Html.IsSelected(action: "conexionConectorSAP")">
+                        <a href="@Url.Action("conexionConectorSAP", "Conectores")">
+                            <i class="fa fa-tasks"></i>Conectarse con SAP
+                        </a>
+             </li>
+
+            <li class="@Html.IsSelected(action: "OrdenCompraPO")">
+                        <a href="@Url.Action("OrdenCompraPO", "OrdenesCompra")">
+                            <i class="fa fa-lock"></i>Ordenes de Compra PO
+                        </a>
+             </li>
+
+             <li class="@Html.IsSelected(action: "repositorioArchivos")">
+                        <a href="@Url.Action("repositorioArchivos", "RepositorioArchivos")">
+                            <i class="fa fa-files-o"></i>Repositorio de Archivos
+                        </a>
+             </li>
+
+            <li class="@Html.IsSelected(action: "Index")">
+                        <a href="@Url.Action("Index", "Migo")">
+                            <i class="fa fa-archive"></i>Recepción de Mercancias
+                        </a>
+             </li>
+        </ul> -->
+
+        <ul class="nav nav-pills nav-stacked" id="Dinamico">
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    @CrearMenu(item);
+                }
+            }
+            else
+            {
+                MVC5_full_version.Helpers.SessionHelper.CerrarSession();
+            }
+        </ul>
+
+
+<!--            <li class="nav-dropdown @Html.IsSelected(controller: "UIElements")">
+                <a href="#">
+                    <i class="fa fa-fw fa-cogs"></i> UI Elements
+                </a>
+                <ul class="nav-sub">
+                    <li class="@Html.IsSelected(action: "Buttons")">
+                        <a href="@Url.Action("Buttons", "UIElements")">
+                            Buttons
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "SlidersAndProgress")">
+                        <a href="@Url.Action("SlidersAndProgress", "UIElements")">
+                            Sliders & Progress
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "ModalsAndPopups")">
+                        <a href="@Url.Action("ModalsAndPopups", "UIElements")">
+                            Modals & Popups
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "TabsAndAccordions")">
+                        <a href="@Url.Action("TabsAndAccordions", "UIElements")">
+                            Tabs & Accordions
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "AlertsAndNotifications")">
+                        <a href="@Url.Action("AlertsAndNotifications", "UIElements")">
+                            Alerts & Notifications
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "NestableLists")">
+                        <a href="@Url.Action("NestableLists", "UIElements")">
+                            Nestable Lists
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "Panels")">
+                        <a href="@Url.Action("Panels", "UIElements")">
+                            Panels
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "Icons")">
+                        <a href="@Url.Action("Icons", "UIElements")">
+                            Icons
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "Typography")">
+                        <a href="@Url.Action("Typography", "UIElements")">
+                            Typography
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-dropdown @Html.IsSelected(controller: "Forms")">
+                <a href="#" title="Forms">
+                    <i class="fa  fa-fw fa-edit"></i> Forms
+                </a>
+                <ul class="nav-sub">
+                    <li class="@Html.IsSelected(action: "Components")">
+                        <a href="@Url.Action("Components", "Forms")">Components</a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "Validation")">
+                        <a href="@Url.Action("Validation", "Forms")">Validation</a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "Mask")">
+                        <a href="@Url.Action("Mask", "Forms")">Mask</a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "Wizard")">
+                        <a href="@Url.Action("Wizard", "Forms")">Wizard</a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "MultipleFileUpload")">
+                        <a href="@Url.Action("MultipleFileUpload", "Forms")">Multiple File Upload</a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "WYSIWYGEditor")">
+                        <a href="@Url.Action("WYSIWYGEditor", "Forms")">WYSIWYG Editor</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-dropdown @Html.IsSelected(controller: "Tables")">
+                <a href="#" title="Tables">
+                    <i class="fa  fa-fw fa-th-list"></i> Tables
+                </a>
+                <ul class="nav-sub">
+                    <li class="@Html.IsSelected(action: "BasicTables")">
+                        <a href="@Url.Action("BasicTables", "Tables")">
+                            Basic Tables
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "DataTables")">
+                        <a href="@Url.Action("DataTables", "Tables")">
+                            Data Tables
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-dropdown @Html.IsSelected(controller: "Charts")">
+                <a href="#" title="Charts">
+                    <i class="fa  fa-fw fa-bar-chart-o"></i> Charts
+                </a>
+                <ul class="nav-sub">
+                    <li class="@Html.IsSelected(action: "Chartjs")">
+                        <a href="@Url.Action("Chartjs", "Charts")">
+                            Chartjs
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "CS3Charts")">
+                        <a href="@Url.Action("CS3Charts", "Charts")">
+                            C3 Charts
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "MorrisJS")">
+                        <a href="@Url.Action("MorrisJS", "Charts")">
+                            Morris.js Charts
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "Sparkline")">
+                        <a href="@Url.Action("Sparkline", "Charts")">
+                            Sparkline Charts
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-dropdown @Html.IsSelected(controller: "Mail")">
+                <a href="#" title="Mail">
+                    <i class="fa fa-fw fa-envelope-o"></i> Mail
+                    <span class="label label-primary label-circle pull-right">8</span>
+                </a>
+                <ul class="nav-sub">
+                    <li class="@Html.IsSelected(action: "Inbox")">
+                        <a href="@Url.Action("Inbox", "Mail")">
+                            Inbox
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "ComposeMail")">
+                        <a href="@Url.Action("ComposeMail", "Mail")">
+                            Compose Mail
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-dropdown @Html.IsSelected(controller: "Maps")">
+                <a href="#" title="Maps">
+                    <i class="fa  fa-fw fa-map-marker"></i> Maps
+                </a>
+                <ul class="nav-sub">
+                    <li class="@Html.IsSelected(action: "GoogleMaps")">
+                        <a href="@Url.Action("GoogleMaps", "Maps")">
+                            Google Maps
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "VectorMaps")">
+                        <a href="@Url.Action("VectorMaps", "Maps")">
+                            Vector Maps
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="http://authenticgoods.co/wrapbootstrap/themes/neuboard-v1.2/Frontend/" title="Frontend">
+                    <i class="fa  fa-fw fa-desktop"></i> Front-end Theme
+                    <span class="pull-right badge badge-danger">new</span>
+                </a>
+            </li>
+            <li class="nav-dropdown @Html.IsSelected(controller: "Pages")">
+                <a href="#" title="Pages">
+                    <i class="fa  fa-fw fa-file-text"></i> Pages
+                </a>
+                <ul class="nav-sub">
+                    <li class="@Html.IsSelected(action: "BlankPage")">
+                        <a href="@Url.Action("BlankPage", "Pages")">
+                            Blank Page
+                        </a>
+                    </li>
+
+                    <li class="@Html.IsSelected(action: "Profile")">
+                        <a href="@Url.Action("Profile", "Pages")">
+                            Profile
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "SignIn")">
+                        <a href="@Url.Action("SignIn", "Pages")">
+                            Sign In
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "SignUp")">
+                        <a href="@Url.Action("SignUp", "Pages")">
+                            Sign Up
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "LockedScreen")">
+                        <a href="@Url.Action("LockedScreen", "Pages")">
+                            Locked Screen
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "Error404")">
+                        <a href="@Url.Action("Error404", "Pages")">
+                            404 Page
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "Error500")">
+                        <a href="@Url.Action("Error500", "Pages")">
+                            500 Page
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-dropdown">
+                <a href="#" title="Menu Levels">
+                    <i class="fa  fa-fw fa-folder-open"></i> Menu Levels
+                </a>
+                <ul class="nav-sub">
+                    <li>
+                        <a href="javascript:;" title="Level 2.1">
+                            <i class="fa fa-fw fa-file"></i> Level 1.1
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" title="Level 2.2">
+                            <i class="fa fa-fw fa-file"></i> Level 1.2
+                        </a>
+                    </li>
+                    <li class="nav-dropdown">
+                        <a href="#" title="Level 2.3">
+                            <i class="fa fa-fw fa-folder-open"></i> Level 1.3
+                        </a>
+                        <ul class="nav-sub">
+                            <li>
+                                <a href="javascript:;" title="Level 3.1">
+                                    <i class="fa fa-fw fa-file"></i> Level 2.1
+                                </a>
+                            </li>
+                            <li class="nav-dropdown">
+                                <a href="#" title="Level 3.2">
+                                    <i class="fa fa-fw fa-folder-open"></i> Level 2.2
+                                </a>
+                                <ul class="nav-sub">
+                                    <li>
+                                        <a href="javascript:;" title="Level 4.1">
+                                            <i class="fa fa-fw fa-file"></i> Level 3.1
+                                        </a>
+                                    </li>
+                                    <li class="nav-dropdown">
+                                        <a href="#" title="Level 4.2">
+                                            <i class="fa fa-fw fa-folder-open"></i> Level 3.2
+                                        </a>
+                                        <ul class="nav-sub">
+                                            <li class="nav-dropdown">
+                                                <a href="#" title="Level 5.1">
+                                                    <i class="fa fa-fw fa-folder-open"></i> Level 4.1
+                                                </a>
+                                                <ul class="nav-sub">
+                                                    <li>
+                                                        <a href="javascript:;" title="Level 6.1">
+                                                            <i class="fa fa-fw fa-file"></i> Level 5.1
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:;" title="Level 6.2">
+                                                            <i class="fa fa-fw fa-file"></i> Level 5.2
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;" title="Level 5.2">
+                                                    <i class="fa fa-fw fa-file"></i> Level 4.2
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;" title="Level 5.3">
+                                                    <i class="fa fa-fw fa-file"></i> Level 4.3
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "CSSAnimations")">
+                <a href="@Url.Action("Index", "CSSAnimations")">
+                    <i class="fa  fa-fw fa-magic"></i> CSS Animations
+                </a>
+            </li>
+        </ul>-->
+    </nav>
+
+
+<!--    <h5 class="sidebar-header">Account Settings</h5>
+    <div class="setting-list">
+        <div class="row">
+            <div class="col-xs-8">
+                <label for="check1" class="control-label">Share your status</label>
+            </div>
+            <div class="col-xs-4">
+                <input type="checkbox" class="js-switch" checked id="check1" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8">
+                <label for="check2" class="control-label">Push Notifications</label>
+            </div>
+            <div class="col-xs-4">
+                <input type="checkbox" class="js-switch" id="check2" />
+            </div>
+        </div>
+    </div>-->
+</aside>
+<!--sidebar left end-->
+@*<script type="text/javascript">
+    function cerrarSesion() {
+        $.ajax({
+            type: "post",
+            url: url_dir + '/Administracion/invocaCerrarSesion',
+            cache: false,
+            success: function (tabla) {
+                var url = $("#RedirectTo").val();
+                console.info('Cerrado');
+                location.href = url;
+            }
+        });
+    }
+    function ObtenUsuario()
+    {
+        $.ajax({
+        type: "post",
+        url: url_dir + '/Administracion/recuperaUsuario',
+        cache: false,
+        success: function (data) {
+            if(data.length>0)
+            {
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++)
+                    {
+                        if (data[i].Key == 'Usuario') {
+                            var valor = data[i].Value;
+                            $('#Usuario').text(valor);
+                        }
+                        else
+                        {
+                            if (data[i].Key == 'Workflow') {
+                                var valor = data[i].Value;
+                                showErrorMessage(valor);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+    }
+    $(document).ready(function () {
+        ObtenUsuario();
+    }
+    );
+</script>*@

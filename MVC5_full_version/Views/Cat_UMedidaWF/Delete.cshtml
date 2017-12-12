@@ -1,0 +1,86 @@
+﻿@model ClickFactura_Entidades.BD.Entidades.Cat_UMedidaWF
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+<script type="text/javascript">
+        @{ ClickFactura_Entidades.BD.Entidades.Desarrollo_CF _db = new ClickFactura_Entidades.BD.Entidades.Desarrollo_CF();}
+        @{int idWF = 0;}
+        @{string nombreProceso = "";}
+</script>
+<h2>Delete</h2>
+<div class="pageheader">
+    <h3>Esta seguro que desea eliminar esta unidad?</h3>
+    <p>Por favor antes de eliminar la unidad asegurese que ya no hay usuarios o workflow que dependan de esta.</p>
+</div>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.UnidadMedida)*@
+            @Html.Label("Unidad de Medida")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnidadMedida)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.DescripcionUM)*@
+            @Html.Label("Descripción")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescripcionUM)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.activo)*@
+            @Html.Label("Activo")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activo)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.idWF)*@
+            @Html.Label("Workflow")
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.idWF)*@
+            @{
+                List<KeyValuePair<string, string>> respuestaAux = new List<KeyValuePair<string, string>>();
+                List<ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF> _ProcesoWF = _db.Cat_ProcesosWF.ToList();
+                foreach (ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF wf in _ProcesoWF)
+                {
+                    string key = wf.idWF.ToString();
+                    string value = wf.nombreWF.ToString();
+                    respuestaAux.Add(new KeyValuePair<string, string>(key, value));
+                }
+                IEnumerable<SelectListItem> CategorySelectListAux = respuestaAux.Select(x => new SelectListItem() { Text = x.Value.Trim(), Value = x.Key.Trim() });
+                foreach (var _p in CategorySelectListAux)
+                {
+                    if (Model.idWF.ToString().Trim().Equals(_p.Value.ToString().Trim()) == true)
+                    {
+                        nombreProceso = _p.Text;
+                    }
+                }
+            }
+            @Html.Label(nombreProceso)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eminiar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver al listado", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ClickFactura_Entidades.BD.Entidades.Cat_ProcesosWF>
+
+@{
+    ViewBag.Title = "Listado de procesos";
+}
+<div class="pageheader">
+    <h2>Procesos workflow.</h2>
+    <p>
+        @Html.ActionLink("Crear nuevo proceso", "Create", new { title = "Nuevo" })
+    </p>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Nombre del Proceso")
+            @*@Html.DisplayNameFor(model => model.nombreWF)*@
+        </th>
+        <th>
+            @Html.DisplayName("Número aprobaciones")
+            @*@Html.DisplayNameFor(model => model.noAprobacionesRequeridas)*@
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.controlador)
+        </th>*@
+        <th>
+            @Html.DisplayName("Porcentaje mínimo para liberar flujo")
+            @*@Html.DisplayNameFor(model => model.minimoRelevanciaJerarquica)*@
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombreWF)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.noAprobacionesRequeridas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.controlador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.minimoRelevanciaJerarquica)
+        </td>
+        <td>
+
+            @Html.ActionLink("Editar", "Edit", new { id=item.idWF }, new { title = "Editar" }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.idWF }, new { title = "Consultar" }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.idWF }, new { title = "Eliminar" })
+        </td>
+    </tr>
+}
+
+</table>

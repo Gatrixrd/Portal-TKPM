@@ -1,0 +1,58 @@
+﻿@model ClickFactura_Entidades.BD.Entidades.Cat_UsuariosWF
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Cat_UsuariosWF</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idTipoUsuarioWF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idTipoUsuarioWF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.correo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.correo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.centroCostos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.centroCostos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idUsuarioPortal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idUsuarioPortal)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idUsuarioWF }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,460 @@
+﻿@{
+    ViewBag.Title = "Filtros de la Bitacora Workflow";
+}
+@Html.Hidden("RedirectOut", Url.Action("", "rptBitacoraWFGral/Index"))
+
+<div class="pageheader">
+    <h1>Blank Page</h1>
+    <div class="breadcrumb-wrapper hidden-xs">
+        <span class="label">Estás aqui:</span>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Dashboard</a>
+            </li>
+            <li>Pages</li>
+            <li class="active">Blank Page</li>
+        </ol>
+    </div>
+</div>
+
+<!--CUERPO-->
+<form role="form">
+    <!--FILTROS-->
+    <div id="Filtros">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Filtros</h3>
+                    <div class="actions pull-right">
+                        <i class="fa fa-expand"></i>
+                        <i class="fa fa-chevron-down"></i>
+                        <i class="fa fa-times"></i>
+                    </div>
+                </div>
+                <div class="panel-body">
+                                <div class="form-group">
+                                    <div id="Sociedad">
+                                        <label for="sociedades" class="col-xs-3 col-sm-12 col-md-8 col-lg-12 control-label">Proceso Workflow</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" id="Sociedades" name="Sociedades" placeholder="Seleccione" onchange="CallChangefunc(this.value)"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="lblTiposUsuario" class="col-sm-12 control-label">Roles de usuario </label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" id="TiposUsuario" name="TiposUsuario" placeholder="Seleccione"></select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="lblOrdenCompra" class="col-sm-12 control-label">Orden de Compra </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="txtOrdenCompra" name="txtOrdenCompra" placeholder="Escriba la orden de compra a consultar">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="lblNum_Proveedor" class="col-sm-12 control-label">No. de Proveedor </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="txtNum_Proveedor" name="txtNum_Proveedor" placeholder="Escriba numero de proveedor">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="lblUsuarioWF" class="col-sm-12 control-label">Usuario interno del WF </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="txtUsuarioWF" name="txtUsuarioWF" placeholder="Escriba usuario interno asociado al Workflow">
+                                    </div>
+                                </div>
+
+                                <!--############################################################################################################################################-->
+                                @*<div class="form-group">
+                                    <label for="lblTipoOrden" class="col-sm-12 control-label">Indique estado de aprobación. </label>
+                                    <div class="col-sm-10">
+                                        <div class="demo-section k-content">
+                                            @(Html.Kendo().ComboBox().Name("estatus")
+                                                                          .BindTo(new SelectList(new[] { new { Key = "Todos", Value = "iconTodosDocumentos.gif" }, new { Key = "Verificada", Value = "PasivoOk.gif" }, new { Key = "Rechazado", Value = "PasivoDeny.gif" } }, "Value", "Key", new { Key = "iconTodosDocumentos.png", Value = "Todos" }))
+                                                                          .DataTextField("Text")
+                                                                          .DataValueField("Value")
+                                                                          .Value("Todos")
+                                                                          .Filter(FilterType.Contains)
+                                                                          .Suggest(true))
+                                        </div>
+                                    </div>
+                                </div>*@
+                                <!--############################################################################################################################################-->
+
+                                <div class="form-group">
+                                    <label for="lblUUID" class="col-sm-12 control-label">UUID </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="txtUUID" name="txtUUID" placeholder="Escriba el UUID o parte de él">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="lblMoneda" class="col-sm-12 control-label">Moneda de la Factura </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="col-sm-12 control-label" id="txtMoneda" name="txtMoneda" placeholder="Escriba Moneda">
+                                    </div>
+                                </div>
+
+                                @*Fechas*@
+                                <div class="form-group" id="FInicial">
+                                    <div class="col-sm-12">
+                                        <!--####################################################################################################################-->
+                                        <div id="example">
+                                            <div class="demo-section k-content">
+                                                <label for="lbl_FechaInicial" class="col-sm-8 control-label">Fecha Inicial </label>
+                                                <input id="start" style="width: 80%;" />
+                                                <label for="lbl_FechaFinal" class="col-sm-8 control-label">Fecha Final </label>
+                                                <input id="end" style="width: 80%;" />
+                                            </div>
+                                            <script>
+                                                                     $(document).ready(function() {
+                                                                      function startChange() {
+                                                                       var startDate = start.value(),
+                                                                       endDate = end.value();
+
+                                                                       if (startDate) {
+                                                                        startDate = new Date(startDate);
+                                                                        startDate.setDate(startDate.getDate());
+                                                                        end.min(startDate);
+                                                                       } else if (endDate) {
+                                                                        start.max(new Date(endDate));
+                                                                       } else {
+                                                                        endDate = new Date();
+                                                                        start.max(endDate);
+                                                                        end.min(endDate);
+                                                                       }
+                                                                      }
+
+                                                                      function endChange() {
+                                                                       var endDate = end.value(),
+                                                                       startDate = start.value();
+
+                                                                       if (endDate) {
+                                                                        endDate = new Date(endDate);
+                                                                        endDate.setDate(endDate.getDate());
+                                                                        start.max(endDate);
+                                                                       } else if (startDate) {
+                                                                        end.min(new Date(startDate));
+                                                                       } else {
+                                                                        endDate = new Date();
+                                                                        start.max(endDate);
+                                                                        end.min(endDate);
+                                                                       }
+                                                                      }
+
+                                                                      var start = $("#start").kendoDatePicker({
+                                                                       change: startChange,culture: "es-MX",
+                                                                       parseFormats:["dd/MM/yyyy"],
+                                                                       format: "dd/MM/yyyy"
+                                                                      }).data("kendoDatePicker");
+
+                                                                      var end = $("#end").kendoDatePicker({
+                                                                       change: endChange,culture: "es-MX",
+                                                                       parseFormats:["dd/MM/yyyy"],
+                                                                       format: "dd/MM/yyyy"
+                                                                      }).data("kendoDatePicker");
+
+                                                                      start.max(end.value());
+                                                                      end.min(start.value());
+                                                                     });
+                                            </script>
+
+                                        </div>
+                                        <!--####################################################################################################################-->
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-8">
+                                        <!--<input class="magic-checkbox" name="aplicarFechas" id="aplicarFechas" value="1" type="checkbox">-->
+                                        <input type="checkbox" id="aplicarFechas" name="aplicarFechas" />
+                                        <label for="aplicarFechas">Filtro de fechas</label>
+                                        <div id="txtAge" style="display:none" class="btn btn-success btn-xs">Activo</div>
+                                    </div>
+                                </div>
+                    <div>
+                         <button type="button" class="btn btn-success" id="btnvistaPrevia" name="btnvistaPrevia"><i class="fa fa-print"></i> Vista previa</button>
+                        <button type="button" class="btn btn-primary" id="btnMuestraModalFechas" name="btnMuestraModalFechas" data-toggle="modal" data-target="#basicModal" style="visibility:hidden"><i class="icon-shuffle"></i>Periodo fechas</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div tabindex="-1" class="modal fade" id="basicModal" role="dialog" aria-hidden="true" aria-labelledby="myModalLabel" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>
+                    <h4 class="modal-title" id="myModalLabel">No hay periodo de fechas</h4>
+                </div>
+                <div class="modal-body">
+                    <p>La opción de 'Filtro de fechas' esta desmarcada, esto indica al portal buscar información desde su inicio de operaciones.</p>
+                    <p> El volúmen de información podría ser tán grande que la respuesta podria tardar demasiado, ¿Esta seguro de continuar sin periodo de fechas?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success btn-square" type="button" id="btnContinuar" name="btnContinuar" data-dismiss="modal">Continuar</button>
+                    <button class="btn btn-default btn-trans" data-dismiss="modal" type="button">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<!-- G L O B A L-->
+<script type="text/javascript">
+ var url_dir = '@System.Configuration.ConfigurationManager.AppSettings["dirImagenTMS"].ToString()';
+    @{int idWF = 0;}
+    @{int idTipo = 0;}
+ $(document).ready(function () {
+     cargaSociedades();
+     cargaTipoUsuarios(null);
+     //cargaUsuarios(null);
+    ConfiguraCalendarios();
+  //$("#sinDatos").hide();
+
+  //$("#btnBuscar").click(function (e) {
+  // disparaCargar();
+     //});
+
+    $("#btnContinuar").click(function (e) {
+        disparaCargarFechas();
+    });
+
+  $('#aplicarFechas').click(function () {
+  $("#txtAge").toggle(this.checked);
+  });
+
+  $('#btnvistaPrevia').click(function () {
+      disparaCargar();
+  });
+
+  var now = new Date();
+  var day = ('0' + now.getDate()).slice(-2);
+  var month = ('0' + (now.getMonth() + 1)).slice(-2);
+
+  var inicial = '01/' + month + '/' + now.getFullYear();
+  var final = (day)+'/'+(month)+'/'+now.getFullYear() ;
+
+  $('#start').val(inicial);
+  $('#end').val(final);
+  //#############################################
+  //var popupNotification = $("#popupNotification").data("kendoNotification");
+  //$("#showPopupNotification").click(function () {
+  // var d = new Date();
+  // popupNotification.show('No se encontraron resultados a la consulta '+kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+  // return false;
+  //});
+
+  //var notification = $("#notification").data("kendoNotification");
+  //$("#showSuccessNotification").click(function () {
+  // notification.show({
+  //  message: "Upload Successful"
+  // }, "upload-success");
+  // return false;
+  //});
+
+  var comboboxEstatus = $("#estatus").data("kendoComboBox");
+
+ });
+
+ function CallChangefunc(val)
+ {
+     idWF = val;
+     cargaTipoUsuarios(idWF);
+ }
+
+ function cargaSociedades() {
+   var numproveedor = JSON.parse('@Html.Raw(Json.Encode(System.Web.HttpContext.Current.Session["Num_Proveedor"]))');
+   var esAdmon = (JSON.parse('@Html.Raw(Json.Encode(System.Web.HttpContext.Current.Session["NivelAdministradorBafar"]))') =='true');
+  $.ajax({
+   type: "post",
+   url: url_dir + '/filtrosBitacoraGralWF/GetSociedades',
+   data: { 'esAdmon': esAdmon, 'numproveedor': numproveedor },
+   cache: false,
+   success: function (lista) {
+    var combo = $("#Sociedades");
+    for (var i = 0; i < combo.length; i++) {
+     var ele = combo[i];
+     var total = ele.length;
+     if (total > 0) {
+      for (var j = total - 1; j >= 0; j--) {
+       ele.remove(j);
+      }
+     }
+    }
+    combo.append("<option value='0'>Seleccione una proceso</option>");
+    for (var i = 0; i < lista.length; i++) {
+     combo.append("<option value='" + lista[i].Key + "'>" + lista[i].Value + "</option>");
+    }
+   }
+  });
+ }
+
+    function cargaTipoUsuarios(idWF) {
+        if (idWF == null)
+            idWF = 0;
+     $.ajax({
+         type: "post",
+         url: url_dir + '/filtrosBitacoraGralWF/GetTiposUsuario',
+         data: { 'idWF': idWF},
+         cache: false,
+         success: function (lista) {
+             var combo = $("#TiposUsuario");
+             for (var i = 0; i < combo.length; i++) {
+                 var ele = combo[i];
+                 var total = ele.length;
+                 if (total > 0) {
+                     for (var j = total - 1; j >= 0; j--) {
+                         ele.remove(j);
+                     }
+                 }
+             }
+             combo.append("<option value='0'>Seleccione un Tipo</option>");
+             for (var i = 0; i < lista.length; i++) {
+                 combo.append("<option value='" + lista[i].Key + "'>" + lista[i].Value + "</option>");
+             }
+         }
+     });
+ }
+
+ function cargaUsuarios(idTipo) {
+     $.ajax({
+         type: "post",
+         url: url_dir + '/reportesBitacoraWF/GetUsuariosWF',
+         data: { 'idTipo': '-1' },
+         cache: false,
+         success: function (lista) {
+             var combo = $("#Usuario");
+             for (var i = 0; i < combo.length; i++) {
+                 var ele = combo[i];
+                 var total = ele.length;
+                 if (total > 0) {
+                     for (var j = total - 1; j >= 0; j--) {
+                         ele.remove(j);
+                     }
+                 }
+             }
+             combo.append("<option value='0'>Seleccione un Usuario</option>");
+             for (var i = 0; i < lista.length; i++) {
+                 combo.append("<option value='" + lista[i].Key + "'>" + lista[i].Value + "</option>");
+             }
+         }
+     });
+ }
+
+ function disparaCargar() {
+  var _finicial = $("#start").val();
+  var ffinal = $("#end").val();
+  var numproveedor = $("#txtNum_Proveedor").val();
+  var sociedad = $("#Sociedades").val();
+  var ordencompra = $("#txtOrdenCompra").val();
+  var tipo = $("#TiposUsuario").val();
+  var usuario = $("#txtUsuarioWF").val();
+  var uuid = $("#txtUUID").val();
+  var moneda = $("#txtMoneda").val();
+
+  //##############################################################################
+
+  //##############################################################################
+
+  var aplicarFechas = $('#txtAge').is(':visible');
+  if (aplicarFechas == false)
+      {
+           $("#btnMuestraModalFechas").click();
+      }
+      else
+      {
+          CargaResultados(numproveedor,sociedad,ordencompra,tipo,usuario,uuid,moneda,_finicial,ffinal,aplicarFechas);
+      }
+
+ }
+
+ function disparaCargarFechas() {
+     var _finicial = $("#start").val();
+     var ffinal = $("#end").val();
+     var numproveedor = $("#txtNum_Proveedor").val();
+     var sociedad = $("#Sociedades").val();
+     var ordencompra = $("#txtOrdenCompra").val();
+     var tipo = $("#TiposUsuario").val();
+     var usuario = $("#txtUsuarioWF").val();
+     var uuid = $("#txtUUID").val();
+     var moneda = $("#txtMoneda").val();
+
+     var aplicarFechas = false;
+         CargaResultados(numproveedor, sociedad, ordencompra, tipo, usuario, uuid, moneda, _finicial, ffinal, aplicarFechas);
+ }
+
+  function CargaResultados(numproveedor,sociedad,ordencompra,tipo,usuario,uuid,moneda,_finicial,ffinal,aplicarFechas) {
+  //$("#Cuerpo").removeClass('class="alert alert-danger"');
+  $.ajax
+   (
+       {
+        type: "post",
+        url: url_dir + '/filtrosBitacoraGralWF/CargaResultados',
+        data: { 'numproveedor': numproveedor, 'finicial': _finicial, 'ffinal': ffinal, 'ordencompra': ordencompra, 'sociedad': sociedad, 'tipo': tipo, 'aplicarfechas': aplicarFechas, 'usuario': usuario, 'uuid': uuid, 'moneda': moneda },
+        cache: false,
+        success: function (lista) {
+            if (lista.length == 0) {
+                // noSeEncontroFO = true;
+                //$("#conDatos").hide();
+                //$("#sinDatos").show();
+                $("#showPopupNotification").click();
+                var url = $("#RedirectOut").val();
+                location.href = url;
+         }
+         else {
+          //$("#sinDatos").hide();
+          //$("#conDatos").show();
+          $("#showSuccessNotification").click();
+         }
+        }
+       }
+    );
+ }
+
+ function ConfiguraCalendarios()
+ {
+  var ini = $("#start").val();
+  var fin = $("#end").val();
+  $.ajax
+ (
+     {
+      type: "post",
+      url: url_dir + '/filtrosBitacoraGralWF/ConfiguraCalendarios',
+      data: {},
+      cache: false,
+      success: function (fechas) {
+       $("#start").value = fechas[0];
+       $("#end").value = fechas[1];
+       $("#start").text = fechas[0];
+       $("#end").text = fechas[1];
+      }
+     }
+  );
+ }
+
+ function onShow(e) {
+  if (!$("." + e.sender._guid)[1]) {
+   var element = e.element.parent(),
+     eWidth = element.width(),
+     eHeight = element.height(),
+     wWidth = $(window).width(),
+     wHeight = $(window).height(),
+     newTop, newLeft;
+
+   newLeft = Math.floor(wWidth / 2 - eWidth / 2);
+   newTop = Math.floor(wHeight / 2 - eHeight / 2);
+
+   e.element.parent().css({ top: newTop, left: newLeft });
+  }
+ }
+
+</script>

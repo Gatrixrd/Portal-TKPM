@@ -1,0 +1,275 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Iniciar sesión";
+
+}
+@using GoogleRecaptchaMvc
+@Html.Hidden("RedirectOut", Url.Action("", "PaquetesOfrecidos/PaquetesOfrecidos"))
+
+
+
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>NeuBoard | @ViewBag.Title</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+     @Scripts.Render("~/bundles/ie")
+     <![endif]-->
+ <style>
+   body{
+   background-image:url("../Images/imagenCoorporativa/backSignIn.JPG.jpg")
+   background-size:contain;
+   background-repeat:no-repeat;
+}
+ </style>
+
+</head>
+<body>
+    <section class="container animated fadeInUp">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div id="login-wrapper">
+                    <header>
+                        <div class="brand">
+                            <a href="index.html" class="logo">
+                                <i class="icon-layers"></i>
+                                <span>TKPM</span>Proveedores
+                            </a>
+                        </div>
+                    </header>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Ingresar
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <p> Por favor identificate</p>
+                            <form class="form-horizontal" role="form" id="formulario">
+                             @Html.AntiForgeryToken()
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="email" class="form-control" id="email" placeholder="Usuario">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="password" class="form-control" id="password" placeholder="Contraseña">
+                                        <i class="fa fa-lock"></i>
+          <!--                              <a href="javascript:void(0)" class="help-block">Olvidaste tu password?</a>-->
+                                    </div>
+                                </div>
+<!------------------------------------------------->
+                                <div class="form-group has-feedback" id="captcha" style="display:block;text-align: center">
+<!--                                    <div class="col-md-12">
+
+                                        @Html.RecaptchaV2("6LeF-QMTAAAAAPBTi98JAMFTF1lBzKrbyCri0JB_")
+                                        <span id="ValCaptcha" class="glyphicon glyphicon-remove form-control-feedback" style="display:none;"></span>
+                                    </div>-->
+                                </div>
+                                <div class="form-group" id="mensaje" style="display:none;">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-danger alert-dismissable">
+                                            <strong>Usuario y/o contraseña incorrecta.</strong>
+                                        </div>
+                                    </div>
+                                </div>
+<!------------------------------------------------->
+                                <div class="form-group">
+
+                                <div class="form-group">
+
+<!------------------------------------------------->
+                                    <div class="col-md-12">
+                                        <a id="btnIniciar" class="btn btn-primary btn-block">Iniciar Sesión</a>
+                                        <hr />
+                                        <a href="@Url.Action("RecuperaContraseña", "RecuperaContraseña")" class="btn btn-default btn-block">¿No recuerda su contraseña?</a>
+                                    </div>
+                                </div>
+                                <div class="row">                                    
+                                    <div class="col-xs-8" style="vertical-align:central;text-align:center">
+                                         <img id="avatarLogoSAP_ClickFactura" src="../Images/imagenCoorporativa/Logo_ClickOriginal_SAP.png" alt="Desarrollado por..." style="width:90% ;filter:alpha(opacity=30);margin-left:40px;	background-repeat: no-repeat;	background-position: left top;">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <button type="button" class="btn btn-danger" onclick="salir()"> Inicio</button>
+                                    </div>
+                                </div>
+<!------------------------------------------------->
+<!--                                    <div class="col-md-12">
+                                        <a href="@Url.Action("Index", "Dashboard")" class="btn btn-primary btn-block">Ingresar</a>
+                                        <hr />
+                                        <a href="@Url.Action("SignUp", "Pages")" class="btn btn-default btn-block">No estás registrado en el Portal? Solicitar tu registro</a>
+                                    </div>-->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!--    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/plugins/navgoco")
+    @Scripts.Render("~/plugins/pace")
+    @Scripts.Render("~/bundles/app")-->
+     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/blockUI")
+    @Scripts.Render("~/plugins/navgoco")
+    @Scripts.Render("~/plugins/pace")
+    @Scripts.Render("~/bundles/app")
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script>
+        var url_dir = '@System.Configuration.ConfigurationManager.AppSettings["dirImagenTMS"].ToString()'
+        var loading = url_dir + "/Images/bafar/ajax-loader-obs.gif";
+        $(document).ready(function () {
+            $(function () {
+                $("#btnIniciar").click(function (e) {
+                    var usuario = $("#email").val();
+                    var pass = $("#password").val();
+                    //var google = grecaptcha.getResponse();
+                    if (usuario == "" && pass == "") {
+                        $("#divPass").addClass("has-error").focus();
+                        $("#divUsuario").addClass("has-error").focus();
+                        $("#captcha").addClass("has-error");
+                        $("#ValPass").css("display", "block");
+                        $("#ValUser").css("display", "block");
+                        $("#ValCaptcha").css("display", "block");
+                        $("#mensaje strong").html("Usuario y/o contraseña incorrecta.");
+                        $("#mensaje").css("display", "block");
+
+                        return;
+                    }
+                    if (usuario == "") {
+                        $("#divUsuario").addClass("has-error").focus();
+                        $("#ValUser").css("display", "block");
+                        $("#mensaje strong").html("Usuario y/o contraseña incorrecta.");
+                        $("#mensaje").css("display", "block");
+                        return;
+                    }
+                    else {
+                        $("#divUsuario").removeClass("has-error");
+                        $("#ValUser").css("display", "none");
+                    }
+                    if (pass == "") {
+                        $("#divPass").addClass("has-error").focus();
+                        $("#ValPass").css("display", "block");
+                        $("#mensaje strong").html("Usuario y/o contraseña incorrecta.");
+                        $("#mensaje").css("display", "block");
+                        return;
+                    }
+                    else {
+                        $("#divPass").removeClass("has-error");
+                        $("#ValPass").css("display", "none");
+                    }
+                    $("#mensaje").css("display", "none");
+                    var response = 'Correcto'; //grecaptcha.getResponse();
+                    //recaptcha failed validation
+                    if (response.length == 0) {
+                        e.preventDefault();
+                        $("#captcha").addClass("has-error").focus();
+                        $("#ValCaptcha").css("display", "block");
+                    }
+                    else {
+                        $("#captcha").removeClass("has-error");
+                        $("#ValCaptcha").css("display", "none");
+                        $(document).ajaxStart(
+                      $.blockUI({
+                       message: '<h1><img src="' + loading + '" /> Iniciando...</h1>',
+                       css: {
+                        border: 'none',
+                        padding: '15px',
+                        backgroundColor: '#000',
+                        '-webkit-border-radius': '10px',
+                        '-moz-border-radius': '10px',
+                        opacity: .5,
+                        color: '#fff'
+                       }
+                      }))
+                      .ajaxSend(
+                          $.blockUI({
+                           message: '<h1><img src="' + loading + '" /> Verificando...</h1>',
+                           css: {
+                            border: 'none',
+                            padding: '15px',
+                            backgroundColor: '#000',
+                            '-webkit-border-radius': '10px',
+                            '-moz-border-radius': '10px',
+                            opacity: .5,
+                            color: '#fff'
+                           }
+                          }))
+                      .ajaxError($.unblockUI)
+                      .ajaxComplete($.unblockUI)
+                      .ajaxStop($.unblockUI);
+
+                        $.ajax({
+                            type: "post",
+                            url: url_dir + '/Pages/IniciarSesion',
+                            data: { 'usuario': usuario, 'contraseña': pass },
+                            datatype: "json",
+                            cache: false,
+                            success: function (event, xhr, settings) {
+                                if (typeof (event) == "string") {
+                                    $("#mensaje strong").html(event);
+                                    $("#mensaje").css("display", "block");
+                                    $.unblockUI;
+                                    grecaptcha.reset();
+                                    return;
+                                }
+                                else {
+                                    var jsonResult = JSON.parse(settings.responseText);
+                                    if (jsonResult != undefined && jsonResult.NewUrl)
+                                        window.location = jsonResult.NewUrl;
+                                }
+                            },
+                            error: function (msg) {
+                                if (typeof (msg) == "string") {
+                                    $("#mensaje strong").html(msg);
+                                    $("#mensaje").css("display", "block");
+                                    grecaptcha.reset();
+                                    $.unblockUI
+                                }
+                            }
+                        });
+
+
+                    }
+                    if (e.isDefaultPrevented()) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                });
+            });
+        });
+
+        function salir() {
+            var url = $("#RedirectOut").val();
+            location.href = url;
+        }
+
+    </script>
+</body>
+</html>

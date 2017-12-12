@@ -1,0 +1,611 @@
+﻿@{
+    ViewBag.Title = "Recepción de Materiales ";
+}
+@using Kendo.Mvc.UI
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.min.js"></script>
+    <link rel="stylesheet" href="~/Content/kendo/kendo.common.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.default.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.default.mobile.min.css" />
+    <script src="~/Scripts/kendo/jquery.min.js"></script>
+    <script src="~/Scripts/kendo/kendo.all.min.js"></script>
+<!--Mensajes -->
+    <script src="~/Scripts/plugins/messenger/js/messenger.min.js"></script>
+    <script src="~/Scripts/plugins/messenger/js/messenger-theme-future.js"></script>
+<!--Mensajes -->
+  <link href="/plugins/messengerCSS?v=Sgt2WUvReI5puuycIgfoPhpM2dlJfXyzmZnXtUdGt_w1" rel="stylesheet"/>                                       
+<!-- <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+ <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+ <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+ <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>-->
+   <link href='~/fonts/montserrat.css' rel='stylesheet' type='text/css'>
+  <link href='~/fonts/opensans.css' rel='stylesheet' type='text/css'>
+<!--Mensajes-->
+
+<!--Radio Buttons-->
+
+<!--Radio Buttons-->
+
+<style>
+ .demo-section p {
+  margin: 3px 0 20px;
+  line-height: 50px;
+ }
+
+ .demo-section .k-button {
+  width: 250px;
+ }
+
+ .k-notification {
+  border: 0;
+ }
+
+
+ /* Info template */
+ .k-notification-info.k-group {
+  background: rgba(0%,0%,0%,.7);
+  color: #fff;
+ }
+
+ .new-mail {
+  width: 300px;
+  height: 100px;
+ }
+
+  .new-mail h3 {
+   font-size: 1em;
+   padding: 32px 10px 5px;
+  }
+
+  .new-mail img {
+   float: left;
+   margin: 30px 15px 30px 30px;
+  }
+
+ /* Error template */
+ .k-notification-error.k-group {
+  background: rgba(100%,0%,0%,.7);
+  color: #ffffff;
+ }
+
+ .wrong-pass {
+  width: 300px;
+  height: 100px;
+ }
+
+  .wrong-pass h3 {
+   font-size: 1em;
+   padding: 32px 10px 5px;
+  }
+
+  .wrong-pass img {
+   float: left;
+   margin: 30px 15px 30px 30px;
+  }
+
+ /* Success template */
+ .k-notification-upload-success.k-group {
+  background: rgba(0%,60%,0%,.7);
+  color: #fff;
+ }
+
+ .upload-success {
+  width: 240px;
+  height: 100px;
+  padding: 0 30px;
+  line-height: 100px;
+ }
+
+  .upload-success h3 {
+   font-size: 1.7em;
+   font-weight: normal;
+   display: inline-block;
+   vertical-align: middle;
+  }
+
+  .upload-success img {
+   display: inline-block;
+   vertical-align: middle;
+   margin-right: 10px;
+  }
+</style>
+
+<div class="pageheader">
+    <h1>Recepción de Materiales</h1>
+    <div class="breadcrumb-wrapper hidden-xs">
+        <span class="label">Usted esta aquí:</span>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Almacén</a>
+            </li>
+            <li>MIGO</li>
+            <li class="active">Recepción de Materiales</li>
+        </ol>
+    </div>
+</div>
+
+<section id="main-content" class="animated fadeInUp">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Entrada de mercancías para una orden de compra</h3>
+                    <div class="actions pull-right">
+                        <i class="fa fa-expand"></i>
+                        <i class="fa fa-chevron-down"></i>
+                        <i class="fa fa-times"></i>
+                    </div>
+                </div>
+                <div class="panel-body">
+                                 <div class="form-group">
+                                            <label class="col-sm-3 control-label">Orden de Compra</label>
+                                            <div class="col-sm-3">
+                                                <input class="form-control" id="OrdenCompra" name="OrdenCompra" placeholder="Capture aquí" type="text" runat="server">
+                                            </div>
+                                             <div class="col-sm-6">
+                                               <button type="button" id="btnCargarOC" class="btn btn-info"><i class="fa fa-search"></i>Buscar</button>
+                                           </div>
+                                     </div>
+                                   <div class="form-group">
+                                           <div class="col-xs-6">
+                                            <table>
+                                              <td style="width:220px">
+                                                              Indique el tipo de Recepción:
+                                              </td>
+                                               <td><strong>Parcial</strong></td>
+                                              <td style="width:10px"></td>
+                                              <td>
+                                                                   <input class="js-switch" checked="" id="checkTipo" style="display: none;" data-switchery="true" type="checkbox">
+                                              </td>
+                                              <td style="width:10px"></td>
+                                              <td><strong>Completa</strong></td>
+                                             </tr>
+                                            </table>
+                                           </div>
+                                   </div>
+                                 <div  class="form-group">
+                                              <div class="panel panel-primary">
+                                              @(Html.Kendo().Notification()
+                                                  .Name("popupNotification")
+                                                  .Events(e => e.Show("onShow"))
+                                                  )
+                                               @(Html.Kendo().Notification()
+                                                   .Name("notification")
+                                                   .Position(p => p.Pinned(true).Top(30).Right(30))
+                                                   .Stacking(NotificationStackingSettings.Down)
+                                                   .AutoHideAfter(0)
+                                                   .Templates(t =>
+                                                   {
+                                                       t.Add().Type("upload-success").ClientTemplateID("successTemplate");
+                                                   })
+                                               )
+                                              <div id="Complementos" style="visibility:hidden" >
+                                                          <script id="successTemplate" type="text/x-kendo-template">        
+                                                           <div class="upload-success">
+                                                               <img src="../Images/bafar/cambioRealizado.png" width="250" height="70"/>
+                                                           </div>
+                                                       </script>
+                                    </div>
+                                              </div>
+                                   </div>
+                
+               </div>
+                <div class="panel-body">
+                                    <div id="example">
+
+                                    <div class="panel-body" id="panelNoOrdenCompra" style="position:center">
+                                              <strong>Detalles de la orden de compra </strong><button type="button"  id="NoOrdenCompra" name="NoOrdenCompra" class="btn btn-info"><i class="fa fa-check"></i> 45000XXXXX</button>
+                                    </div>
+                                
+                                        <div id="grid"></div>
+                                                      @model IEnumerable<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra>
+
+                                                      @(Html.Kendo().Grid(Model)
+                                                          .Name("GridDetalle_OrdenCompra")
+                                                          .Columns(columns =>
+                                                          {
+                                                              columns.Bound(p => p.IDDetalleOrden).Title("Id").Width(70);
+                                                              columns.Bound(p => p.Descripcion).Title("Descripción").Width(230);
+                                                              columns.Bound(p => p.Posicion_OC).Title("Posición").Width(100);
+                                                              columns.Bound(p => p.Cantidad).Title("Cantidad").Width(130);
+                                                              columns.Bound(p => p.Importe).Title("Importe").Width(130);
+                                                              columns.Bound(p => p.Indicador_IVA).Title("Ind. IVA").Width(100);
+                                                              columns.Bound(p => p.Unidad_Medida).Title("U. medida").Width(130);
+                                                              columns.Bound(p => p.Numero_Compras).Title("No. compras").Width(160);
+                                                              columns.Bound(p => p.Numero_Material).Title("No. material").Width(160);
+                                                              columns.Bound(p => p.Almacen).Title("Almacén").Width(130);
+                                                          })
+                                                          .HtmlAttributes(new { style = "height: 550px;" })
+                                                          .Selectable(selectable => selectable
+                                                          .Mode(GridSelectionMode.Single))
+                                                          .Pageable( pageable => pageable
+                                                              .Input(true)
+                                                              .Numeric(false)
+                                                           )
+                                                          .Events(events => events.Change("dgChange"))
+                                                          .Sortable()
+                                                          .Scrollable(scr=>scr.Height(280)) 
+                                                          .Filterable()    
+                                                          .DataSource(dataSource => dataSource        
+                                                              .Ajax()
+                                                              .PageSize(20)
+                                                              .ServerOperation(false)      
+                                                              .Model(model =>
+                                                              {
+                                                                  model.Id(p => p.Posicion_OC);
+                                                              })
+                                                           )
+                                                      )
+                                    </div>
+
+       </div>
+
+               <!-- Form Modal -->
+               <div class="modal fade" id="formModalFormularioCapturaLineaMercancia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                   <div class="modal-dialog">
+                       <div class="modal-content">
+                           <div class="modal-header">
+                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                               <h4 class="modal-title" id="myModalLabel"> 
+                                <div class="alert alert-info alert-dismissable">
+                                   <strong>Material</strong>
+                                   </br>
+                                   <hr>
+                                   <label ID="lblNombreMaterial" Text="Material" runat="server"></label>
+                               </div>
+                                        <label ID="lblPosicion" Text="Posicion" runat="server"></label></br>
+                                        <label ID="lblCantidad" Text="Cantidad" runat="server"></label></br>
+                                        <label ID="lblImporte" Text="Importe" runat="server"></label></br>
+                                        <label ID="lblUnidadMedida" Text="UMedida" runat="server"></label></br>
+                                        <label ID="lblNoCompras" Text="NoCompras" runat="server"></label></br>
+                                        <label ID="lblNoMaterial" Text="NoMaterial" runat="server"></label>
+                               </h4>
+                           </div>
+                           <div  id="divCantidad" class="modal-body">
+                               <form class="form-horizontal" role="form">
+                                   <div class="form-group">
+                                       <label for="inputEmail3" class="col-sm-2 control-label">Cantidad</label>
+                                       <div class="col-sm-10">
+                                           <input type="text" class="numbersOnly" id="inputEmail3" placeholder="Cantidad a recepcionar">
+                                       </div>
+                                   </div>
+                               </form>
+                           </div>
+                         
+                           <div  id="divRecepcionCompleta" class="alert alert-danger alert-dismissable">
+                               <form class="form-horizontal" role="form">
+                                   <div class="form-group">
+                                    <strong>ATENCIÓN!</strong> Va a realizar la recepción <strong>completa</strong> de todos los materiales, bienes, servicios, etc. listados en esta Orden de Compra.
+                                   </div>
+                               </form>
+                           </div>
+
+                           <div class="modal-footer">
+                               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar recepción</button>
+                               <button type="button" class="btn btn-success" data-dismiss="modal" onclick="validaCantidadaRecibir()">Recibir</button>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <!-- End Form Modal -->
+
+                <div style="visibility:hidden">
+                           <button id="btnFormularioCapturaLineaMercancia" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#formModalFormularioCapturaLineaMercancia">
+                                Formulario de captura de mercancias linea por linea
+                            </button>                         
+                            <!--<input type="text" data-value="@Request.RequestContext.HttpContext.Session["mensajesMIGO"]"  id="hdmensajes" runat="server"/> -->
+                            
+             </div>
+            </div>
+        </div>
+</section>
+
+@section Styles {
+    @Styles.Render("~/plugins/dataTablesCSS")
+ @Styles.Render("~/plugins/messengerCSS")
+}
+
+@section Scripts {
+    @Scripts.Render("http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js")
+    @Scripts.Render("http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js")
+    @Scripts.Render("~/plugins/messenger")
+
+    <script>
+     //var _mensajesMIGO;
+     //_mensajesMIGO="@Request.RequestContext.HttpContext.Session["mensajesMIGO"]";
+
+     $('#checkTipo')["0"].checked = true;
+     $("#panelNoOrdenCompra").hide();
+     $("#divRecepcionCompleta").hide();
+
+     $(document).ready(function () {
+      //#############################################
+      var popupNotification = $("#popupNotification").data("kendoNotification");
+      $("#showPopupNotification").click(function () {
+       var d = new Date();
+       popupNotification.show('No se encontraron resultados a la consulta o quizás ocurrio un problema de comunicación, reintente por favor. ' + kendo.toString(d, 'HH:MM:ss.') + kendo.toString(d.getMilliseconds(), "000"), "error");
+       return false;
+      });
+
+      var notification = $("#notification").data("kendoNotification");
+      $("#showSuccessNotification").click(function () {
+       notification.show({
+        message: "Upload Successful"
+       }, "upload-success");
+       return false;
+      });
+
+      //#############################################
+
+     $("#btnCargarOC").click(function (e) {
+      disparaCargarOrdenCompra();
+     });
+
+     $("#btnFormularioCapturaLineaMercancia").click(function (e) {
+      disparaCargarLineaOrdenCompra();
+     });
+
+     jQuery('.numbersOnly').keyup(function () {
+      this.value = this.value.replace(/[^0-9\.]/g, '');
+     });
+      
+    });
+
+    </script>
+}
+<script type="text/javascript">
+ var url_dir = '@System.Configuration.ConfigurationManager.AppSettings["dirImagenTMS"].ToString()';
+
+ function disparaCargarOrdenCompra()
+ {
+  $("#panelNoOrdenCompra").hide();
+  var ordenCompra = document.getElementById('OrdenCompra').value;
+
+  $(document).ajaxStart(
+            $.blockUI({
+             message: '<h1><img src="' + loading + '" /> Buscando Orden...</h1>',
+             css: {
+              border: 'none',
+              padding: '15px',
+              backgroundColor: '#000',
+              '-webkit-border-radius': '10px',
+              '-moz-border-radius': '10px',
+              opacity: .5,
+              color: '#fff'
+             }
+            }))
+            .ajaxSend(
+                $.blockUI({
+                 message: '<h1><img src="' + loading + '" /> Buscando Orden...</h1>',
+                 css: {
+                  border: 'none',
+                  padding: '15px',
+                  backgroundColor: '#000',
+                  '-webkit-border-radius': '10px',
+                  '-moz-border-radius': '10px',
+                  opacity: .5,
+                  color: '#fff'
+                 }
+                }))
+            .ajaxError($.unblockUI)
+            .ajaxComplete($.unblockUI)
+            .ajaxStop($.unblockUI);
+
+      $.ajax
+    (
+       {
+        type: "post",
+        url: url_dir + '/Migo/cargaOrdenCompra',
+        data: { 'ordenCompra': ordenCompra},
+        cache: false,
+        success: function (listaOC) {
+           if (listaOC.length == 0) {
+            showErrorMessage('La orden capturada no existe.');
+            $("#GridDetalle_OrdenCompra").data("kendoGrid").dataSource.data([]);
+           }
+           else {
+              CargarGrid(listaOC,'Detalle_OrdenCompra');
+              showSuccess('La orden existe y su información esta en pantalla.');
+              $('#OrdenCompra').val('');
+              $("#NoOrdenCompra").prop('value', ordenCompra);
+              $("#NoOrdenCompra").html(ordenCompra);
+              $("#panelNoOrdenCompra").show();
+           }
+        }
+       }
+    );
+
+
+ }
+
+ function disparaCargarLineaOrdenCompra()
+ {
+      
+ }
+
+ function CargarGrid(lista, namegrid) {
+   if (namegrid == 'Detalle_OrdenCompra')
+    var grid = $("#GridDetalle_OrdenCompra").data("kendoGrid");
+
+   var dataSource = new kendo.data.DataSource(
+        {
+         data: lista,
+         pageSize: 20
+        });
+   grid.setDataSource(dataSource);
+   grid.refresh();
+  }
+
+  $(document).ready(function () {
+   //Seleccionando todos los renglones al inicio
+
+
+   var grid = $('#GridDetalle_OrdenCompra').data('kendoGrid');
+   grid.bind('dataBound', function (e) {
+    $.each(grid.tbody.find('tr'), function () {
+     var model = grid.dataItem(this);
+     if (model.Posicion_OC != "00000") {
+          
+          //alguna condicion va aqui
+      $('[data-uid=' + model.uid + ']').addClass('k-state-selected');
+      $('#checkTipo')["0"].checked = false;
+
+     }
+    });
+   });
+  });
+ 
+  function dgChange() {
+   //Captura todos los renglones seleccionados
+   var grid = $('#GridDetalle_OrdenCompra').data('kendoGrid');
+   var rows = grid.select();
+   rows.each(
+       function () {
+        var noRow = this.cells[0].innerText;
+        $('#lblNombreMaterial').text(this.cells[1].innerText);
+        $('#lblPosicion').text('Posicion: ' + this.cells[2].innerText);
+        $('#lblCantidad').text('Cantidad: ' + this.cells[3].innerText);
+        $('#lblImporte').text('Importe: ' + this.cells[4].innerText);
+        $('#lblUnidadMedida').text('U. de medida: ' + this.cells[6].innerText);
+        $('#lblNoCompras').text('No. Compras: ' + this.cells[7].innerText);
+        $('#lblNoMaterial').text('No. Material: ' + this.cells[8].innerText);
+        //alert('Selected : ' + noRow);
+        if ($('#checkTipo')["0"].checked == true) {
+         $("#divCantidad").hide();
+         $("#divRecepcionCompleta").show();
+        }
+        else {
+         $("#divCantidad").show();
+         $("#divRecepcionCompleta").hide();
+        }
+
+        $("#btnFormularioCapturaLineaMercancia").click();
+        //------
+       }
+   )
+
+  }
+
+  function validaCantidadaRecibir()
+  {
+   var modo = '';
+   var tipo = $('#checkTipo')["0"].checked;
+   var var1;
+   var var2;
+   var Solicitado;
+   var Capturado;
+   var porIngresar;
+
+   if(tipo==true)
+   {
+    modo = 'Completa';
+    porIngresar = 0;
+   }
+   else
+   {
+    modo = 'Parcial';
+    var1 = $('#lblCantidad').text();
+    var2 = document.getElementById('inputEmail3').value;
+    Solicitado = parseFloat(var1.replace('Cantidad:',''));
+    Capturado = parseFloat(var2);
+    porIngresar = Solicitado - Capturado;
+   }
+
+   if(porIngresar<0)
+   {
+          //ERROR
+          showErrorMessage('La cantidad que desea Recepcionar no es válida, verifique por favor!.')
+   }
+   else
+   {
+         //LA CANTIDAD ES VALIDA
+    //alert('La cantidad es válida');
+    var posicion = $('#lblPosicion').text();
+    //############### INICIA PROCESO DISPARO DE MIGO
+
+    $(document).ajaxStart(
+          $.blockUI({
+           message: '<h1><img src="' + loading + '" /> Recepcionando...</h1>',
+           css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: .5,
+            color: '#fff'
+           }
+          }))
+          .ajaxSend(
+              $.blockUI({
+               message: '<h1><img src="' + loading + '" /> Recepcionando...</h1>',
+               css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+               }
+              }))
+          .ajaxError($.unblockUI)
+          .ajaxComplete($.unblockUI)
+          .ajaxStop($.unblockUI);
+
+    $.ajax
+             (
+              {
+               type: "post",
+               url: url_dir + '/Migo/disparaMIGO',
+               data: { 'posicion': posicion,'poringresar':Capturado,'modo':modo },
+               cache: false,
+               success: function (listaMIGO) {
+                if (listaMIGO.length == 0) {
+                 showErrorMessage('Ocurrío un problema, no fue posible hacer la Recepción.');
+                 showErrorMessage('El mensaje final muestra los detalles desde SAP.');
+                }
+                else {
+                 try{
+                  if(listaMIGO.includes("javascript:showErrorMessage")==false)
+                                  {
+                                     CargarGrid(listaMIGO, 'Detalle_OrdenCompra');
+                                     showSuccess('La(s) linea(s) capturada(s) han sido correctamente Recepcionadas para la orden de compra ' + listaMIGO[0].OrdenCompra+'.');
+                                  }
+                                  else
+                                  {
+                                      showErrorMessage('Ocurrío un problema y no fue posible ninguna Recepción');
+                                      showErrorMessage('Presione el botón inferior de Chat Soporte para obtener ayuda.');
+                                      showErrorMessage('Llame a su Comprador o  a su contacto en Cuentas por Pagar/ Finanzas.');
+                                  }
+                             }
+                             catch(err)
+                             {
+
+                             }
+                }
+               }
+              }
+             );
+    //############### INICIA PROCESO DISPARO DE MIGO
+   }
+
+  }
+
+  function onShow(e) {
+   if (!$("." + e.sender._guid)[1]) {
+    var element = e.element.parent(),
+      eWidth = element.width(),
+      eHeight = element.height(),
+      wWidth = $(window).width(),
+      wHeight = $(window).height(),
+      newTop, newLeft;
+
+    newLeft = Math.floor(wWidth / 2 - eWidth / 2);
+    newTop = Math.floor(wHeight / 2 - eHeight / 2);
+
+    e.element.parent().css({ top: newTop, left: newLeft });
+   }
+  }
+
+</script>
+

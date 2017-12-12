@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" />
+  <xs:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Clases.ServicioSAPLocal" />
+  <xs:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Clases.Facturacion" />
+  <xs:import schemaLocation="http://67.205.93.25:8097/Servicio/Servicio_ClickFactura.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Datos" />
+  <xs:element name="ObtenCorreos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="prov" nillable="true" type="q1:CorreosProv" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenCorreosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="ObtenCorreosResult" nillable="true" type="q2:DatosCorreo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FiltroCorreo">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FiltroCorreoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="FiltroCorreoResult" nillable="true" type="q3:FiltroCorreo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Valida_Factura">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Factura" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Valida_FacturaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Valida_FacturaResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_Proveedores_SAP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta" nillable="true" type="q4:Entrada_SAP" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_Proveedores_SAPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Get_Proveedores_SAPResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element ref="xs:schema" />
+              <xs:any />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Valida_Menu">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Usuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Valida_MenuResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Valida_MenuResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element ref="xs:schema" />
+              <xs:any />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Carga_OrdenesCompra">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Num_Provedor" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Num_Sociedad" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Carga_OrdenesCompraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Carga_OrdenesCompraResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element ref="xs:schema" />
+              <xs:any />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Carga_DetalleOrden">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OrdenCompra" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Carga_DetalleOrdenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Carga_DetalleOrdenResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element ref="xs:schema" />
+              <xs:any />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_OrdenCompra_SAP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Proveedor" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_OrdenCompra_SAPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Get_OrdenCompra_SAPResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element ref="xs:schema" />
+              <xs:any />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_DetalleOrdenCompra_SAP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Orden_Compra" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_DetalleOrdenCompra_SAPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Get_DetalleOrdenCompra_SAPResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element ref="xs:schema" />
+              <xs:any />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_Recepcion_Facturas_Correo">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_Recepcion_Facturas_CorreoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Get_Recepcion_Facturas_CorreoResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element ref="xs:schema" />
+              <xs:any />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_Pasivo_Clase">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Encabezado" nillable="true" type="q5:Pasivo_Encabezado" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Detalle" nillable="true" type="q6:ArrayOfPasivo_Detalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_Pasivo_ClaseResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Get_Pasivo_ClaseResult" nillable="true" type="q7:Pasivo_Generado" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_SAP_Prov">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Gpo_Sociedad" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Gpo_Cuentas" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_SAP_ProvResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Get_SAP_ProvResult" nillable="true" type="q8:ArrayOfCat_Proveedor" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Genera_Pasivo_SOC_SRE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Pasivo" nillable="true" type="q9:Genera_Pasivo_SOC_SRE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Genera_Pasivo_SOC_SREResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Genera_Pasivo_SOC_SREResult" nillable="true" type="q10:ArrayOfResultado_GeneraPasivo_SOC_SRE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_Parametros_Prov">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_Parametros_ProvResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Get_Parametros_ProvResult" nillable="true" type="q11:ArrayOfKeyValueOfanyTypeanyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Genera_Pasivo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Cabecera_Pasivo" nillable="true" type="q12:Pasivo_Encabezado" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Detalle_Pasivo" nillable="true" type="q13:ArrayOfPasivo_Detalle" />
+        <xs:element minOccurs="0" name="tipoPasivo" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Genera_PasivoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Genera_PasivoResult" nillable="true" type="q14:ArrayOfPasivo_Generado" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Documentos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Filtros" nillable="true" type="q15:Filtro_Documento" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_DocumentosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta_DocumentosResult" nillable="true" type="q16:ArrayOfListado_Documentos" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Proveedores_SAP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Filtro" nillable="true" type="q17:Filtro_Get_SAP_Prov" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Proveedores_SAPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta_Proveedores_SAPResult" nillable="true" type="q18:Clase_Intercambio_Proveedor" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_OrdenesCompra_SAP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Filtro" nillable="true" type="q19:Filtro_Get_SAP_Ordenes_Compra" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_OrdenesCompra_SAPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta_OrdenesCompra_SAPResult" nillable="true" type="q20:ArrayOfOrdenes_Compra" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Detalle_OrdenCompra">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Filtro" nillable="true" type="q21:Filtro_Detalle_OrdenCompra" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Detalle_OrdenCompraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta_Detalle_OrdenCompraResult" nillable="true" type="q22:Clase_Intercambio_Detalle_OrdenCompra" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Recepcion_OrdenCompra">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Filtro" nillable="true" type="q23:Filtro_Recepcion_OrdenCompra" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Recepcion_OrdenCompraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta_Recepcion_OrdenCompraResult" nillable="true" type="q24:ArrayOfRecepion_OrdenCompra" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Pasivo_Consignacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consigna" nillable="true" type="q25:Consignacion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Pasivo_ConsignacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Pasivo_ConsignacionResult" nillable="true" type="q26:Resultado_Consignacion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Valida_XML">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="XML" nillable="true" type="q27:Cadena_XML" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Valida_XMLResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Valida_XMLResult" nillable="true" type="q28:Resultado_XML" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Envia_Correo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Config" nillable="true" type="q29:Configuracion_Email" />
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Correo" nillable="true" type="q30:Datos_Email" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Envia_CorreoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_TipoCambio_SAP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Filtro" nillable="true" type="q31:Filtro_TipoCambio" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_TipoCambio_SAPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta_TipoCambio_SAPResult" nillable="true" type="q32:ArrayOfTipo_Cambio" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_TipoCambio">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="TipoCambio" nillable="true" type="q33:Tipo_Cambio" />
+        <xs:element minOccurs="0" name="Opcion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_TipoCambioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Mantto_TipoCambioResult" nillable="true" type="q34:Tipo_Cambio" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_NotaCargo_SAP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Filtro" nillable="true" type="q35:Filtro_NotaCargo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_NotaCargo_SAPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta_NotaCargo_SAPResult" nillable="true" type="q36:ArrayOfNota_Cargo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_EstadoCuenta_SAP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Filtro" nillable="true" type="q37:Filtro_EdoCuenta_FI" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_EstadoCuenta_SAPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta_EstadoCuenta_SAPResult" nillable="true" type="q38:ArrayOfEstado_Cuenta_FI" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_Proveedor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Proveedor" nillable="true" type="q39:Cat_Proveedor" />
+        <xs:element minOccurs="0" name="Opcion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_ProveedorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Mantto_ProveedorResult" nillable="true" type="q40:Cat_Proveedor" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_Sociedad">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Sociedad" nillable="true" type="q41:Cat_Sociedad" />
+        <xs:element minOccurs="0" name="Opcion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_SociedadResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Mantto_SociedadResult" nillable="true" type="q42:Cat_Sociedad" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_Relacion_Proveedor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Relacion" nillable="true" type="q43:Cat_Relacion_Proveedor" />
+        <xs:element minOccurs="0" name="Opcion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_Relacion_ProveedorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Mantto_Relacion_ProveedorResult" nillable="true" type="q44:Cat_Relacion_Proveedor" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_Usuario">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Usuario" nillable="true" type="q45:Cat_Users" />
+        <xs:element minOccurs="0" name="Opcion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_UsuarioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Mantto_UsuarioResult" nillable="true" type="q46:Cat_Users" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_Orden_Compra">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Orden" nillable="true" type="q47:Ordenes_Compra" />
+        <xs:element minOccurs="0" name="Opcion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_Orden_CompraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Mantto_Orden_CompraResult" nillable="true" type="q48:Ordenes_Compra" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_Detalle_Orden_Compra">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q49="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Detalle" nillable="true" type="q49:Detalle_OrdenCompra" />
+        <xs:element minOccurs="0" name="Opcion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_Detalle_Orden_CompraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Mantto_Detalle_Orden_CompraResult" nillable="true" type="q50:Detalle_OrdenCompra" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_Detalle_Orden_Compra_Incrementable">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q51="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Incrementable" nillable="true" type="q51:Detalle_OrdenCompra_Incrementable" />
+        <xs:element minOccurs="0" name="Opcion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_Detalle_Orden_Compra_IncrementableResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q52="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Mantto_Detalle_Orden_Compra_IncrementableResult" nillable="true" type="q52:Detalle_OrdenCompra_Incrementable" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_Recepcion_Orden_Compra">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q53="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Recepcion" nillable="true" type="q53:Recepion_OrdenCompra" />
+        <xs:element minOccurs="0" name="Opcion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Mantto_Recepcion_Orden_CompraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q54="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Mantto_Recepcion_Orden_CompraResult" nillable="true" type="q54:Recepion_OrdenCompra" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Genera_Pasivo_Membresia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q55="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Membresia" nillable="true" type="q55:Genera_Pasivo_Membresia_SAP" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Genera_Pasivo_MembresiaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q56="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Genera_Pasivo_MembresiaResult" nillable="true" type="q56:ArrayOfResultado_Membresia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_NotaCargo_SAPV2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q57="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Filtro" nillable="true" type="q57:Filtro_NotaCargoV2" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_NotaCargo_SAPV2Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q58="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta_NotaCargo_SAPV2Result" nillable="true" type="q58:ArrayOfNota_Cargo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaFacturasVerificadas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q59="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="FiltroRS" nillable="true" type="q59:FiltroFacturasVerificadasRazonSocial" />
+        <xs:element xmlns:q60="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="FiltroFacturas" nillable="true" type="q60:FiltroFacturasVerificadasFactura" />
+        <xs:element xmlns:q61="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="FiltroStatus" nillable="true" type="q61:FiltroFacturasVerificadasStatus" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaFacturasVerificadasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ConsultaFacturasVerificadasResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+              <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaAllProveedoresSAP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="FiltroProve" nillable="true" type="q62:FiltroGetSAPProvByID" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaAllProveedoresSAPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="ConsultaAllProveedoresSAPResult" nillable="true" type="q63:Clase_Intercambio_Proveedor2" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaAllSociedadesSAP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q64="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="FiltroProve" nillable="true" type="q64:FiltroGetSAPSociedades" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaAllSociedadesSAPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="ConsultaAllSociedadesSAPResult" nillable="true" type="q65:Clase_Intercambio_Sociedad" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaAllRelacionesPSSAP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q66="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="FiltroRel" nillable="true" type="q66:FiltroGetSAPRelPS" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaAllRelacionesPSSAPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q67="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="ConsultaAllRelacionesPSSAPResult" nillable="true" type="q67:Clase_Intercambio_RelPS" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Detalle_OrdenCompraMultiple">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q68="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Filtro" nillable="true" type="q68:Filtro_Detalle_OrdenCompra" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Detalle_OrdenCompraMultipleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q69="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta_Detalle_OrdenCompraMultipleResult" nillable="true" type="q69:Clase_Intercambio_Detalle_OrdenCompra" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Recepcion_OrdenCompraMultiples">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q70="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Filtro" nillable="true" type="q70:Filtro_Recepcion_OrdenCompra" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Recepcion_OrdenCompraMultiplesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q71="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta_Recepcion_OrdenCompraMultiplesResult" nillable="true" type="q71:ArrayOfRecepion_OrdenCompra" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Incrementable_OrdenCompraMultiple">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q72="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Filtro" nillable="true" type="q72:Filtro_Detalle_OrdenCompra" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Incrementable_OrdenCompraMultipleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q73="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta_Incrementable_OrdenCompraMultipleResult" nillable="true" type="q73:Clase_Intercambio_Detalle_OrdenCompra2" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Incrementable_OrdenCompraMultiple2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q74="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Filtro" nillable="true" type="q74:Filtro_Detalle_OrdenCompra" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Incrementable_OrdenCompraMultiple2Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q75="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta_Incrementable_OrdenCompraMultiple2Result" nillable="true" type="q75:ArrayOfDetalle_OrdenCompra_Incrementable3" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_EstadoCuenta_SAP2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q76="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Filtro" nillable="true" type="q76:Filtro_EdoCuenta_FI" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_EstadoCuenta_SAP2Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q77="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta_EstadoCuenta_SAP2Result" nillable="true" type="q77:ArrayOfEstado_Cuenta_FI2" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_NotasCargo_SAP2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q78="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Filtro" nillable="true" type="q78:FiltroNotasCargo2" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_NotasCargo_SAP2Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q79="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta_NotasCargo_SAP2Result" nillable="true" type="q79:ArrayOfNotasCargo2" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Correos_Proveedores">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="direccionProv" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Correos_ProveedoresResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q80="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Clases.ServicioSAPLocal" minOccurs="0" name="Consulta_Correos_ProveedoresResult" nillable="true" type="q80:ArrayOfInformacionSAP" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Update_Correos_Proveedores">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q81="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Clases.ServicioSAPLocal" minOccurs="0" name="Datos" nillable="true" type="q81:ArrayOfInformacionSAP" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Update_Correos_ProveedoresResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q82="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Clases.ServicioSAPLocal" minOccurs="0" name="Update_Correos_ProveedoresResult" nillable="true" type="q82:ArrayOfInformacionSAP" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MetodoGeneric">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q83="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Filtro" nillable="true" type="q83:FiltroGeneric" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MetodoGenericResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q84="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="MetodoGenericResult" nillable="true" type="q84:ArrayOfModelGeneric" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Freight_Order_SAP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="noFreightOrder" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="noProveedor" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Consulta_Freight_Order_SAPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q85="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="Consulta_Freight_Order_SAPResult" nillable="true" type="q85:ArrayOfModelGeneric" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FreightOrderPasivo_SAP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q86="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="lista" nillable="true" type="q86:ArrayOfModelGeneric" />
+        <xs:element xmlns:q87="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Clases.Facturacion" minOccurs="0" name="datos" nillable="true" type="q87:ArrayOfobjLeidoFactura" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FreightOrderPasivo_SAPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q88="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios" minOccurs="0" name="FreightOrderPasivo_SAPResult" nillable="true" type="q88:ArrayOfArrayOfModelGeneric" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VerificarFacturaBD">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="oc" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="rfcReceptor" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="numProveedor" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sociedad" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VerificarFacturaBDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="VerificarFacturaBDResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegistrarBitacoraOperaciones">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q89="http://schemas.datacontract.org/2004/07/ClickFactura_Servicios.Datos" minOccurs="0" name="operaciones" nillable="true" type="q89:T_BitacoraOperaciones" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegistrarBitacoraOperacionesResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,476 @@
+﻿@{
+    @model ClickFactura_Entidades.BD.Modelos.TablaGeneralModel
+}
+@using Kendo.Mvc.UI;
+<style>
+    .k-grid-header th.k-header{
+        font-weight:bold;
+    }
+</style>
+@(Html.Kendo().Grid(Model.Registros)
+                                        .Name(Model.NombreGrid)
+                                        .DataSource(dataSource =>
+                                        {
+                                            dataSource.Ajax()
+                                                .PageSize(20)
+                                                .ServerOperation(false)
+                                                .Model(model =>
+                                                {
+                                                    model.Id(Model.ID);
+                                                    for (int i = 0; i < Model.Columnas.Count; i++)
+                                                    {
+                                                        model.Field(Model.NombresModel[i], Model.Columnas[i].Tipo);
+                                                    }
+                                                })
+                                                .Create(update => update.Action(Model.NombreCreate, Model.Control))
+                                                .Update(update => update.Action(Model.NombreUpdate, Model.Control))
+                                                .Group(g =>
+                                                {
+                                                    if (Model.Agrupar)
+                                                    {
+                                                        foreach (var item in Model.CamposAgrupados)
+                                                        {
+                                                            g.Add(item.Key, item.Value);
+                                                        }
+                                                    }
+                                                })
+                                                .Aggregates(ag =>
+                                                {
+                                                    if (Model.AgregarOperacion)
+                                                    {
+                                                        foreach (var item in Model.CamposAgregadosOperacion)
+                                                        {
+                                                            switch (item.Operacion)
+                                                            {
+                                                                case "Average":
+                                                                    ag.Add(item.Campo, item.Tipo).Average();
+                                                                    break;
+                                                                case "Contar":
+                                                                    ag.Add(item.Campo, item.Tipo).Count();
+                                                                    break;
+                                                                case "Max":
+                                                                    ag.Add(item.Campo, item.Tipo).Max();
+                                                                    break;
+                                                                case "Min":
+                                                                    ag.Add(item.Campo, item.Tipo).Min();
+                                                                    break;
+                                                                case "Suma":
+                                                                    ag.Add(item.Campo, item.Tipo).Sum();
+                                                                    break;
+                                                                default:
+                                                                    ag.Add(item.Campo, item.Tipo);
+                                                                    break;
+                                                            }
+                                                        }
+                                                    }
+                                                });
+                                            
+                                        })
+                                        .Columns(columns =>
+                                        {
+                                            if (Model.Edicion)
+                                            {
+                                                columns.Command(command => command.Edit()
+                                                .CancelText(" ")
+                                                .Text(" ")
+                                                .UpdateText(" ")
+                                                .HtmlAttributes(new { @class = "btn btn-primary", @style = "min-width:0px;" })).Width(70);
+                                            }
+                                            if (Model.Personalizar)
+                                            {
+                                                columns.Command(command => command
+                                                    .Custom(Model.NombreBtnPersonalizado)
+                                                    .Text(Model.ControlPersonalizado)
+                                                    .Click(Model.EventoClick)
+                                                    .SendDataKeys(Model.SendDataKey)
+                                                    .HtmlAttributes(new { @class = "btn btn-info", @style = "min-width:0px; border-radius:45px; padding: 0px; width: 0px; height:20px;" }))
+                                                    .Width(50);
+                                            }
+                                            for (int i = 0; i < Model.Columnas.Count; i++)
+                                            {
+                                                switch (i)
+                                                {
+                                                    case 0:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R1).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R1).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 1:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R2).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R2).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 2:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R3).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R3).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 3:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R4).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R4).Title( Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 4:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R5).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R5).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 5:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R6).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R6).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 6:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R7).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R7).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 7:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R8).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R8).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 8:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R9).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R9).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 9:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R10).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R10).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 10:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R11).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R11).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 11:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R12).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R12).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 12:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R13).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R13).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 13:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R14).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R14).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 14:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R15).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R15).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 15:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R16).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R16).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 16:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R17).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R17).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 17:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R18).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R18).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 18:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R19).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R19).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    case 19:
+                                                        if (Model.Columnas[i].filtreable)
+                                                        {
+                                                            columns.Bound(p => p.R20).Title(Model.Columnas[i].Nombre).Filterable(filtro => filtro.Cell(cell => cell.Operator("contains").ShowOperators(false))).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        else
+                                                        {
+                                                            columns.Bound(p => p.R20).Title(Model.Columnas[i].Nombre).Filterable(false).Hidden(Model.Columnas[i].oculto).ClientTemplate(Model.Columnas[i].ClientTemplate).Width(Model.Columnas[i].Ancho).ClientFooterTemplate(Model.Columnas[i].ClientFooterTemplate);
+                                                        }
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+                                            }
+                                        })
+                                        .HtmlAttributes(new { style = "height: " + Model.AlturaGrid + ";" })
+                                        .Editable(editable => editable
+                                                .Mode(Kendo.Mvc.UI.GridEditMode.PopUp)
+                                            //.TemplateName(Model.NombreTemplateEdicion)
+                                                        .Window(win => win
+                                                        .Title(Model.TituloEdicion)
+                                                        .Width(Model.Ancho)
+                                                        .Height(Model.Alto).Actions(x => x.Close()))
+                                                )
+                                        .ToolBar(toolbar =>
+                                        {
+                                            if (Model.Nuevo)
+                                            {
+                                                toolbar.Create().Text("  Nuevo").HtmlAttributes(new { @class = "btn btn-info", @style = "min-width:0px;" });
+                                            }
+                                        })
+                                        .ToolBar(toolbar =>
+                                        {
+                                            if (Model.BtnToolbarPersonalizado)
+                                            {
+                                                toolbar.Template(Model.TemplatePersonalizado);
+                                            }
+                                        })
+                                        .ToolBar(toolbar =>
+                                        {
+                                            if (Model.Excel)
+                                            {
+                                                toolbar.Excel().Text("  Exportar a Excel").HtmlAttributes(new { @class = "btn btn-success", @style = "min-width:0px; margin-top:5px;" });
+                                            }
+                                        })
+                                        .Excel(excel =>
+                                        {
+                                            excel.FileName(Model.NombreExcel);
+                                            excel.AllPages(true);
+                                        })
+                                        .Pageable(pageable => pageable
+                                            .Messages(messages => messages
+                                            .Display("Registro {0} de {1}. Total de registros: {2}")
+                                            .First("Primera página")
+                                            .Next("Siguiente página")
+                                            .Previous("Página anterior")
+                                            .Last("Última página")
+                                            .Page("Página actual")
+                                            .MorePages("Más páginas")
+                                            .Empty("No se encontraron registros.")))
+                                            .Selectable(
+                                                             selectable => selectable
+                                                            .Mode(GridSelectionMode.Multiple)
+                                                            .Type(GridSelectionType.Row)
+                                                              )
+                                        .Sortable()
+                                        .Scrollable()
+                                        .Filterable(filtro => filtro
+                                            .Mode(GridFilterMode.Row)
+                                            .Extra(false))
+                                        .Events(events => events
+                                            .Change("onChange")
+                                            .DataBound("onRowDataBound")
+                                            .Edit(Model._Edicion)
+                                            .Cancel("onCancel")
+                                            .Save(Model._Guardar)
+                                        )
+                                        .Resizable(resize => resize.Columns(true))
+                                        .CellAction(celda =>
+                                            {
+                                                if (Model.CeldaAccion)
+                                                {
+                                                    if (celda.DataItem.R9.ToString() == "Pendiente")
+                                                    {
+                                                        celda.HtmlAttributes["style"] = "color: red;";
+                                                    }
+                                                }
+                                            })
+)
+@*<script id="popup_Edicion" type="text/x-kendo-template">
+        <div>
+            <div class="panel-body" id="contenidoEdicion">
+                <form class="form-horizontal" role="form" id="formEdicionPregunta">
+                    <div class="form-group">
+                        <label for="Pregunta" class="col-sm-2 control-label">Pregunta</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="Pregunta" name="R2" placeholder="Escriba la pregunta" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Activo" class="col-sm-2 control-label">Activo</label>
+                        <div class="col-sm-6">
+                            <input type='checkbox' checked='checked' name='R3' id='Activo' />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </script>*@
+@*@section Scripts {
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.min.js"></script>
+        <script>
+            var url_dir = '@System.Configuration.ConfigurationManager.AppSettings["dirImagenTMS"].ToString()'
+            function onRowDataBound(e) {
+                $(".k-grid-edit").find("span").removeClass("k-icon k-edit").addClass("fa fa-edit");
+                $(".k-grid-add").find("span").removeClass("k-icon k-add").addClass("fa fa-plus-square");
+                $(".k-grid-excel").find("span").removeClass("k-icon k-excel").addClass("fa fa-file-excel-o");
+            }
+            function onChange(arg) {
+                $(".k-grid-edit").find("span").removeClass("k-icon k-edit").addClass("fa fa-edit");
+            }
+            function onCancel(e) {
+                var elemento = $(".k-grid-edit").find("span");
+                $(".k-grid-edit").find("span").removeClass("k-icon k-edit").addClass("fa fa-edit");
+            }
+            function Config() {
+                var grid = $("#Grid").data("kendoGrid");
+                var opciones = grid.options;
+                opciones.editable.template = kendo.template($("#@Model.NombreTemplateEdicion").html())
+                $(".k-grid-edit").find("span").removeClass("k-icon k-edit").addClass("fa fa-edit");
+                $(".k-grid-edit").attr("data-toggle", "tooltip");
+                $(".k-grid-edit").attr("data-placement", "left");
+                $(".k-grid-edit").attr("title", "Editar registro");
+                $(".k-grid-add").find("span").removeClass("k-icon k-add").addClass("fa fa-plus-square");
+                $(".k-grid-add").attr("data-toggle", "tooltip");
+                $(".k-grid-add").attr("data-placement", "left");
+                $(".k-grid-add").attr("title", "Agregar nuevo registro");
+                $(".k-grid-excel").find("span").removeClass("k-icon k-excel").addClass("fa fa-file-excel-o");
+                $(".k-grid-excel").removeClass("k-button k-button-icontext");
+                $(".k-grid-excel").attr("data-toggle", "tooltip");
+                $(".k-grid-excel").attr("data-placement", "left");
+                $(".k-grid-excel").attr("title", "Exportar datos a Excel");
+            }
+            function onSavePreguntas(e) {
+                var ventana = e.container.data("kendoWindow");
+                e.preventDefault();
+                var pregunta = new Object();
+                pregunta.IdPregunta = e.model.IdPregunta;
+                pregunta.Pregunta = e.model.Pregunta;
+                pregunta.Activo = e.model.Activo;
+                $.ajax({
+                    type: "post",
+                    url: url_dir + '/Administracion/GuardarPregunta',
+                    data: { 'pregunta': pregunta },
+                    cache: false,
+                    success: function (guardo) {
+                        if (guardo) {
+                            $("#cuerpoMensaje").html("El registro se guardó correctamente.");
+                            $("#btnMensaje").click();
+                            //GuardaActualiza = true;
+                            ventana.close();
+                        }
+                        else {
+                            $("#cuerpoMensaje").html("El registro no se pudo guardar.");
+                            $("#btnMensaje").click();
+                        }
+                    }
+                });
+            }
+            function onEditPreguntas(e) {
+                var ventana = e.container.data("kendoWindow");
+                ventana.bind("close", function () {
+                    $(".k-grid-edit").find("span").removeClass("k-icon k-edit").addClass("fa fa-edit");
+                });
+
+                $(".k-grid-update").find("span").removeClass("k-icon k-update").addClass("fa fa-save");
+                $(".k-grid-update").attr("data-toggle", "tooltip");
+                $(".k-grid-update").attr("data-placement", "left");
+                $(".k-grid-update").attr("title", "Guardar registro");
+                $(".k-grid-cancel").find("span").removeClass("k-icon k-cancel").addClass("fa fa-times");
+                $(".k-grid-cancel").attr("data-toggle", "tooltip");
+                $(".k-grid-cancel").attr("data-placement", "left");
+                $(".k-grid-cancel").attr("title", "Cancelar");
+                var registro = e.model;
+            }
+
+            $(document).ready(function () {
+
+                //CrearGrid();
+                Config();
+            });
+
+        </script>
+    }*@
