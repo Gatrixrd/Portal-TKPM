@@ -13,6 +13,7 @@ namespace MVC5_full_version.Controllers.Pages
        //DatosBafarDataContext contexto;
         Desarrollo_CF contexto;
         System.Data.DataSet ds;
+
         public Dictionary<string, string> DatosSesion { get; set; }
         public List<string> misSociedades { get; set; }
         public List<MVC5_full_version.Genericos.Login.Menu> miMenu { get; set; }
@@ -23,7 +24,12 @@ namespace MVC5_full_version.Controllers.Pages
             //ClickFactura_WebServiceCF.Service.Service1 ser = new ClickFactura_WebServiceCF.Service.Service1();
             //string cantidad = ser.formatearCantidadesImportes("2228.65");
             //contexto = new DatosBafarDataContext();
-            contexto = new Desarrollo_CF();
+
+            #region Testeo
+            cliente.Hardcore_construyeBAPIMIRO();
+            #endregion Testeo
+
+                contexto = new Desarrollo_CF();
             ds = new System.Data.DataSet();
             DatosSesion = new Dictionary<string, string>();
             misSociedades = new List<string>();
