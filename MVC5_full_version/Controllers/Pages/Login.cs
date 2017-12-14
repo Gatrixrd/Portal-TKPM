@@ -26,7 +26,7 @@ namespace MVC5_full_version.Controllers.Pages
             //contexto = new DatosBafarDataContext();
 
             #region Testeo
-            cliente.Hardcore_construyeBAPIMIRO();
+           // cliente.Hardcore_construyeBAPIMIRO();
             #endregion Testeo
 
                 contexto = new Desarrollo_CF();
