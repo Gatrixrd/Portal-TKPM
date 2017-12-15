@@ -13,6 +13,8 @@ using ClickFactura_WebServiceCF.Conectores.Configuracion;
 using ClickFactura_Entidades.BD.Entidades;
 using ClickFactura_Facturacion.Clases;
 using System.Data;
+using context = System.Web.HttpContext;
+using System.IO;
 
 //Views relacionados
 //Shared
@@ -50,6 +52,7 @@ namespace MVC5_full_version.Controllers.FacturasXML
         public JsonResult SubirFactura(HttpPostedFileBase[] files)
         {
             bool admin;
+            grabaError(1,null,"Inicia Subir Factura","validandoFactura");
             try
             {
                 ClickFactura_Facturacion.Clases.paraVerificacionFactura.cs_Factura csfactura = new ClickFactura_Facturacion.Clases.paraVerificacionFactura.cs_Factura();
@@ -79,7 +82,7 @@ namespace MVC5_full_version.Controllers.FacturasXML
                 {
                        oc=System.Web.HttpContext.Current.Session["OrdenCompra"] as String;
                 }
-
+                grabaError(1, null, "Calcula numero de Proveedor", "validandoFactura");
                 if (!admin)
                 {
                     proveedor = Session["Num_Proveedor"].ToString();
@@ -93,143 +96,194 @@ namespace MVC5_full_version.Controllers.FacturasXML
                 datos.Add(Mes.ToUpper());
                 datos.Add(Session["OrdenCompra"].ToString());
                 List<string> mensajes = new List<string>();
-                foreach (var file in files)
+                try
                 {
-                    var archivo = file;
-                    if (archivo != null && archivo.ContentLength > 0)
+                    #region Todo ciclo de carga
+                    foreach (var file in files)
                     {
-                        var stream = archivo.InputStream;
-                        nombreArchivo = archivo.FileName;
-                        if (archivo.ContentType.Contains("zip") || archivo.ContentType.Contains("rar"))
+                        var archivo = file;
+                        grabaError(1, null, "Toma el archivo cargado y lo empezara a trabajar", "validandoFactura");
+                        if (archivo != null && archivo.ContentLength > 0)
                         {
-                            //List<string> dats = datos.ToList();
-                            string rutaZip = ClickFactura_Facturacion.Clases.cs_Estaticos.GenerarRuta(datos, nombreArchivo);
-                            archivo.SaveAs(rutaZip);
-                            //List<ClickFactura_Facturacion.Clases.paraVerificacionFactura.obj_facturaAPasivo>
-                            //ServiceFacturacion.objLeidoFactura[] des = facturacion.DescomprimirPaquete(oc, rutaZip, nombreArchivo, datos, out lsMensajes);//oc, rutaZip, nombreArchivo, datos, out lsMensajes);
-                            List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura> des = facturacion.factXML_DescomprimirPaquete(oc, rutaZip, nombreArchivo, datos, out lsMensajes);//oc, rutaZip, nombreArchivo, datos, out lsMensajes);
-                            foreach (ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura item in des)
+                            var stream = archivo.InputStream;
+                            nombreArchivo = archivo.FileName;
+                            if (archivo.ContentType.Contains("zip") || archivo.ContentType.Contains("rar"))
                             {
-                                var existe = (from t in FacturasCargadas where t.Key.Equals(item.Archivo) select t.Key).FirstOrDefault();
-                                if (existe == null)
+                                //List<string> dats = datos.ToList();
+                                string rutaZip = ClickFactura_Facturacion.Clases.cs_Estaticos.GenerarRuta(datos, nombreArchivo);
+                                archivo.SaveAs(rutaZip);
+                                //List<ClickFactura_Facturacion.Clases.paraVerificacionFactura.obj_facturaAPasivo>
+                                //ServiceFacturacion.objLeidoFactura[] des = facturacion.DescomprimirPaquete(oc, rutaZip, nombreArchivo, datos, out lsMensajes);//oc, rutaZip, nombreArchivo, datos, out lsMensajes);
+                                grabaError(1, null, "Inicia Descomprimir factura", "validandoFactura");
+                                List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura> des = facturacion.factXML_DescomprimirPaquete(oc, rutaZip, nombreArchivo, datos, out lsMensajes);//oc, rutaZip, nombreArchivo, datos, out lsMensajes);
+                                foreach (ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura item in des)
                                 {
-                                    FacturasCargadas.Add(item.Archivo, item.Path);
+                                    var existe = (from t in FacturasCargadas where t.Key.Equals(item.Archivo) select t.Key).FirstOrDefault();
+                                    if (existe == null)
+                                    {
+                                        FacturasCargadas.Add(item.Archivo, item.Path);
+                                        grabaError(1, null, "Agrega el archivo al "+ item.Archivo + " dropdonwlist", "validandoFactura");
+                                    }
                                 }
+                                //List<ClickFactura_Facturacion.Clases.paraVerificacionFactura.obj_facturaAPasivo>
+                                //ServiceFacturacion.objLeidoFactura[] facturas = facturacion.FusionarFacturas(des,FacturasLeidas);
+                                List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura> facturas = facturacion.factXML_FusionarFacturas(des, FacturasLeidas);
+                                //FacturasLeidas =facturacion.FusionarFacturas(des, FacturasLeidas);
+                                grabaError(1, null, "Termino de fusionar facturas", "validandoFactura");
+                                var encontrados = from anteriores in FacturasLeidas where anteriores.NombreArchivo.Equals(archivo) == true select anteriores;
+                                if(encontrados == null)
+                                {
+                                         FacturasLeidas = facturas;
+                                        grabaError(1, null, "Se determino que no habia facturas previas cargadas", "validandoFactura");
+                                }
+
+                                Session["FacturaValidada"] = true;
+                                Session["MensajesFactura"] = lsMensajes;
                             }
-                            //List<ClickFactura_Facturacion.Clases.paraVerificacionFactura.obj_facturaAPasivo>
-                            //ServiceFacturacion.objLeidoFactura[] facturas = facturacion.FusionarFacturas(des,FacturasLeidas);
-                            List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura> facturas = facturacion.factXML_FusionarFacturas(des, FacturasLeidas);
-                            //FacturasLeidas =facturacion.FusionarFacturas(des, FacturasLeidas);
-                            var encontrados = from anteriores in FacturasLeidas where anteriores.NombreArchivo.Equals(archivo) == true select anteriores;
-                            if(encontrados == null)
-                                     FacturasLeidas = facturas;
-                            Session["FacturaValidada"] = true;
-                            Session["MensajesFactura"] = lsMensajes;
-                        }
-                        else
-                        {
-                             datos.Insert(0, archivo.ContentType.Contains("xml") ? "XML" : "PDF");
-                             //datos[5]=(archivo.ContentType.Contains("xml") ? "XML" : "PDF");
-                            //rutaCompleta = ClickFactura_Facturacion.Clases.cs_Estaticos.GenerarRuta(csfactura.convierteaListaStrings(datos), nombreArchivo);
-                             rutaCompleta = ClickFactura_Facturacion.Clases.cs_Estaticos.GenerarRuta(datos, nombreArchivo);
-                            GC.Collect();
-                            GC.WaitForPendingFinalizers();
-                            archivo.SaveAs(rutaCompleta);
-
-                            carga = true;
-                            string rfcF = "";
-
-                            List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura> v = facturacion.factXML_ValidarFactura(oc, rutaCompleta, nombreArchivo, datos, out rfcF, out mensajes);
-                            List<String> mensajesSalida=new List<string>();
-                            mensajesSalida = mensajes;// csfactura.convierteaListaStrings(mensajes);
-                            if(Session["FacturasLeidas"] ==null)
-                                             Session["FacturasLeidas"] = v;
                             else
                             {
-                                List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura> Guardados = (List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura>)Session["FacturasLeidas"];
-                                List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura> XMLActuales = new List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura>();
-                                List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura> XMLnuevos = new List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura>();
-                                foreach (var xmlprevio in Guardados )
-                                   {
-                                        bool encontrado = false;
-                                        ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura dePaso = new ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura();
-                                        foreach (var xmlnuevo in v)
-                                        {
-                                            dePaso = xmlnuevo;
-                                            if(xmlnuevo.NombreArchivo.Equals(xmlprevio.NombreArchivo)==true)
-                                            {
-                                                encontrado = true;
-                                                break;
-                                            }
-                                        }
-                                        if (encontrado == false)
-                                            XMLnuevos.Add(dePaso);
-                                   }
-                                if(XMLnuevos.Count()>0)
-                                      Session["FacturasLeidas"] = XMLnuevos;
-                            }
-                            mensajesSalida.Insert(0, nombreArchivo);
-                            List<String> lsMensajesSalida=new List<string>();
+                                grabaError(1, null, "Va a instanciar la factura para enviarla a validar", "validandoFactura");
+                                datos.Insert(0, archivo.ContentType.Contains("xml") ? "XML" : "PDF");
+                                 //datos[5]=(archivo.ContentType.Contains("xml") ? "XML" : "PDF");
+                                //rutaCompleta = ClickFactura_Facturacion.Clases.cs_Estaticos.GenerarRuta(csfactura.convierteaListaStrings(datos), nombreArchivo);
+                                 rutaCompleta = ClickFactura_Facturacion.Clases.cs_Estaticos.GenerarRuta(datos, nombreArchivo);
+                                GC.Collect();
+                                GC.WaitForPendingFinalizers();
+                                archivo.SaveAs(rutaCompleta);
 
-                            //if (mensajesSalida.Count > 0)
-                            //{
-                            //    foreach (var msg in lsMensajes)
-                            //    {
-                            //        if (msg[0] == mensajesSalida[0])
-                            //        {
-                            //            //Pendiente correguir 17 Mayo 2017 GRD son los mensjaes de Error
-                            //            //lsMensajes.Remove(msg);
-                            //            //lsMensajes.Add(mensajes);
-                            //            break;
-                            //        }
-                            //        else
-                            //        {
-                            //            lsMensajes.Add(mensajes);
-                            //            break;
-                            //        }
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    lsMensajes.Add(mensajes);
-                            //}
-
-                            if (v != null)
-                            {
-                                List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura> FacturasLeidas_limpia = FacturasLeidas.Except(FacturasLeidas.GroupBy(i=>i.NombreArchivo).Select(ss => ss.FirstOrDefault())).ToList();
-                                FacturasLeidas = FacturasLeidas_limpia;
-                                List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura> facturas = facturacion.factXML_FusionarFacturas(v, FacturasLeidas);
-                                var encontrados = from anteriores in FacturasLeidas where anteriores.NombreArchivo.Equals(archivo.FileName) == true select anteriores;
-                                if (encontrados == null)
+                                carga = true;
+                                string rfcF = "";
+                                grabaError(1, null, "Determino que la va a a enviar a la ruta "+rutaCompleta, "validandoFactura");
+                                List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura> v = facturacion.factXML_ValidarFactura(oc, rutaCompleta, nombreArchivo, datos, out rfcF, out mensajes);
+                                string _g = "";
+                                foreach(string gg in mensajes)
                                 {
-                                    FacturasLeidas = facturas;
-                                    FacturasCargadas.Add(nombreArchivo, rutaCompleta);
+                                    _g = _g + "Data "+gg;
+                                }
+                                grabaError(1, null, "Metodo facturacion.factXML_ValidarFactura(oc, rutaCompleta, nombreArchivo, datos, out rfcF, out mensajes) devolvio " + _g, "validandoFactura");
+                                List<String> mensajesSalida=new List<string>();
+                                mensajesSalida = mensajes;// csfactura.convierteaListaStrings(mensajes);
+
+                                if (Session["FacturasLeidas"] ==null)
+                                {
+                                                 Session["FacturasLeidas"] = v;
+                                                 grabaError(1, null, "Variable de Session FacturasLeidas estaba vacia asi que se agrega la factura recien validada", "validandoFactura");
                                 }
                                 else
-                                        {
-                                            if(encontrados.Count()==1)
+                                {
+                                    grabaError(1, null, "Al parecer hay mas facturas previas cargadas, va a eliminar las que se repitan", "validandoFactura");
+                                    List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura> Guardados = (List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura>)Session["FacturasLeidas"];
+                                    List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura> XMLActuales = new List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura>();
+                                    List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura> XMLnuevos = new List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura>();
+                                    foreach (var xmlprevio in Guardados )
+                                       {
+                                            bool encontrado = false;
+                                            ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura dePaso = new ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura();
+                                            foreach (var xmlnuevo in v)
                                             {
-                                                 FacturasLeidas = facturas;
-                                                //Probablemente ya esta cargada
-                                                 //FacturasCargadas.Add(nombreArchivo, rutaCompleta);
-                                            }
-                                            else
+                                                dePaso = xmlnuevo;
+                                                if(xmlnuevo.NombreArchivo.Equals(xmlprevio.NombreArchivo)==true)
                                                 {
-                                                        var existe = (from t in FacturasCargadas where t.Key.Equals(nombreArchivo)==true select t.Key).FirstOrDefault();
-                                                        if (existe == null)
-                                                        {
-                                                            FacturasCargadas.Add(nombreArchivo, rutaCompleta);
-                                                        }
+                                                    encontrado = true;
+                                                        grabaError(1, null, "Encontro que la factura "+ xmlprevio.NombreArchivo + " ya habia sido cargada previamente", "validandoFactura");
+                                                   break;
                                                 }
-                                         }
+                                            }
+                                            if (encontrado == false)
+                                                {
+                                                        XMLnuevos.Add(dePaso);
+                                                      grabaError(1, null, "La factura " + xmlprevio.NombreArchivo + " NO habia sido cargada previamente", "validandoFactura");
+                                                  }
+                                       }
+                                    if(XMLnuevos.Count()>0)
+                                    {
+                                          Session["FacturasLeidas"] = XMLnuevos;
+                                          grabaError(1, null, "Se determino que no habia facturas nuevas detectadas, asi que se pasa lo que habia", "validandoFactura");
+                                    }
+                                }
+                                mensajesSalida.Insert(0, nombreArchivo);
+                                List<String> lsMensajesSalida=new List<string>();
+
+                                //if (mensajesSalida.Count > 0)
+                                //{
+                                //    foreach (var msg in lsMensajes)
+                                //    {
+                                //        if (msg[0] == mensajesSalida[0])
+                                //        {
+                                //            //Pendiente correguir 17 Mayo 2017 GRD son los mensjaes de Error
+                                //            //lsMensajes.Remove(msg);
+                                //            //lsMensajes.Add(mensajes);
+                                //            break;
+                                //        }
+                                //        else
+                                //        {
+                                //            lsMensajes.Add(mensajes);
+                                //            break;
+                                //        }
+                                //    }
+                                //}
+                                //else
+                                //{
+                                //    lsMensajes.Add(mensajes);
+                                //}
+
+                                if (v != null)
+                                {
+                                    grabaError(1, null, "Se recupero una factura de todo el proceso de validacion", "validandoFactura");
+                                    grabaError(1, null, "Se ejecutara un filtro linq para eliminar esta factura actual de las facturaLeidas previas ", "validandoFactura");
+                                    List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura> FacturasLeidas_limpia = FacturasLeidas.Except(FacturasLeidas.GroupBy(i=>i.NombreArchivo).Select(ss => ss.FirstOrDefault())).ToList();
+                                    FacturasLeidas = FacturasLeidas_limpia;
+
+                                    List<ClickFactura_Facturacion.version3_3.Clases33.paraVerificacionFactura33.objLeidoFactura> facturas = facturacion.factXML_FusionarFacturas(v, FacturasLeidas);
+                                    var encontrados = from anteriores in FacturasLeidas where anteriores.NombreArchivo.Equals(archivo.FileName) == true select anteriores;
+                                    if (encontrados == null)
+                                    {
+                                        FacturasLeidas = facturas;
+                                        FacturasCargadas.Add(nombreArchivo, rutaCompleta);
+                                        grabaError(1, null, "La factura "+ nombreArchivo+" no habia sido incluida en el listado de almacenadas en memoria asi que se agrega", "validandoFactura");
+                                    }
+                                    else
+                                            {
+                                                if(encontrados.Count()==1)
+                                                {
+
+                                                     FacturasLeidas = facturas;
+                                                    grabaError(1, null, "La factura " + nombreArchivo + " es la unica examinada la momento asi que se almacenara en memoria", "validandoFactura");
+                                                    //Probablemente ya esta cargada
+                                                    //FacturasCargadas.Add(nombreArchivo, rutaCompleta);
+                                                }
+                                                else
+                                                    {
+                                                            grabaError(1, null, "La factura " + nombreArchivo + " es posible que ya estuviera lamacenada en memoria asi que se buscara", "validandoFactura");
+                                                            var existe = (from t in FacturasCargadas where t.Key.Equals(nombreArchivo)==true select t.Key).FirstOrDefault();
+                                                            if (existe == null)
+                                                            {
+                                                                FacturasCargadas.Add(nombreArchivo, rutaCompleta);
+                                                                grabaError(1, null, "La factura " + nombreArchivo + " no existia asi que se almaceno", "validandoFactura");
+                                                            }
+                                                    }
+                                             }
+                                }
+                                grabaError(1, null, "El valor de la varibale Carga es "+carga.ToString(), "validandoFactura");
+                                string _M="";
+                                foreach(string e in mensajes)
+                                {
+                                    _M = _M + e;
+                                }
+                                grabaError(1, null, "Los mensajes a desplegar serian: "+_M, "validandoFactura");
+                                Session["FacturaValidada"] = carga;
+                                Session["MensajesFactura"] = mensajes;// lsMensajes;
                             }
-                            Session["FacturaValidada"] = carga;
-                            Session["MensajesFactura"] = mensajes;// lsMensajes;
                         }
                     }
+                    #endregion
+                    return Json(carga, JsonRequestBehavior.AllowGet);
                 }
-
-                return Json(carga, JsonRequestBehavior.AllowGet);
+                catch(Exception _Ex)
+                {
+                    string _mensaje = _Ex.Message;
+                    return Json(carga, JsonRequestBehavior.AllowGet);
+                }
                 //Sube VPN
             }
             catch (Exception ex)
@@ -259,6 +313,12 @@ namespace MVC5_full_version.Controllers.FacturasXML
                 }
                 List<List<string>> mensajes = new List<List<string>>();
                 elementos = new List<string>();
+                List<string> erroresBitacorar = new List<string>();
+                foreach(string err in elementos)
+                {
+                    erroresBitacorar.Add("Data "+err);
+                }
+                cs_Estaticos.SendErrorToText(null, erroresBitacorar, 1, "Mensajes_deResultado_Factura", "resultadoFactura", "validacionFactura");
                 if (carga)
                 {
                     string elemento = "";
@@ -757,6 +817,68 @@ namespace MVC5_full_version.Controllers.FacturasXML
             catch (Exception ex)
             {
                 return Json(ex.Message);
+            }
+        }
+
+
+        public static void grabaError(int tipo, Exception ex, string comentario, string proceso)
+        {
+            String ErrorlineNo, Errormsg, extype, exurl, hostIp, ErrorLocation, HostAdd;
+            ErrorlineNo = "";
+            Errormsg = "";
+            extype = "";
+            exurl = context.Current.Request.Url.ToString();
+            ErrorLocation = "";
+            if (tipo == 0)
+            {
+                var line = Environment.NewLine + Environment.NewLine;
+
+                ErrorlineNo = ex.StackTrace.Substring(ex.StackTrace.Length - 7, 7);
+                Errormsg = ex.GetType().Name.ToString();
+                extype = ex.GetType().ToString();
+                exurl = context.Current.Request.Url.ToString();
+                ErrorLocation = ex.Message.ToString();
+            }
+            try
+            {
+                string filepath = Path.Combine(@"C:\Temp\LogsPortal", proceso);// context.Current.Server.MapPath(@"C:\Temp");// ExceptionDetailsFile/");  //Text File Path
+
+                if (!Directory.Exists(filepath))
+                {
+                    Directory.CreateDirectory(filepath);
+
+                }
+                filepath = filepath + @"\" + DateTime.Today.ToString("dd-MM-yy") + "_" + proceso + ".txt"; //Text File Name
+                if (!System.IO.File.Exists(filepath))
+                {
+                    System.IO.File.Create(filepath).Dispose();
+                }
+                using (StreamWriter sw = System.IO.File.AppendText(filepath))
+                {
+                    int line = 0;
+                    sw.WriteLine("-----------------------------------------------------------------------------------------");
+                    sw.WriteLine("---------------------------      CLICK FACTURA     ----------------------------------");
+                    string error = "LOG escrito el día:" + " " + DateTime.Now.ToString() + " para " + proceso;
+                    sw.WriteLine(error);
+                    sw.WriteLine(" ");
+                    sw.WriteLine("Excepciones ocurridas el " + " " + DateTime.Now.ToString());
+                    sw.WriteLine(" ");
+                    sw.WriteLine("                                         TABLA ERRORES");
+                    sw.WriteLine(" ");
+                    sw.WriteLine(line.ToString() + " :  " + comentario);
+                    sw.WriteLine(ErrorLocation);
+                    sw.WriteLine(" ");
+                    sw.WriteLine("------------------------------------------------------------------------------------------");
+                    sw.WriteLine("--------------------------------*   FIN    *---------------------------------------------");
+                    sw.WriteLine("------------------------------------------------------------------------------------------");
+                    sw.Flush();
+                    sw.Close();
+                }
+
+            }
+            catch (Exception e)
+            {
+                e.ToString();
             }
         }
 
