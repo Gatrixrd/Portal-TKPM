@@ -69,7 +69,16 @@
                                     <p class="text-justify" id="textoOrdenInfo"></p>
                                 </div>
                                 <div class="panel-group">
-                                    <button type="button" class="btn btn-info" id="btnDetallesOC"><i class="fa icon-info"></i>Detalles de la OC</button>
+                                    <table>
+                                        <tr>
+                                            <td style="width:80%">
+                                                <button type="button" class="btn btn-info" id="btnDetallesOC"><i class="fa icon-info"></i>Detalles de la OC</button>
+                                            </td>
+                                            <td style="float:right">
+                                                <button type="button" id="enCarrito" name="enCarrito"class="btn btn-success btn-sm"><i class="fa icon-basket-loaded"></i>Sin OC</button>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </div>                        
@@ -244,7 +253,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" id="btnCerrarFactura" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Cargar Factura</h4>
+                        <div class="alert alert-info alert-dismissable">
+                            <strong>Cargar Factura </strong> : Localice y seleccione el archivo XML relacionado.
+                        </div>
+                        @*<h4 class="modal-title" id="myModalLabel">Cargar Factura</h4>*@
+                        <button type="button" class="btn btn-info btn-mini" id="addOtraOC" name="addOtraOC"  data-dismiss="modal"><i class="fa fa-plus-square"></i> Otra orden de compra</button>
             </div>
             <div class="modal-body">
                 <div>
@@ -305,8 +318,37 @@
      var finalizado = false;
      var facturaCargada = false;
      var todo = false;
+     @{List<ClickFactura_Entidades.BD.Modelos.Registros> listadoPrevio=new List<ClickFactura_Entidades.BD.Modelos.Registros>();}
      $(document).ready(function () {
       url_dir = '@System.Configuration.ConfigurationManager.AppSettings["dirImagenTMS"].ToString()';
+
+         function almacenaLineasSeleccionadas() {
+             var grid = $("#Grid").data("kendoGrid");
+             var selectedItem = grid.dataItem(grid.select());
+             var listado = new Array();
+             var i = 0;
+             $.each(selectedItem.dataSource, function () {
+                 var reg = grid.dataSource[i];
+                 if (reg.R9 != "") {
+                     var obj = new Object();
+                     obj.R1 = reg.R1;
+                     obj.R2 = reg.R2;
+                     obj.R3 = reg.R3;
+                     obj.R4 = reg.R4;
+                     obj.R5 = reg.R5;
+                     obj.R6 = reg.R6;
+                     obj.R7 = reg.R7;
+                     obj.R8 = reg.R8;
+                     obj.R9 = reg.R9;
+                     obj.R10 = reg.R10;
+                     listado[i] = obj;
+                     i += 1;
+                 }
+                 listadoPrevio = listado;
+                 @{ System.Web.HttpContext.Current.Session["carritoLineasPrevias"] = listadoPrevio;}
+             });
+
+         };
 
       $('#MyWizard').wizard()
       .on('actionclicked.fu.wizard', function (e, data) {
@@ -358,7 +400,7 @@
            });
            var i = 0;
            for (var i = 0; i < grid.dataSource._data.length; i++ )
-           {              
+           {
             reg=grid.dataSource._data[i];
             if (reg.R6 != "") {
                 var obj = new Object();
@@ -457,7 +499,8 @@
         $("#collapseTwo").removeClass().addClass("panel-collapse collapse");
         $("#collapseThree").attr("aria-expanded", false);
         $("#collapseThree").removeClass().addClass("panel-collapse collapse");
-        $("#btnSeleccionarTodo").click();
+           //$("#btnSeleccionarTodo").click();
+           //$("#btnCarritoOrdenes").click();
        }
       });
 
@@ -501,7 +544,6 @@
         }
        });
       });
-
 
       $("#btnCerrarFactura").click(function (e) {
        e.preventDefault();
@@ -609,7 +651,7 @@
         });
        }
       });
-      $("#btnCerrarMensaje2").click(function (e) {                
+      $("#btnCerrarMensaje2").click(function (e) {
        if (finalizado) {
         if ($("#lblOC").text() == "Número de Ticket") {
          window.location = "/Tickets";
@@ -632,7 +674,12 @@
       });
       $("#btnMensaje").click(function (e) {
        $("#modMensaje").modal("show");
-      });            
+      });
+
+      $("#addOtraOC").click(function (e) {
+          e.preventDefault();
+          carritoOrdenes();
+      });
      });
 
 
@@ -759,7 +806,7 @@
       }
      }
      function CargarRecepciones(ventana) {
-  
+
       if (todo) {
        if (ListaDatosSinQ.length == 0) {
 
@@ -1140,7 +1187,7 @@
       }
      }
      function SeleccionarTodo(e) {
-
+      debugger;
       var grid = $("#Grid").data("kendoGrid");
       var index = registrosSeleccionados.length;
       var opcion = $(e).children();
@@ -1301,6 +1348,72 @@
       var elements = $(selector).find('.dz-default');
       return elements.length > 0;
      }
+
+
+     function carritoOrdenes()
+     {
+         var grid = $("#Grid").data("kendoGrid");
+         var index = registrosSeleccionados.length;
+         var opcion = $(e).children();
+         var btn = opcion[0];
+         _url_dir = '@System.Configuration.ConfigurationManager.AppSettings["dirImagenTMS"].ToString()';
+         $(btn).addClass('fa-check-circle').removeClass('fa-circle');
+         var listado = new Array();
+         var i = 0;
+         $.each(registrosSeleccionados, function () {
+             var reg = this;
+             var obj = new Object();
+             obj.R1 = reg.R1;
+             obj.R2 = reg.R2;
+             obj.R3 = reg.R3;
+             obj.R4 = reg.R4;
+             obj.R5 = reg.R5;
+             obj.R6 = reg.R6;
+             obj.R7 = reg.R7;
+             obj.R8 = reg.R8;
+             obj.R9 = reg.R9;
+             obj.R10 = reg.R10;
+             obj.R11 = reg.R11;
+             obj.R12 = reg.R12;
+             obj.R13 = reg.R13;
+             obj.R14 = reg.R14;
+             obj.R15 = reg.R15;
+             obj.R16 = reg.R16;
+             obj.R17 = reg.R17;
+             obj.R18 = '';
+             listado[i] = obj;
+             i += 1;
+         });
+         _reg = registrosSeleccionados;
+         $.ajax({
+             type: "post",
+             url: _url_dir + '/facturasXML/carritoOrdenes',
+             data: { 'seleccionados': listado },
+             cache: false,
+             success: function (lista) {
+                 if (lista != null)
+                 {
+                     if (lista.length > 0) {
+                         // showSuccess('Información almacenda puede tomar otra Orden de Compra!');
+                         document.getElementById('enCarrito').innerHTML = 'OC pendientes ' + String(lista.length);
+
+                     }
+                     else {
+                              //showErrorMessage("No se almaceno nada en memoria.");
+                     }
+
+                 }
+             },
+             error: function (error) {
+                 //showErrorMessage("Ocurrío un problema:"+error);
+             }
+         });
+             registrosSeleccionados = new Array();
+             ListaDatosSinQ = new Array();
+             todo = false;
+             $('#myWizard').wizard('selectedItem', { step: 1 });
+     }
+
     </script>
 }
 

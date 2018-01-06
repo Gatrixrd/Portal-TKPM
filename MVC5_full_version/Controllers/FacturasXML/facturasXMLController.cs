@@ -408,6 +408,8 @@ namespace MVC5_full_version.Controllers.FacturasXML
             {
                 string mensaje = "";
                 registros = ConvertirRegistros(registros);
+                //List<ClickFactura_Entidades.BD.Modelos.Registros> almacenados = new List<ClickFactura_Entidades.BD.Modelos.Registros>();
+                //almacenados = System.Web.HttpContext.Current.Session["carritoOrdenes"] as List<ClickFactura_Entidades.BD.Modelos.Registros>;
                 List<ClickFactura_Entidades.BD.Modelos.Registros> _Seleccionados =System.Web.HttpContext.Current.Session["TablaRecepcionesAPasivo"] as List<ClickFactura_Entidades.BD.Modelos.Registros>;
                 int indice = 0;
                 foreach (ClickFactura_Entidades.BD.Modelos.Registros _reg in _Seleccionados)
@@ -764,28 +766,35 @@ namespace MVC5_full_version.Controllers.FacturasXML
                 }
             }
             {
-                var tabla = new ClickFactura_Entidades.BD.Modelos.TablaGeneralModel();
-                string mensaje = "";
-                string sociedadVerificar = "";
-                proveedor =System.Web.HttpContext.Current.Session["Num_Proveedor"] as string;
-                if(proveedor.Length<10)
-                {
-                    for (int i=0; i <= 5;i++ )
-                    {
-                        proveedor = "0" + proveedor;
-                    }
+                        var tabla = new ClickFactura_Entidades.BD.Modelos.TablaGeneralModel();
+                        string mensaje = "";
+                        string sociedadVerificar = "";
+                        proveedor =System.Web.HttpContext.Current.Session["Num_Proveedor"] as string;
+                        if(proveedor!=null)
+                        {
+                                if(proveedor.Length<10)
+                                {
+                                    for (int i=0; i <= 5;i++ )
+                                    {
+                                        proveedor = "0" + proveedor;
+                                    }
+                                }
+                                ClickFactura_WebServiceCF.Service.Service1 serviciooperaciones = new ClickFactura_WebServiceCF.Service.Service1();
+                                //Limpiando registros anteriores
+                                Session["FacturasLeidas"] = null;
+                                //Limpiando registros anteriores
+                                System.Web.HttpContext.Current.Session["TablaRecepcionesAPasivo"] = null;
+                                tabla =serviciooperaciones.ListadoOrdenesRecepciones(ref oc, proveedor, tipo, sociedadVerificar,out tablaDetalle, out mensaje,  esOrden, admin);
+                                Session["OrdenCompra"] = oc;
+                                Session["TablaDetalles"] = tablaDetalle;
+                                System.Web.HttpContext.Current.Session["sociedadVerificar"] = sociedadVerificar;
+                                return PartialView("~/Views/Recepciones/Grid.cshtml", tabla);
+                        }
+                        else
+                        {
+                                 return JavaScript("javascript:showErrorMessage('Al parecer el tiempo de sesión finalizo, por favor vuelva a logearse al sistema');");
+                        }
                 }
-                ClickFactura_WebServiceCF.Service.Service1 serviciooperaciones = new ClickFactura_WebServiceCF.Service.Service1();
-                //Limpiando registros anteriores
-                Session["FacturasLeidas"] = null;
-                //Limpiando registros anteriores
-                System.Web.HttpContext.Current.Session["TablaRecepcionesAPasivo"] = null;
-                tabla =serviciooperaciones.ListadoOrdenesRecepciones(ref oc, proveedor, tipo, sociedadVerificar,out tablaDetalle, out mensaje,  esOrden, admin);
-                Session["OrdenCompra"] = oc;
-                Session["TablaDetalles"] = tablaDetalle;
-                System.Web.HttpContext.Current.Session["sociedadVerificar"] = sociedadVerificar;
-                return PartialView("~/Views/Recepciones/Grid.cshtml", tabla);
-            }
         }
 
         #endregion  Operaciones relacionadas a la Orden de Compra
@@ -793,10 +802,66 @@ namespace MVC5_full_version.Controllers.FacturasXML
         #region Carga información de la Tabla de Recepciones
 
         [HttpPost]
+        public ActionResult carritoOrdenes(List<ClickFactura_Entidades.BD.Modelos.Registros> seleccionados)
+        {
+            List<ClickFactura_Entidades.BD.Modelos.Registros> aAlmacenar = new List<ClickFactura_Entidades.BD.Modelos.Registros>();
+            try
+            {
+                if(System.Web.HttpContext.Current.Session["carritoOrdenes"]==null)
+                {
+                  foreach (var item in seleccionados)
+                    {
+                        ClickFactura_Entidades.BD.Modelos.Registros temp = new ClickFactura_Entidades.BD.Modelos.Registros();
+                        temp = ConvierteRegistro(item);
+                        item.R5 = Session["OrdenCompra"].ToString();
+                        aAlmacenar.Add(item);
+                    }
+                        System.Web.HttpContext.Current.Session["carritoOrdenes"] = aAlmacenar;
+                }
+                else
+                {
+                    aAlmacenar= System.Web.HttpContext.Current.Session["carritoOrdenes"] as List<ClickFactura_Entidades.BD.Modelos.Registros>;
+                    if(seleccionados!=null)
+                    {
+                        foreach (var item in seleccionados)
+                        {
+                            ClickFactura_Entidades.BD.Modelos.Registros temp = new ClickFactura_Entidades.BD.Modelos.Registros();
+                            temp = ConvierteRegistro(item);
+                            //var encontrado = from todos in aAlmacenar where todos.Equals(item) select todos;
+                            var encontrado = from todos in aAlmacenar where todos.R2.Equals(item.R2)==true && todos.R1.Equals(item.R1) == true &&  todos.R8.Equals(item.R8) == true && todos.R15.Equals(item.R15) == true && todos.R3.Equals(item.R3) == true select todos;
+                            if (encontrado!=null)
+                            {
+                                if(encontrado.Count()==0)
+                                {
+                                       // No ha sido cargado previamente
+                                       temp.R5 = Session["OrdenCompra"].ToString();
+                                       aAlmacenar.Add(temp);
+                                }
+                            }
+                        }
+                    }
+                    System.Web.HttpContext.Current.Session["carritoOrdenes"] = aAlmacenar;
+                }
+             }
+            catch(Exception ex)
+            {
+                return Json(ex.Message);
+            }
+            return Json(aAlmacenar);// "Almacenado", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public ActionResult CargarTablaRecepciones(List<ClickFactura_Entidades.BD.Modelos.Registros> registros, bool finalizar = false)
         {
             try
             {
+                List<ClickFactura_Entidades.BD.Modelos.Registros> almacenados = new List<ClickFactura_Entidades.BD.Modelos.Registros>();
+                almacenados = System.Web.HttpContext.Current.Session["carritoOrdenes"] as List<ClickFactura_Entidades.BD.Modelos.Registros>;
+                almacenados = ConvertirRegistros(almacenados);
+                    //foreach(var r in registros)
+                    //{
+                    //       r.R5 = Session["OrdenCompra"].ToString();
+                    //}
                 List<string> mensajes = new List<string>();
                 if (!finalizar)
                 {
@@ -806,9 +871,13 @@ namespace MVC5_full_version.Controllers.FacturasXML
                 {
                     registros = (List<ClickFactura_Entidades.BD.Modelos.Registros>)Session["TablaRecepcionesAPasivo"];
                 }
+                registros = fusionarRegistros(registros, almacenados);
                 var lista = facturacion.viewRecepciones_RecepcionesSeleccionadas(Session["OrdenCompra"].ToString(), ref registros, FacturasLeidas, ref FacturasAPasivos, out mensajes);
                 if (lista.Registros!=null)
-                       System.Web.HttpContext.Current.Session["TablaRecepcionesAPasivo"] = lista.Registros;
+                {
+                     lista.Registros = empataNoOrden(lista.Registros, registros);
+                      System.Web.HttpContext.Current.Session["TablaRecepcionesAPasivo"] = lista.Registros;
+                }
                 if (finalizar) 
                     lista.Registros = registros;
                 return PartialView("~/Views/Shared/_Grid.cshtml", lista);
@@ -820,6 +889,72 @@ namespace MVC5_full_version.Controllers.FacturasXML
             }
         }
 
+        public List<ClickFactura_Entidades.BD.Modelos.Registros> empataNoOrden(List<ClickFactura_Entidades.BD.Modelos.Registros> aModificar, List<ClickFactura_Entidades.BD.Modelos.Registros> registrosFuente)
+        {
+            List<ClickFactura_Entidades.BD.Modelos.Registros> registrosModificados = new List<ClickFactura_Entidades.BD.Modelos.Registros>();
+            foreach(ClickFactura_Entidades.BD.Modelos.Registros destino in aModificar)
+            {
+                foreach(ClickFactura_Entidades.BD.Modelos.Registros fuente in registrosFuente)
+                {
+                    bool encontrado = false;
+                    if (destino.R2.Equals(fuente.R2) == true && destino.R3.Equals(fuente.R1) == true && destino.R4.Equals(fuente.R3) == true )//&& destino.R15.Equals(fuente.R15) == true && destino.R3.Equals(fuente.R3) == true)
+                    {
+                        //Ya esta contemplado en los registros previos seleccionados
+                        encontrado = true;
+                    }
+                    if(encontrado==true)
+                    {
+                        if(fuente.R5.ToString().Contains("-")==false)
+                                   destino.R1 = fuente.R5;
+                    }
+                    registrosModificados.Add(destino);
+                }
+            }
+            return registrosModificados;
+        }
+
+        public List<ClickFactura_Entidades.BD.Modelos.Registros>  fusionarRegistros(List<ClickFactura_Entidades.BD.Modelos.Registros> registrosEntrada, List<ClickFactura_Entidades.BD.Modelos.Registros> registrosAlmacenados)
+        {
+            List<ClickFactura_Entidades.BD.Modelos.Registros> registrosFusionados = new List<ClickFactura_Entidades.BD.Modelos.Registros>();
+            if(registrosAlmacenados.Count()==0)
+            {
+                registrosFusionados = registrosEntrada;
+            }
+            else
+            {
+               registrosFusionados = registrosAlmacenados;
+                foreach(ClickFactura_Entidades.BD.Modelos.Registros nuevo in registrosEntrada)
+                {
+                    bool encontrado = false;
+                    foreach(ClickFactura_Entidades.BD.Modelos.Registros existente in registrosAlmacenados)
+                    {
+                        try
+                        {
+                            if (nuevo.R2.Equals(existente.R2) == true && nuevo.R1.Equals(existente.R1) == true && nuevo.R8.Equals(((string[])existente.R8)[0]) == true && nuevo.R15.Equals(((string[])existente.R15)[0]) == true && nuevo.R3.Equals(existente.R3) == true)
+                            {
+                                //Ya esta contemplado en los registros previos seleccionados
+                                encontrado = true;
+                                break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            if (nuevo.R2.Equals(existente.R2) == true && nuevo.R1.Equals(existente.R1) == true && nuevo.R8.Equals(existente.R8) == true && nuevo.R15.Equals(existente.R15) == true && nuevo.R3.Equals(existente.R3) == true)
+                            {
+                                //Ya esta contemplado en los registros previos seleccionados
+                                encontrado = true;
+                            }
+                        }
+                        }
+                    if(encontrado==false)
+                        {
+                            nuevo.R5 = Session["OrdenCompra"].ToString();
+                            registrosFusionados.Add(nuevo);
+                        }
+                }
+            }
+            return registrosFusionados;
+        }
 
         public static void grabaError(int tipo, Exception ex, string comentario, string proceso)
         {
@@ -913,7 +1048,72 @@ namespace MVC5_full_version.Controllers.FacturasXML
             }
             catch (Exception)
             {
+                try
+                {
+                    foreach (var item in registros)
+                    {
+                        item.R1 = item.R1 != null ? item.R1  : "";
+                        item.R2 = item.R2 != null ? item.R2  : "";
+                        item.R3 = item.R3 != null ? item.R3  : "";
+                        item.R4 = item.R4 != null ? item.R4  : "";
+                        item.R5 = item.R5 != null ? item.R5  : "";
+                        item.R6 = item.R6 != null ? item.R6  : "";
+                        item.R7 = item.R7 != null ? item.R7  : "";
+                        item.R8 = item.R8 != null ? item.R8  : "";
+                        item.R9 = item.R9 != null ? item.R9  : "";
+                        item.R10 = item.R10 != null ? item.R10  : "";
+                        item.R11 = item.R11 != null ? item.R11  : "";
+                        item.R12 = item.R12 != null ? item.R12  : "";
+                        item.R13 = item.R13 != null ? item.R13  : "";
+                        item.R14 = item.R14 != null ? item.R14  : "";
+                        item.R15 = item.R15 != null ? item.R15  : "";
+                        item.R16 = item.R16 != null ? item.R16  : "";
+                        item.R17 = item.R17 != null ? item.R17  : "";
+                        item.R18 = item.R18 != null ? item.R18  : "";
+                        item.R19 = item.R19 != null ? item.R19  : "";
+                        item.R20 = item.R20 != null ? item.R20  : "";
+                    }
+                    return registros;
+                }
+                catch(Exception)
+                {
+                    return new List<ClickFactura_Entidades.BD.Modelos.Registros>();
+                    throw;
+                }
                 return new List<ClickFactura_Entidades.BD.Modelos.Registros>();
+                throw;
+            }
+        }
+        private ClickFactura_Entidades.BD.Modelos.Registros ConvierteRegistro(ClickFactura_Entidades.BD.Modelos.Registros registro)
+        {
+            try
+            {
+                    registro.R1 = registro.R1 != null ? (registro.R1 as string[])[0] : "";
+                    registro.R2 = registro.R2 != null ? (registro.R2 as string[])[0] : "";
+                    registro.R3 = registro.R3 != null ? (registro.R3 as string[])[0] : "";
+                    registro.R4 = registro.R4 != null ? (registro.R4 as string[])[0] : "";
+                    registro.R5 = registro.R5 != null ? (registro.R5 as string[])[0] : "";
+                    registro.R6 = registro.R6 != null ? (registro.R6 as string[])[0] : "";
+                    registro.R7 = registro.R7 != null ? (registro.R7 as string[])[0] : "";
+                    registro.R8 = registro.R8 != null ? (registro.R8 as string[])[0] : "";
+                    registro.R9 = registro.R9 != null ? (registro.R9 as string[])[0] : "";
+                    registro.R10 = registro.R10 != null ? (registro.R10 as string[])[0] : "";
+                    registro.R11 = registro.R11 != null ? (registro.R11 as string[])[0] : "";
+                    registro.R12 = registro.R12 != null ? (registro.R12 as string[])[0] : "";
+                    registro.R13 = registro.R13 != null ? (registro.R13 as string[])[0] : "";
+                    registro.R14 = registro.R14 != null ? (registro.R14 as string[])[0] : "";
+                    registro.R15 = registro.R15 != null ? (registro.R15 as string[])[0] : "";
+                    registro.R16 = registro.R16 != null ? (registro.R16 as string[])[0] : "";
+                    registro.R17 = registro.R17 != null ? (registro.R17 as string[])[0] : "";
+                    registro.R18 = registro.R18 != null ? (registro.R18 as string[])[0] : "";
+                    registro.R19 = registro.R19 != null ? (registro.R19 as string[])[0] : "";
+                    registro.R20 = registro.R20 != null ? (registro.R20 as string[])[0] : "";
+
+                return registro;
+            }
+            catch (Exception)
+            {
+                return new ClickFactura_Entidades.BD.Modelos.Registros();
                 throw;
             }
         }
