@@ -112,12 +112,22 @@ namespace MVC5_full_version.Controllers.Migo
                                                                                                                     var unidad = todasUnidades.ToArray();
                                                                                                                     string siglasUM=unidad[0].Value;
                                                                                                                     var Unidad = from usu in db.Cat_UMedidaWF where usu.UnidadMedida.Equals(siglasUM) == true select usu;
-                                                                                                                    var unidadEncontrada = Unidad.ToArray();
-                                                                                                                    string idWFdeUnidad = unidadEncontrada[0].idWF.ToString();
-                                                                                                                    string nombreWF = unidadEncontrada[0].DescripcionUM.ToString();
-                                                                                                                    System.Web.HttpContext.Current.Session["nombreWF"] = nombreWF;
-                                                                                                                    System.Web.HttpContext.Current.Session["idWFxUmedida"] = idWFdeUnidad;
-                                                                                                                    System.Web.HttpContext.Current.Session["idUMedida"] = unidadEncontrada[0].idUnidadMedida.ToString();
+                                                                                                                    try
+                                                                                                                      { 
+                                                                                                                         var unidadEncontrada = Unidad.ToArray();
+                                                                                                                        string idWFdeUnidad = unidadEncontrada[0].idWF.ToString();
+                                                                                                                        string nombreWF = unidadEncontrada[0].DescripcionUM.ToString();
+                                                                                                                        System.Web.HttpContext.Current.Session["nombreWF"] = nombreWF;
+                                                                                                                        System.Web.HttpContext.Current.Session["idWFxUmedida"] = idWFdeUnidad;
+                                                                                                                        System.Web.HttpContext.Current.Session["idUMedida"] = unidadEncontrada[0].idUnidadMedida.ToString();                                                                                                                     
+                                                                                                                        }
+                                                                                                                    catch
+                                                                                                                        {
+                                                                                                                            System.Web.HttpContext.Current.Session["nombreWF"] = "Ambiguo!";
+                                                                                                                            System.Web.HttpContext.Current.Session["idWFxUmedida"] = "-1";
+                                                                                                                            System.Web.HttpContext.Current.Session["idUMedida"] = "-1";
+                                                                                                                            return JavaScript("javascript:showErrorMessage('La unidad de Medida " + siglasUM+ " no ha sido especificada en algún flujo previo.Por favor definala en los catálogos correspondientes.');");
+                                                                                                                         }
                                                                                                                 }
                                                                                                         else
                                                                                                                 {
@@ -311,25 +321,41 @@ namespace MVC5_full_version.Controllers.Migo
                 string ordenCompra = System.Web.HttpContext.Current.Session["OrdenCompraServicio"] as String;
                 if (ordenCompra.Length > 0)
                 {
+                    ClickFactura_Entidades.BD.Modelos.EncabezadoOrdenCompra encabezado = System.Web.HttpContext.Current.Session["Encabezado_" + ordenCompra] as ClickFactura_Entidades.BD.Modelos.EncabezadoOrdenCompra;
+                    string _No_Proveedor = encabezado.Proveedor;
+                    string _Sociedad = encabezado.Sociedad;
                     List<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra> Lineas = System.Web.HttpContext.Current.Session["Detalle_OrdenCompraServicio"] as List<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra>;
                     #region Determina si es parcial y que posiciones son
                     List<KeyValuePair<int, string>> porProcesar = System.Web.HttpContext.Current.Session["posicionesMIGOMIRO"] as List<KeyValuePair<int, string>>;
-                    if(porProcesar.Count()>0)
-                    {
-                        modo = "Parcial";
-                        List<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra> nuevoListado = new List<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra>();
-                        foreach(ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra todos in Lineas)
-                        {
-                            foreach(KeyValuePair<int,string> seleccionado in porProcesar)
-                            {
-                                if(Convert.ToInt32(todos.Posicion_OC)==seleccionado.Key)
+                    if(porProcesar!=null)
+                                if(porProcesar.Count()>0)
                                 {
-                                    nuevoListado.Add(todos);
+                                    modo = "Parcial";
+                                    List<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra> nuevoListado = new List<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra>();
+                                    foreach(ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra todos in Lineas)
+                                    {
+                                        foreach(KeyValuePair<int,string> seleccionado in porProcesar)
+                                        {
+                                            if(Convert.ToInt32(todos.Posicion_OC)==seleccionado.Key)
+                                            {
+                                                nuevoListado.Add(todos);
+                                            }
+                                        }
+                                    }
+                                    Lineas = nuevoListado;
                                 }
+                    else
+                            {
+                                List<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra> nuevoListado = new List<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra>();
+                                foreach (ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra todos in Lineas)
+                                {
+                                    foreach (KeyValuePair<int, string> seleccionado in porProcesar)
+                                    {
+                                            nuevoListado.Add(todos);
+                                    }
+                                }
+                                Lineas = nuevoListado;
                             }
-                        }
-                        Lineas = nuevoListado;
-                    }
                     #endregion Determina si es parcial y que posiciones son
                     if (modo.Equals("Completa") == true)
                     {
@@ -347,7 +373,7 @@ namespace MVC5_full_version.Controllers.Migo
                             recepcion.Cantidad = Convert.ToDecimal(renglon.Cantidad);
                             recepcion.Cantidad_Base = Convert.ToDecimal(renglon.Cantidad);
                             recepcion.Unidad_Medida = renglon.Unidad_Medida;
-                            recepcion.Num_Proveedor = "Pendiente";
+                            recepcion.Num_Proveedor =_No_Proveedor;
                             recepcion.Usuario = "Pruebas";
                             recepcion.Almacen = renglon.Almacen;
                             recepcion.Planta = renglon.Planta;
@@ -363,7 +389,9 @@ namespace MVC5_full_version.Controllers.Migo
                                 bool almacenarenBD_MIGO = true;
                                 if (almacenarenBD_MIGO == true)
                                 {
-
+                                    #region Enviar a almacenar lo generado a base de datos de Portal
+                                    generado = servicio.MIGO_almacenarenBD_MIGO(Recepcionado);
+                                    #endregion Enviar a almacenar lo generado a base de datos de Portal
                                 }
                                 #endregion  Construye información de lo Recepcionado
                             }
@@ -402,7 +430,7 @@ namespace MVC5_full_version.Controllers.Migo
                                     recepcion.Cantidad = porIngresar==null? Convert.ToDecimal(renglon.Cantidad):Convert.ToDecimal(porIngresar);
                                     recepcion.Cantidad_Base = Convert.ToDecimal(renglon.Cantidad);
                                     recepcion.Unidad_Medida = renglon.Unidad_Medida;
-                                    recepcion.Num_Proveedor = "Pendiente";
+                                    recepcion.Num_Proveedor = _No_Proveedor;
                                     recepcion.Usuario = "Pruebas";
                                     recepcion.Almacen = renglon.Almacen;
                                     recepcion.Planta = renglon.Planta;
@@ -1233,21 +1261,34 @@ namespace MVC5_full_version.Controllers.Migo
                     List<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra> Lineas = System.Web.HttpContext.Current.Session["Detalle_OrdenCompraServicio"] as List<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra>;
                     #region Determina si es parcial y que posiciones son
                             List<KeyValuePair<int, string>> porProcesar = System.Web.HttpContext.Current.Session["posicionesMIGOMIRO"] as List<KeyValuePair<int, string>>;
-                            if (porProcesar.Count() > 0)
-                            {
-                                List<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra> nuevoListado = new List<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra>();
-                                foreach (ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra todos in Lineas)
-                                {
-                                    foreach (KeyValuePair<int, string> seleccionado in porProcesar)
+                            if(porProcesar!=null)
+                                    if (porProcesar.Count() > 0)
                                     {
-                                        if (Convert.ToInt32(todos.Posicion_OC) == seleccionado.Key)
+                                                List<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra> nuevoListado = new List<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra>();
+                                                foreach (ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra todos in Lineas)
+                                                {
+                                                    foreach (KeyValuePair<int, string> seleccionado in porProcesar)
+                                                    {
+                                                        if (Convert.ToInt32(todos.Posicion_OC) == seleccionado.Key)
+                                                        {
+                                                            nuevoListado.Add(todos);
+                                                        }
+                                                    }
+                                                }
+                                                Lineas = nuevoListado;
+                                      }
+                            else
+                                    {
+                                        List<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra> nuevoListado = new List<ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra>();
+                                        foreach (ClickFactura_Entidades.BD.Entidades.Detalle_OrdenCompra todos in Lineas)
                                         {
-                                            nuevoListado.Add(todos);
+                                            foreach (KeyValuePair<int, string> seleccionado in porProcesar)
+                                            {
+                                                    nuevoListado.Add(todos);
+                                            }
                                         }
-                                    }
-                                }
-                                Lineas = nuevoListado;
-                    }
+                                        Lineas = nuevoListado;
+                                     }
                     #endregion Determina si es parcial y que posiciones son
                     try
                     {
