@@ -81,16 +81,18 @@ namespace MVC5_full_version.Controllers.Migo
                                      bool generado = servicio.MIGO_creaLineaMIGO(renglon,ref datos,ref mensajes);
                                      if(generado==true)
                                      {
-                                     #region        Construye información de lo Recepcionado
-                                         recepcion.Numero_Recepcion = datos[0].Value;
-                                         recepcion.Año_Recepcion = datos[1].Value;
-                                         Recepcionado.Add(recepcion);
-                                         bool almacenarenBD_MIGO = true;
-                                         if(almacenarenBD_MIGO==true)
-                                         {
-
-                                         }
-                                     #endregion  Construye información de lo Recepcionado
+                                             #region        Construye información de lo Recepcionado
+                                                 recepcion.Numero_Recepcion = datos[0].Value;
+                                                 recepcion.Año_Recepcion = datos[1].Value;
+                                                 Recepcionado.Add(recepcion);
+                                                 bool almacenarenBD_MIGO = true;
+                                                 if(almacenarenBD_MIGO==true)
+                                                 {
+                                                    #region Enviar a almacenar lo generado a base de datos de Portal
+                                                    generado = servicio.MIGO_almacenarenBD_MIGO(Recepcionado);
+                                                    #endregion Enviar a almacenar lo generado a base de datos de Portal
+                                                 }
+                                             #endregion  Construye información de lo Recepcionado
                                      }
                                      else
                                      {

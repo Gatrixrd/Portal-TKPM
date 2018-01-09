@@ -905,9 +905,12 @@ namespace MVC5_full_version.Controllers.FacturasXML
                     if(encontrado==true)
                     {
                         if(fuente.R5.ToString().Contains("-")==false)
-                                   destino.R1 = fuente.R5;
+                        {
+                            destino.R1 = fuente.R5;
+                            registrosModificados.Add(destino);
+                            break;
+                        }
                     }
-                    registrosModificados.Add(destino);
                 }
             }
             return registrosModificados;
